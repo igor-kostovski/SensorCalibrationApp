@@ -7,6 +7,8 @@
         xmlns:deviceSel="clr-namespace:SensorCalibrationApp.DeviceSelection"
         xmlns:frameConfig="clr-namespace:SensorCalibrationApp.FrameConfiguration"
         xmlns:diag="clr-namespace:SensorCalibrationApp.Diagnostics"
+        xmlns:controls="clr-namespace:SensorCalibrationApp.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -32,6 +34,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+
+        <controls:NavigationBar Grid.Column="0"/>
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />
@@ -46,21 +51,35 @@
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
-            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentViewModel}" DataContext="{Binding}"/>
 
             <Button x:Name="BackButton"
                 Grid.Column="1"
                 Grid.Row="2"
                 HorizontalAlignment="Left"
-                Content="Back"
-                Command="{Binding Back}"/>
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Background="#4e73df"
+                Command="{Binding Back}">
+                    <materialDesign:PackIcon
+                        Kind="ArrowLeft"
+                        Height="24"
+                        Width="24"
+                        Foreground="White"/>
+            </Button>
 
             <Button x:Name="ForwardButton"
                 Grid.Column="1"
                 Grid.Row="2"
                 HorizontalAlignment="Right"
-                Content="Next"
-                Command="{Binding Forward}"/>
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Background="#4e73df"
+                Command="{Binding Forward}">
+                    <materialDesign:PackIcon
+                        Kind="ArrowRight"
+                        Height="24"
+                        Width="24"
+                        Foreground="White"/>
+            </Button>
         </Grid>
     </Grid>
 </Window>

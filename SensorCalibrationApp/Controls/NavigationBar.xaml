@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="SensorCalibrationApp.Controls.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SensorCalibrationApp.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuClosed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!--<UserControl.Triggers>
+        <EventTrigger RoutedEvent="local:MainWindow.ExpandMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"></BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="local:MainWindow.ShrinkMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClosed}"></BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MinHeight="100"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#212529" Offset="0"/>
+                <GradientStop Color="#2A3F79" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid Grid.Row="0" VerticalAlignment="Top" Height="100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" x:Name="MenuButton" 
+                       Width="Auto" 
+                       Height="Auto"
+                       BorderBrush="{x:Null}"
+                       Background="Transparent">
+                <ContentControl Content="{StaticResource Logo}" Margin="0" />
+            </Button>
+            <Separator Grid.Row="1" Height="2" Foreground="White"/>
+        </Grid>
+
+        <StackPanel Grid.Row="2"  Style="{StaticResource StackPanelStyle}" Margin="0,0,0,5">
+            <materialDesign:PackIcon x:Name="StepOneIcon" 
+                                     Kind="FormatListNumbers" 
+                                     Style="{StaticResource IconStyle}" 
+                                     Foreground="{StaticResource BrushNavGreen}" />
+            <TextBlock x:Name="StepOneTitle" 
+                       Style="{StaticResource TitleStyle}" 
+                       Text="Device selection" 
+                       Foreground="{StaticResource BrushNavGreen}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Style="{StaticResource StackPanelStyle}">
+            <ContentControl x:Name="StepOne" HorizontalAlignment="Center" Content="{StaticResource SemiFullStepBar}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,5">
+            <materialDesign:PackIcon x:Name="StepTwoIcon" Kind="CogOutline" Style="{StaticResource IconStyle}"/>
+            <TextBlock x:Name="StepTwoTitle" Style="{StaticResource TitleStyle}" Text="Frame configuration"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Style="{StaticResource StackPanelStyle}">
+            <ContentControl x:Name="StepTwo" Content="{StaticResource EmptyStepBar}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,0">
+            <materialDesign:PackIcon x:Name="StepThreeIcon" Kind="Tools" Style="{StaticResource IconStyle}" />
+            <TextBlock x:Name="StepThreeTitle" Style="{StaticResource TitleStyle}" Text="Diagnostics" />
+        </StackPanel>
+    </Grid>
+</UserControl>
