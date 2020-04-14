@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SensorCalibrationApp.DeviceSelection
 {
-    class DeviceSelectionViewModel
+    class DeviceSelectionViewModel : ViewModelBase
     {
     }
 }

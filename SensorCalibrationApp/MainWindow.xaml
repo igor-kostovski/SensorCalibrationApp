@@ -52,13 +52,15 @@
                 Grid.Column="1"
                 Grid.Row="2"
                 HorizontalAlignment="Left"
-                Content="Back"/>
+                Content="Back"
+                Command="{Binding Back}"/>
 
             <Button x:Name="ForwardButton"
                 Grid.Column="1"
                 Grid.Row="2"
                 HorizontalAlignment="Right"
-                Content="Next"/>
+                Content="Next"
+                Command="{Binding Forward}"/>
         </Grid>
     </Grid>
 </Window>

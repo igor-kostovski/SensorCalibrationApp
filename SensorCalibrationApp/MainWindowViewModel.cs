@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SensorCalibrationApp.DeviceSelection;
+using SensorCalibrationApp.Diagnostics;
+using SensorCalibrationApp.FrameConfiguration;
 
 namespace SensorCalibrationApp
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private ViewModelBase _currentViewModel;
+        private DeviceSelectionViewModel _deviceSelectionViewModel = new DeviceSelectionViewModel();
+        private FrameConfigurationViewModel _frameConfigurationViewModel = new FrameConfigurationViewModel();
+        private DiagnosticsViewModel _diagnosticsViewModel = new DiagnosticsViewModel();
 
+        private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
             get { return _currentViewModel; }
@@ -20,5 +21,24 @@ namespace SensorCalibrationApp
             }
         }
 
+        public RelayCommand Forward { get; set; }
+        public RelayCommand Back { get; set; }
+
+        public MainWindowViewModel()
+        {
+            Forward = new RelayCommand(OnForward);
+            Back = new RelayCommand(OnBack);
+            CurrentViewModel = _deviceSelectionViewModel;
+        }
+
+        private void OnBack()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void OnForward()
+        {
+            CurrentViewModel = _frameConfigurationViewModel;
+        }
     }
 }
