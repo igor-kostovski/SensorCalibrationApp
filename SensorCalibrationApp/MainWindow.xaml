@@ -10,6 +10,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
     <Window.Resources>
         <DataTemplate DataType="{x:Type deviceSel:DeviceSelectionViewModel}">
             <deviceSel:DeviceSelectionView/>
@@ -21,6 +25,7 @@
             <diag:DiagnosticsView/>
         </DataTemplate>
     </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

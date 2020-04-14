@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace SensorCalibrationApp
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : ViewModelBase
     {
+        private ViewModelBase _currentViewModel;
+
+        public ViewModelBase CurrentViewModel
+        {
+            get { return _currentViewModel; }
+            set
+            {
+                _currentViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
     }
 }
