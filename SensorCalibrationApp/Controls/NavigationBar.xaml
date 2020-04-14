@@ -5,42 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:deviceSelection="clr-namespace:SensorCalibrationApp.DeviceSelection"
-             xmlns:frameConfiguration="clr-namespace:SensorCalibrationApp.FrameConfiguration"
-             xmlns:diagnostics="clr-namespace:SensorCalibrationApp.Diagnostics"
              xmlns:conv="clr-namespace:SensorCalibrationApp.Converters.ValueToStyleOrContent"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <Storyboard x:Key="MenuOpen">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="200"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="MenuClosed">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="70"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
         <conv:ValueToStyleConverter x:Key="ValueToTitleStyleConverter" IconOrTitle="Title"/>
         <conv:ValueToStyleConverter x:Key="ValueToIconStyleConverter" IconOrTitle="Icon"/>
         <conv:ValueToContentConverter x:Key="ValueToContentConverter"/>
+
+        <Visibility x:Key="TitlesVisibility">Visible</Visibility>
     </UserControl.Resources>
 
-    <!--<UserControl.Triggers>
-        <EventTrigger RoutedEvent="local:MainWindow.ExpandMenu">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="local:NavigationBar.ExpandMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}"></BeginStoryboard>
         </EventTrigger>
-        <EventTrigger RoutedEvent="local:MainWindow.ShrinkMenu">
+        <EventTrigger RoutedEvent="local:NavigationBar.ShrinkMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuClosed}"></BeginStoryboard>
         </EventTrigger>
-    </UserControl.Triggers>-->
-    <Grid>
+    </UserControl.Triggers>
+
+    <Grid x:Name="NavBar">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="100"/>
             <RowDefinition Height="20"/>
@@ -69,50 +55,52 @@
                        Width="Auto" 
                        Height="Auto"
                        BorderBrush="{x:Null}"
-                       Background="Transparent">
+                       Background="Transparent"
+                       Click="MenuButton_OnClick">
                 <ContentControl Content="{StaticResource Logo}" Margin="0" />
             </Button>
             <Separator Grid.Row="1" Height="2" Foreground="White"/>
         </Grid>
 
         <StackPanel Grid.Row="2"  Style="{StaticResource StackPanelStyle}" Margin="0,0,0,5">
-            <materialDesign:PackIcon x:Name="StepOneIcon" 
-                                     Kind="FormatListNumbers" 
-                                     Style="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource ValueToIconStyleConverter}, 
+            <materialDesign:PackIcon Kind="FormatListNumbers" 
+                                     Style="{Binding CurrentViewModel, Mode=OneWay, 
+                Converter={StaticResource ValueToIconStyleConverter}, 
+                ConverterParameter='DeviceSelection'}"/>
+            <TextBlock Visibility="{DynamicResource TitlesVisibility}"
+                       Style="{Binding CurrentViewModel, Mode=OneWay, 
+                Converter={StaticResource ValueToTitleStyleConverter}, 
                 ConverterParameter='DeviceSelection'}" 
-                                     Foreground="{StaticResource BrushNavGreen}" />
-            <TextBlock x:Name="StepOneTitle" 
-                       Style="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource ValueToTitleStyleConverter}, 
-                ConverterParameter='DeviceSelection'}" 
-                       Text="Device selection" 
-                       Foreground="{StaticResource BrushNavGreen}"/>
+                       Text="Device selection"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Style="{StaticResource StackPanelStyle}">
-            <ContentControl x:Name="StepOne" HorizontalAlignment="Center" Content="{Binding CurrentViewModel, Mode=OneWay,
+            <ContentControl HorizontalAlignment="Center" Content="{Binding CurrentViewModel, Mode=OneWay,
                 Converter={StaticResource ValueToContentConverter}, 
                 ConverterParameter='DeviceSelection'}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,5">
-            <materialDesign:PackIcon x:Name="StepTwoIcon" Kind="CogOutline" Style="{Binding CurrentViewModel, Mode=OneWay, 
+            <materialDesign:PackIcon Kind="CogOutline" Style="{Binding CurrentViewModel, Mode=OneWay, 
                 Converter={StaticResource ValueToIconStyleConverter},
                 ConverterParameter='FrameConfiguration'}"/>
-            <TextBlock x:Name="StepTwoTitle" Style="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource ValueToTitleStyleConverter},
+            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModel, Mode=OneWay, 
+                Converter={StaticResource ValueToTitleStyleConverter},
                 ConverterParameter='FrameConfiguration'}"  Text="Frame configuration"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Style="{StaticResource StackPanelStyle}">
-            <ContentControl x:Name="StepTwo" Content="{Binding CurrentViewModel, Mode=OneWay,
+            <ContentControl Content="{Binding CurrentViewModel, Mode=OneWay,
                 Converter={StaticResource ValueToContentConverter}, 
                 ConverterParameter='FrameConfiguration'}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="6" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,0">
-            <materialDesign:PackIcon x:Name="StepThreeIcon" Kind="Tools" Style="{Binding CurrentViewModel, Mode=OneWay, 
+            <materialDesign:PackIcon Kind="Tools" Style="{Binding CurrentViewModel, Mode=OneWay, 
                 Converter={StaticResource ValueToIconStyleConverter},
                 ConverterParameter='Diagnostics'}" />
-            <TextBlock x:Name="StepThreeTitle" Style="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource ValueToTitleStyleConverter},
+            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModel, Mode=OneWay,
+                Converter={StaticResource ValueToTitleStyleConverter},
                 ConverterParameter='Diagnostics'}"  Text="Diagnostics" />
         </StackPanel>
     </Grid>

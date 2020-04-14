@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Storyboard x:Key="MenuOpen">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="NavBar">
+            <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="200"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="MenuClosed">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="NavBar">
+            <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="70"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+</ResourceDictionary>
