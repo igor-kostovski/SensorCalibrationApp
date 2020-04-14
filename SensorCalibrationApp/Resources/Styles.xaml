@@ -5,14 +5,38 @@
         <Setter Property="Control.VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style x:Key="IconStyle" BasedOn="{StaticResource baseStyle}">
+    <Style x:Key="PassedIconStyle" BasedOn="{StaticResource baseStyle}">
+        <Setter Property="Control.Height" Value="20" />
+        <Setter Property="Control.Width" Value="20" />
+        <Setter Property="Control.Foreground" Value="{StaticResource BrushNavGreen}" />
+    </Style>
+
+    <Style x:Key="CurrentIconStyle" BasedOn="{StaticResource baseStyle}">
         <Setter Property="Control.Height" Value="32" />
         <Setter Property="Control.Width" Value="32" />
+        <Setter Property="Control.Foreground" Value="{StaticResource BrushNavGreen}" />
+    </Style>
+
+    <Style x:Key="UnvisitedIconStyle" BasedOn="{StaticResource baseStyle}">
+        <Setter Property="Control.Height" Value="20" />
+        <Setter Property="Control.Width" Value="20" />
         <Setter Property="Control.Foreground" Value="White" />
     </Style>
 
-    <Style x:Key="TitleStyle" BasedOn="{StaticResource baseStyle}">
+    <Style x:Key="PassedTitleStyle" BasedOn="{StaticResource baseStyle}">
+        <Setter Property="Control.FontSize" Value="10"/>
+        <Setter Property="Control.FontWeight" Value="Bold"/>
+        <Setter Property="Control.Foreground" Value="{StaticResource BrushNavGreen}" />
+    </Style>
+
+    <Style x:Key="CurrentTitleStyle" BasedOn="{StaticResource baseStyle}">
         <Setter Property="Control.FontSize" Value="15"/>
+        <Setter Property="Control.FontWeight" Value="Bold"/>
+        <Setter Property="Control.Foreground" Value="{StaticResource BrushNavGreen}" />
+    </Style>
+
+    <Style x:Key="UnvisitedTitleStyle" BasedOn="{StaticResource baseStyle}">
+        <Setter Property="Control.FontSize" Value="10"/>
         <Setter Property="Control.FontWeight" Value="Bold"/>
         <Setter Property="Control.Foreground" Value="White" />
     </Style>
