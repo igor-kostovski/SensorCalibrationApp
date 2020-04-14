@@ -122,7 +122,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
+    <Folder Include="Controls\" />
     <Folder Include="Resources\" />
     <Folder Include="Styles\" />
   </ItemGroup>
