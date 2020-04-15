@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SensorCalibrationApp.Domain.Models
 {
+    [Serializable]
     public abstract class BaseModel
     {
         public int Id { get; set; }
