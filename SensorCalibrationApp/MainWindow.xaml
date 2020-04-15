@@ -4,9 +4,82 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SensorCalibrationApp"
+        xmlns:deviceSel="clr-namespace:SensorCalibrationApp.DeviceSelection"
+        xmlns:frameConfig="clr-namespace:SensorCalibrationApp.FrameConfiguration"
+        xmlns:diag="clr-namespace:SensorCalibrationApp.Diagnostics"
+        xmlns:controls="clr-namespace:SensorCalibrationApp.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type deviceSel:DeviceSelectionViewModel}">
+            <deviceSel:DeviceSelectionView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type frameConfig:FrameConfigurationViewModel}">
+            <frameConfig:FrameConfigurationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type diag:DiagnosticsViewModel}">
+            <diag:DiagnosticsView/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <controls:NavigationBar Grid.Column="0"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentViewModel}" DataContext="{Binding}"/>
+
+            <Button x:Name="BackButton"
+                Grid.Column="1"
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Background="#4e73df"
+                Command="{Binding Back}">
+                    <materialDesign:PackIcon
+                        Kind="ArrowLeft"
+                        Height="24"
+                        Width="24"
+                        Foreground="White"/>
+            </Button>
+
+            <Button x:Name="ForwardButton"
+                Grid.Column="1"
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Background="#4e73df"
+                Command="{Binding Forward}">
+                    <materialDesign:PackIcon
+                        Kind="ArrowRight"
+                        Height="24"
+                        Width="24"
+                        Foreground="White"/>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SensorCalibrationApp.Diagnostics
 {
-    class DiagnosticsViewModel
+    class DiagnosticsViewModel : ViewModelBase
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SensorCalibrationApp.FrameConfiguration
 {
-    class FrameConfigurationViewModel
+    class FrameConfigurationViewModel : ViewModelBase
     {
     }
 }
