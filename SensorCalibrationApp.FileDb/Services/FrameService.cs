@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
+using SensorCalibrationApp.FileDb.Extensions;
 
 namespace SensorCalibrationApp.FileDb.Services
 {
@@ -18,8 +19,8 @@ namespace SensorCalibrationApp.FileDb.Services
         {
             await _db.Load();
 
-            var entity = _db.Collection.SelectMany(x => x.Devices)
-                .SelectMany(x => x.Frames)
+            var entity = _db.Collection
+                .Frames()
                 .SingleOrDefault(x => x.Id == model.Id);
             if (entity == null)
                 return;

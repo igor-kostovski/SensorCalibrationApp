@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -8,7 +9,7 @@ namespace SensorCalibrationApp.FileDb
 {
     public class FileDatabase
     {
-        private string filePath = @"~\database.txt";
+        private const string filePath = "database.txt";
         public Stream Connection { get; set; }
         public List<EcuModel> Collection { get;set; }
 
@@ -48,7 +49,7 @@ namespace SensorCalibrationApp.FileDb
             if (Connection != null)
                 Connection.Close();
 
-            Connection = new FileStream(filePath, FileMode.Open, action);
+            Connection = new FileStream(filePath, FileMode.OpenOrCreate, action);
         }
     }
 }
