@@ -5,6 +5,6 @@ namespace SensorCalibrationApp.Domain.Services
 {
     public interface IFrameService
     {
-        Task Update(int newId, FrameModel model);
+        Task Update(byte newId, FrameModel model);
     }
 }
