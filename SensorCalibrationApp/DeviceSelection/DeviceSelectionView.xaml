@@ -4,9 +4,240 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.DeviceSelection"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            <TextBlock Text="Device selection"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Grid.Row="0" 
+                             Grid.Column="1" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                                CornerRadius="0" 
+                                Background="{StaticResource BrushBlue}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" 
+                           Grid.Row="1" 
+                           Text="ECU" 
+                           FontSize="25" 
+                           Foreground="{StaticResource BrushBlue}" 
+                           FontWeight="Bold"/>
+
+                <ComboBox Grid.Column="1" 
+                          Grid.Row="2" 
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Center" 
+                          IsEditable="True"
+                          IsReadOnly="True"
+                          Text="Select ECU"
+                          Foreground="{StaticResource BrushBlue}"
+                          FontWeight="Bold"
+                          FontSize="18" 
+                          SelectionChanged="Selector_OnSelected">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeBlue}"/>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource BrushBlue}" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+
+                <materialDesign:PackIcon Grid.Column="2" 
+                                         Grid.Row="1" 
+                                         Grid.RowSpan="2" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         Height="32" 
+                                         Width="32" 
+                                         Kind="Server" 
+                                         Foreground="{StaticResource BrushBlue}" />
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="1" 
+                             Grid.Column="1" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" 
+                            Background="{StaticResource BrushGreen}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" 
+                           Grid.Row="1" 
+                           Text="Device" 
+                           FontSize="25" 
+                           Foreground="{StaticResource BrushGreen}" 
+                           FontWeight="Bold"/>
+
+                <ComboBox Grid.Column="1" 
+                          Grid.Row="2" 
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Center" 
+                          IsEditable="True"
+                          IsReadOnly="True"
+                          Text="Select device"
+                          Foreground="{StaticResource BrushGreen}"
+                          FontWeight="Bold"
+                          FontSize="18"
+                          SelectionChanged="Selector_OnSelected">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeGreen}"/>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource BrushGreen}" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+
+                <materialDesign:PackIcon Grid.Column="2" 
+                                         Grid.Row="1" 
+                                         Grid.RowSpan="2" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         Height="32" Width="32" 
+                                         Kind="Devices" 
+                                         Foreground="{StaticResource BrushGreen}" />
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="2" 
+                             Grid.Column="1" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" Background="{StaticResource BrushYellow}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" 
+                           Grid.Row="1" 
+                           Text="Frame" 
+                           FontSize="25" 
+                           Foreground="{StaticResource BrushYellow}" 
+                           FontWeight="Bold"/>
+
+                <ComboBox Grid.Column="1" 
+                          Grid.Row="2" 
+                          VerticalAlignment="Center" 
+                          HorizontalAlignment="Center" 
+                          IsEditable="True"
+                          IsReadOnly="True"
+                          Text="Select frame"
+                          Foreground="{StaticResource BrushYellow}"
+                          FontWeight="Bold"
+                          FontSize="18"
+                          SelectionChanged="Selector_OnSelected">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeYellow}"/>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource BrushYellow}" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+
+                <materialDesign:PackIcon Grid.Column="2" 
+                                         Grid.Row="1" 
+                                         Grid.RowSpan="2" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         Height="32" 
+                                         Width="32" 
+                                         Kind="IframeOutline"
+                                         Foreground="{StaticResource BrushYellow}" />
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
