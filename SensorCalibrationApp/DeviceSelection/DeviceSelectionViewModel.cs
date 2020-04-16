@@ -15,6 +15,7 @@ namespace SensorCalibrationApp.DeviceSelection
         {
             _db = new FileDatabase();
             _ecuService = new EcuService(_db);
+            IsDeviceSupported = true;
         }
 
         private ObservableCollection<EcuModel> _ecuModels;
@@ -46,6 +47,9 @@ namespace SensorCalibrationApp.DeviceSelection
             set
             {
                 _selectedDevice = value;
+
+                CheckIfSupported();
+
                 OnPropertyChanged();
             }
         }
@@ -61,10 +65,29 @@ namespace SensorCalibrationApp.DeviceSelection
             }
         }
 
+        private bool _isDeviceSupported;
+        public bool IsDeviceSupported
+        {
+            get { return _isDeviceSupported; }
+            set
+            {
+                _isDeviceSupported = value;
+                OnPropertyChanged();
+            }
+        }
+
         public async void LoadECUs()
         {
             if(EcuModels == null)
                 EcuModels = new ObservableCollection<EcuModel>(await _ecuService.GetAll());
+        }
+
+        private void CheckIfSupported()
+        {
+            if (_selectedDevice?.Frames.Count == 0)
+                IsDeviceSupported = false;
+            else
+                IsDeviceSupported = true;
         }
     }
 }

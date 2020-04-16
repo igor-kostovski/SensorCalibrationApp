@@ -39,7 +39,9 @@ namespace SensorCalibrationApp.DeviceSelection
             if (device.SelectedIndex == -1)
                 device.Text = "Select device";
 
-            if (frame.SelectedIndex == -1)
+            if (!frame.IsEnabled)
+                frame.Text = "Selected device is currently not supported. Please select another device.";
+            else if (frame.SelectedIndex == -1)
                 frame.Text = "Select frame";
         }
     }
