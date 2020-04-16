@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -35,13 +34,28 @@ namespace SensorCalibrationApp.FileDb
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<EcuModel>));
 
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
+                await SeedDbIfEmpty();
+
                 OpenFor(FileAccess.Read);
                 Collection = (List<EcuModel>) xmlFormat.Deserialize(Connection);
 
                 Connection.Close();
             });
+        }
+
+        private async Task SeedDbIfEmpty()
+        {
+            OpenFor(FileAccess.Read);
+            if (Connection.Length == 0)
+                await SeedDb();
+        }
+
+        private async Task SeedDb()
+        {
+            Collection = Seeder.DataCollection;
+            await Save();
         }
 
         private void OpenFor(FileAccess action)
