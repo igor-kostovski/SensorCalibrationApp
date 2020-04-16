@@ -8,7 +8,6 @@ namespace SensorCalibrationApp.DeviceSelection
 {
     class DeviceSelectionViewModel : ViewModelBase
     {
-        private ObservableCollection<EcuModel> _ecuModels;
         private FileDatabase _db;
         private IEcuService _ecuService;
 
@@ -16,6 +15,17 @@ namespace SensorCalibrationApp.DeviceSelection
         {
             _db = new FileDatabase();
             _ecuService = new EcuService(_db);
+        }
+
+        private ObservableCollection<EcuModel> _ecuModels;
+        public ObservableCollection<EcuModel> EcuModels
+        {
+            get { return _ecuModels; }
+            set
+            {
+                _ecuModels = value;
+                OnPropertyChanged();
+            }
         }
 
         private EcuModel _selectedEcu;
@@ -53,7 +63,7 @@ namespace SensorCalibrationApp.DeviceSelection
 
         public async void LoadECUs()
         {
-            _ecuModels = new ObservableCollection<EcuModel>(await _ecuService.GetAll());
+            EcuModels = new ObservableCollection<EcuModel>(await _ecuService.GetAll());
         }
     }
 }

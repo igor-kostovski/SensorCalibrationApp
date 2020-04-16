@@ -145,7 +145,7 @@ namespace SensorCalibrationApp.FileDb
                     new EcuModel
                     {
                         Id = 2,
-                        Name = "Front cooling ECU",
+                        Name = "Rear cooling ECU",
                         Devices = new List<DeviceModel>
                         {
                             new DeviceModel
@@ -261,7 +261,7 @@ namespace SensorCalibrationApp.FileDb
                     new EcuModel
                     {
                         Id = 3,
-                        Name = "Front cooling ECU",
+                        Name = "PCU ECU",
                         Devices = new List<DeviceModel>
                         {
                             new DeviceModel
