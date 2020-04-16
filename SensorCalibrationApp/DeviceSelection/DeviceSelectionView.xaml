@@ -62,18 +62,20 @@
                            Foreground="{StaticResource BrushBlue}" 
                            FontWeight="Bold"/>
 
-                <ComboBox ItemsSource="{Binding EcuModels}"
+                <ComboBox x:Name="ECU"
+                          ItemsSource="{Binding EcuModels}"
                           Grid.Column="1" 
                           Grid.Row="2" 
                           VerticalAlignment="Center" 
                           HorizontalAlignment="Center" 
+                          Text="Select ECU"
                           IsEditable="True"
                           IsReadOnly="True"
-                          Text="Select ECU"
                           Foreground="{StaticResource BrushBlue}"
                           FontWeight="Bold"
                           FontSize="18"
-                          SelectedValue="{Binding SelectedEcu}">
+                          SelectedItem="{Binding SelectedEcu}"
+                          DisplayMemberPath="Name">
 
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeBlue}"/>
@@ -89,12 +91,6 @@
                             </Style.Triggers>
                         </Style>
                     </ComboBox.ItemContainerStyle>
-
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <materialDesign:PackIcon Grid.Column="2" 
@@ -145,7 +141,8 @@
                            Foreground="{StaticResource BrushGreen}" 
                            FontWeight="Bold"/>
 
-                <ComboBox ItemsSource="{Binding SelectedEcu.Devices}"
+                <ComboBox x:Name="device" 
+                          ItemsSource="{Binding SelectedEcu.Devices}"
                           Grid.Column="1" 
                           Grid.Row="2" 
                           VerticalAlignment="Center" 
@@ -156,8 +153,8 @@
                           Foreground="{StaticResource BrushGreen}"
                           FontWeight="Bold"
                           FontSize="18"
-                          SelectedValue="{Binding SelectedDevice}"
-                          SelectionChanged="Selector_OnSelected">
+                          SelectedItem="{Binding SelectedDevice}"
+                          DisplayMemberPath="Name">
 
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeGreen}"/>
@@ -173,12 +170,6 @@
                             </Style.Triggers>
                         </Style>
                     </ComboBox.ItemContainerStyle>
-
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <materialDesign:PackIcon Grid.Column="2" 
@@ -227,7 +218,8 @@
                            Foreground="{StaticResource BrushYellow}" 
                            FontWeight="Bold"/>
 
-                <ComboBox ItemsSource="{Binding SelectedDevice.Frames}"
+                <ComboBox x:Name="frame"
+                          ItemsSource="{Binding SelectedDevice.Frames}"
                           Grid.Column="1" 
                           Grid.Row="2" 
                           VerticalAlignment="Center" 
@@ -238,8 +230,8 @@
                           Foreground="{StaticResource BrushYellow}"
                           FontWeight="Bold"
                           FontSize="18"
-                          SelectedValue="{Binding SelectedFrame}"
-                          SelectionChanged="Selector_OnSelected">
+                          SelectedItem="{Binding SelectedFrame}"
+                          DisplayMemberPath="Name">
 
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeYellow}"/>
@@ -255,12 +247,6 @@
                             </Style.Triggers>
                         </Style>
                     </ComboBox.ItemContainerStyle>
-
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <materialDesign:PackIcon Grid.Column="2" 

@@ -25,11 +25,5 @@ namespace SensorCalibrationApp.DeviceSelection
         {
             InitializeComponent();
         }
-
-        private void Selector_OnSelected(object sender, SelectionChangedEventArgs e)
-        {
-            Debug.WriteLine("Selection set");
-
-        }
     }
 }
