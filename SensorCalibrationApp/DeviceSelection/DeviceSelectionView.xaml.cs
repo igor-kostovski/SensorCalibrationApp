@@ -25,5 +25,22 @@ namespace SensorCalibrationApp.DeviceSelection
         {
             InitializeComponent();
         }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AdjustPlaceholders();
+        }
+
+        private void AdjustPlaceholders()
+        {
+            if (ECU.SelectedIndex == -1)
+                ECU.Text = "Select ECU";
+
+            if (device.SelectedIndex == -1)
+                device.Text = "Select device";
+
+            if (frame.SelectedIndex == -1)
+                frame.Text = "Select frame";
+        }
     }
 }

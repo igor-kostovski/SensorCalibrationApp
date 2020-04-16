@@ -13,6 +13,7 @@
             <b:CallMethodAction TargetObject="{Binding}" MethodName="LoadECUs"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -75,7 +76,8 @@
                           FontWeight="Bold"
                           FontSize="18"
                           SelectedItem="{Binding SelectedEcu}"
-                          DisplayMemberPath="Name">
+                          DisplayMemberPath="Name"
+                          SelectionChanged="Selector_OnSelectionChanged">
 
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeBlue}"/>
@@ -142,7 +144,6 @@
                            FontWeight="Bold"/>
 
                 <ComboBox x:Name="device" 
-                          ItemsSource="{Binding SelectedEcu.Devices}"
                           Grid.Column="1" 
                           Grid.Row="2" 
                           VerticalAlignment="Center" 
@@ -153,9 +154,10 @@
                           Foreground="{StaticResource BrushGreen}"
                           FontWeight="Bold"
                           FontSize="18"
+                          ItemsSource="{Binding SelectedEcu.Devices}"
                           SelectedItem="{Binding SelectedDevice}"
-                          DisplayMemberPath="Name">
-
+                          DisplayMemberPath="Name"
+                          SelectionChanged="Selector_OnSelectionChanged">
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ThemeGreen}"/>
                     </ComboBox.Resources>
