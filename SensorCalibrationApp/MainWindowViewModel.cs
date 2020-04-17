@@ -21,6 +21,9 @@ namespace SensorCalibrationApp
             {
                 _currentViewModel = value;
                 OnPropertyChanged();
+
+                Back.RaiseCanExecuteChanged();
+                Forward.RaiseCanExecuteChanged();
             }
         }
 
@@ -29,10 +32,12 @@ namespace SensorCalibrationApp
 
         public MainWindowViewModel()
         {
-            Forward = new RelayCommand(OnForward);
-            Back = new RelayCommand(OnBack);
+            Forward = new RelayCommand(OnForward, CanGoForward);
+            Back = new RelayCommand(OnBack, CanGoBack);
 
             CurrentViewModel = _deviceSelectionViewModel;
+
+            _deviceSelectionViewModel.SelectionDone += (sender, args) => Forward.RaiseCanExecuteChanged();
 
             _navigationStack = new List<ViewModelBase>
             {
@@ -51,6 +56,11 @@ namespace SensorCalibrationApp
                 CurrentViewModel = _navigationStack.ElementAt(backIndex);
         }
 
+        private bool CanGoBack()
+        {
+            return CurrentViewModel != _deviceSelectionViewModel;
+        }
+
         private void OnForward()
         {
             var currentIndex = _navigationStack.IndexOf(CurrentViewModel);
@@ -58,6 +68,12 @@ namespace SensorCalibrationApp
 
             if(forwardIndex < _navigationStack.Count)
                 CurrentViewModel = _navigationStack.ElementAt(forwardIndex);
+        }
+
+        private bool CanGoForward()
+        {
+            return _deviceSelectionViewModel.SelectedFrame != null
+                && CurrentViewModel != _diagnosticsViewModel;
         }
     }
 }

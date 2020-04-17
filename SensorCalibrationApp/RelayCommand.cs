@@ -23,7 +23,7 @@ namespace SensorCalibrationApp
 
         public void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged(this, EventArgs.Empty);
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public bool CanExecute(object parameter)

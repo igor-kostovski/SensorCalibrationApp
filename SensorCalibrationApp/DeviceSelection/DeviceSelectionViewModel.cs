@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.FileDb;
@@ -62,6 +63,8 @@ namespace SensorCalibrationApp.DeviceSelection
             {
                 _selectedFrame = value;
                 OnPropertyChanged();
+
+                SelectionDone?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -84,10 +87,9 @@ namespace SensorCalibrationApp.DeviceSelection
 
         private void CheckIfSupported()
         {
-            if (_selectedDevice?.Frames.Count == 0)
-                IsDeviceSupported = false;
-            else
-                IsDeviceSupported = true;
+            IsDeviceSupported = _selectedDevice?.Frames.Count != 0;
         }
+
+        public event EventHandler SelectionDone;
     }
 }
