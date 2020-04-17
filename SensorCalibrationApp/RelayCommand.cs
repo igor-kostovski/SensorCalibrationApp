@@ -21,6 +21,11 @@ namespace SensorCalibrationApp
 
         public event EventHandler CanExecuteChanged;
 
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
+
         public bool CanExecute(object parameter)
         {
             if (_canExecuteMethod == null)
