@@ -17,7 +17,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         private HardwareHandle linHardwareHandle;
 
         public event EventHandler<byte[]> OnData;
-        public event EventHandler<string> OnInfo;
+        public event EventHandler<string> OnError;
 
         public CommunicationProvider(ClientHandle clientHandle, HardwareHandle hardwareHandle)
         {
@@ -75,7 +75,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
                         break;
                     case MessageProcessorResult.Error:
                     case MessageProcessorResult.Info:
-                        OnInfo?.Invoke(this, processorMessage);
+                        OnError?.Invoke(this, processorMessage);
                         break;
                     case MessageProcessorResult.Regular:
                         OnData?.Invoke(this, msg.Data);
