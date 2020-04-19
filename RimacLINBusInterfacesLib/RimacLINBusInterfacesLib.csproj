@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Libs\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Structs\" />
   </ItemGroup>
 
 </Project>
