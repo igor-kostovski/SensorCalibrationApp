@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,32 @@ namespace SensorCalibrationApp.DeviceSelection
         public DeviceSelectionView()
         {
             InitializeComponent();
+            AdjustPlaceholders();
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AdjustPlaceholders();
+        }
+
+        private void AdjustPlaceholders()
+        {
+            if (ECU.SelectedIndex == -1)
+                ECU.Text = "Select ECU";
+
+            if (device.SelectedIndex == -1)
+                device.Text = "Select device";
+
+            if (!frame.IsEnabled)
+            {
+                frame.Text = "Selected device is currently not supported. Please select another device.";
+                frame.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            else if (frame.SelectedIndex == -1)
+            {
+                frame.Text = "Select frame";
+                frame.Foreground = Application.Current.FindResource("BrushYellow") as SolidColorBrush;
+            }
         }
     }
 }
