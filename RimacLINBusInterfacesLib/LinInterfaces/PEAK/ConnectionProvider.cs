@@ -84,7 +84,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
         protected void KeepAlive()
         {
-            var result = PLinApi.StartKeepAlive(linClientHandle, linHardwareHandle, 0x00, 10);
+            var result = PLinApi.StartKeepAlive(linClientHandle, linHardwareHandle, 0x00, 1000);
             if (result != LinError.Ok)
                 throw new ConnectionError($"Error while starting a keep alive session: {result.ToString()}");
         }
