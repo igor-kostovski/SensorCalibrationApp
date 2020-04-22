@@ -6,8 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Libs\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Structs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj" />
+    <ProjectReference Include="..\SensorCalibrationApp.Domain\SensorCalibrationApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

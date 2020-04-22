@@ -1,9 +1,11 @@
 ﻿using System;
-using RimacLINBusInterfacesLib.Structs;
+using SensorCalibrationApp.Common;
+using SensorCalibrationApp.Common.Structs;
+using SensorCalibrationApp.Domain.Interfaces;
 
 namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 {
-    public class PeakLinInterface
+    public class PeakLinInterface : ILinProvider
     {
         public event EventHandler<byte[]> OnRead;
         public event EventHandler<string> OnError;

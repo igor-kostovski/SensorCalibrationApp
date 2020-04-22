@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using RimacLINBusInterfacesLib.Enums;
+using SensorCalibrationApp.Common.Enums;
 
-namespace RimacLINBusInterfacesLib.Structs
+namespace SensorCalibrationApp.Common.Structs
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Message

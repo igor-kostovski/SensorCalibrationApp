@@ -1,4 +1,4 @@
-﻿namespace RimacLINBusInterfacesLib.Enums
+﻿namespace SensorCalibrationApp.Common.Enums
 {
     public enum LinError
     {

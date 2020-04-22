@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using RimacLINBusInterfacesLib.Enums;
-using RimacLINBusInterfacesLib.Structs;
+using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Structs;
 using HardwareHandle = System.UInt16;
 using ClientHandle = System.Byte;
 
