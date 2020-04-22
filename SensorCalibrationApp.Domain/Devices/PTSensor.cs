@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Structs;
 using SensorCalibrationApp.Domain.Interfaces;
+using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Devices
 {
@@ -102,6 +105,17 @@ namespace SensorCalibrationApp.Domain.Devices
             Message = "";
             HasError = false;
             Data.Clear();
+        }
+
+        public Message CreateMessageFor(FrameModel frame)
+        {
+            switch (frame.Name)
+            {
+                case "DTSs_01":
+                    return new Message(frame.FrameId, Direction.Subscriber, ChecksumType.Enhanced, null, 5);
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         #region Members

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Interfaces;
@@ -46,7 +44,7 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         {
             return Task.Run(() =>
             {
-                var message = MessageFactory.CreateMessageFor(frame);
+                var message = _device.CreateMessageFor(frame);
                 _linProvider.Send(message);
             });
         }

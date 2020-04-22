@@ -1,4 +1,7 @@
-﻿namespace SensorCalibrationApp.Domain.Interfaces
+﻿using SensorCalibrationApp.Common.Structs;
+using SensorCalibrationApp.Domain.Models;
+
+namespace SensorCalibrationApp.Domain.Interfaces
 {
     public interface IDevice
     {
@@ -7,5 +10,6 @@
 
         void ProcessData(byte[] data);
         void ClearData();
+        Message CreateMessageFor(FrameModel frame);
     }
 }
