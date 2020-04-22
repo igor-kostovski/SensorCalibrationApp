@@ -29,6 +29,8 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task ReadById()
         {
+            _eventManager.UseDeviceParser = false;
+
             return Task.Run(() =>
             {
                 var message = MessageFactory.CreateReadByIdMessage();
@@ -40,6 +42,8 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task UpdateFrameId(byte newFrameId)
         {
+            _eventManager.UseDeviceParser = false;
+
             return Task.Run(() =>
             {
                 _linProvider.GetPIDFor(ref newFrameId);
@@ -52,6 +56,8 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task SendDeviceSpecificFrame(FrameModel frame)
         {
+            _eventManager.UseDeviceParser = true;
+
             return Task.Run(() =>
             {
                 var message = _device.CreateMessageFor(frame);
