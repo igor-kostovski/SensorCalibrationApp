@@ -27,11 +27,12 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
                 _communicationProvider.OnData += OnRead;
                 _communicationProvider.OnError += OnError;
+
                 _communicationProvider.SetupReceiveThread();
             }
             catch (ConnectionError err)
             {
-                _connectionProvider.Close();
+                CloseConnection();
 
                 OnError?.Invoke(this, err.Message);
             }
