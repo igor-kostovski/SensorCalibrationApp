@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
 {
@@ -6,6 +7,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
     {
         Task ReadById();
         Task UpdateFrameId(byte newFrameId);
-        Task SendDeviceSpecificFrame();
+        Task SendDeviceSpecificFrame(FrameModel frame);
     }
 }

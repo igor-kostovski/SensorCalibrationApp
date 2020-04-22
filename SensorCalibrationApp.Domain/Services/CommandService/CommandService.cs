@@ -1,23 +1,54 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using SensorCalibrationApp.Domain.Enums;
+using SensorCalibrationApp.Domain.Factories;
+using SensorCalibrationApp.Domain.Interfaces;
+using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
 {
     public class CommandService : ICommandService
     {
-        public async Task ReadById()
+        private readonly IDevice _device;
+        private readonly ILinProvider _linProvider;
+
+        public CommandService(DeviceType device, ILinProvider provider)
         {
-            throw new NotImplementedException();
+            _device = DeviceFactory.CreateDevice(device);
+            _linProvider = provider;
         }
 
-        public async Task UpdateFrameId(byte newFrameId)
+        public Task ReadById()
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                var message = MessageFactory.CreateReadByIdMessage();
+
+                _linProvider.Send(message);
+                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+            });
         }
 
-        public async Task SendDeviceSpecificFrame()
+        public Task UpdateFrameId(byte newFrameId)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                _linProvider.GetPIDFor(ref newFrameId);
+                var message = MessageFactory.CreateUpdateFrameIdMessage(newFrameId);
+
+                _linProvider.Send(message);
+                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+            });
+        }
+
+        public Task SendDeviceSpecificFrame(FrameModel frame)
+        {
+            return Task.Run(() =>
+            {
+                var message = MessageFactory.CreateMessageFor(frame);
+                _linProvider.Send(message);
+            });
         }
     }
 }

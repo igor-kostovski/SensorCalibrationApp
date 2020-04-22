@@ -30,5 +30,15 @@ namespace SensorCalibrationApp.Common.Structs
             Length = 8;
             Checksum = 0;
         }
+
+        public Message(byte frameId, Direction direction, ChecksumType checksumType, byte[] data, byte length)
+        {
+            FrameId = frameId;
+            Direction = direction;
+            ChecksumType = checksumType;
+            Data = data;
+            Length = length;
+            Checksum = 0;
+        }
     }
 }
