@@ -65,7 +65,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         public void Dispose()
         {
             _communicationProvider.RemoveReceiveThread();
-            _connectionProvider.Close();
+            CloseConnection();
             GC.SuppressFinalize(this);
         }
 
