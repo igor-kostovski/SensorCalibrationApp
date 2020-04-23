@@ -38,7 +38,11 @@ namespace SensorCalibrationApp
 
             CurrentViewModel = _deviceSelectionViewModel;
 
-            _deviceSelectionViewModel.SelectionDone += (sender, args) => Forward.RaiseCanExecuteChanged();
+            _deviceSelectionViewModel.SelectionDone += (sender, args) =>
+            {
+                //_frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame.Id, _deviceSelectionViewModel.SelectedDevice.Type);
+                Forward.RaiseCanExecuteChanged();
+            };
 
             InitializeNavigationStack();
         }
