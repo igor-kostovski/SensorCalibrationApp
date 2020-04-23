@@ -11,7 +11,8 @@ namespace SensorCalibrationApp
         private readonly DeviceSelectionViewModel _deviceSelectionViewModel = new DeviceSelectionViewModel();
         private readonly FrameConfigurationViewModel _frameConfigurationViewModel = new FrameConfigurationViewModel();
         private readonly DiagnosticsViewModel _diagnosticsViewModel = new DiagnosticsViewModel();
-        private readonly List<ViewModelBase> _navigationStack;
+
+        private List<ViewModelBase> _navigationStack;
 
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
@@ -39,6 +40,11 @@ namespace SensorCalibrationApp
 
             _deviceSelectionViewModel.SelectionDone += (sender, args) => Forward.RaiseCanExecuteChanged();
 
+            InitializeNavigationStack();
+        }
+
+        private void InitializeNavigationStack()
+        {
             _navigationStack = new List<ViewModelBase>
             {
                 _deviceSelectionViewModel,
@@ -58,7 +64,7 @@ namespace SensorCalibrationApp
 
         private bool CanGoBack()
         {
-            return CurrentViewModel != _deviceSelectionViewModel;
+            return CurrentViewModel != _navigationStack.First();
         }
 
         private void OnForward()
@@ -73,7 +79,7 @@ namespace SensorCalibrationApp
         private bool CanGoForward()
         {
             return _deviceSelectionViewModel.SelectedFrame != null
-                && CurrentViewModel != _diagnosticsViewModel;
+                && CurrentViewModel != _navigationStack.Last();
         }
     }
 }
