@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.FrameConfiguration"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="LoadFrame"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <UserControl.Resources>
         <Style x:Key="Style" TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="{StaticResource BrushBlue}"></Setter>
@@ -89,7 +95,7 @@
                                        Foreground="{StaticResource BrushBlue}" 
                                        VerticalAlignment="Center"/>
                             <TextBlock VerticalAlignment="Center"
-                                       Text="Test frame"
+                                       Text="{Binding Frame.Name}"
                                        Foreground="{StaticResource BrushGreen}"
                                        FontSize="18"
                                        FontWeight="Bold"/>
@@ -109,7 +115,7 @@
                                        FontWeight="Heavy" 
                                        Foreground="{StaticResource BrushBlue}"/>
                             <TextBlock VerticalAlignment="Center"
-                                       Text="Subscriber"
+                                       Text="{Binding Frame.Type}"
                                        Foreground="{StaticResource BrushGreen}"
                                        FontSize="18"
                                        FontWeight="Bold"/>
@@ -129,7 +135,7 @@
                                        Foreground="{StaticResource BrushBlue}" 
                                        VerticalAlignment="Center"/>
                             <TextBlock VerticalAlignment="Center"
-                                       Text="0x27"
+                                       Text="{Binding Frame.FrameId}"
                                        Foreground="{StaticResource BrushGreen}"
                                        FontSize="18"
                                        FontWeight="Bold"/>
