@@ -4,9 +4,247 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.FrameConfiguration"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="Style" TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="{StaticResource BrushBlue}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Frame config"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Grid.Row="0" 
+                             Grid.Column="0" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" 
+                            Background="{StaticResource BrushBlue}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Frame info" 
+                               FontSize="25" 
+                               Foreground="{StaticResource BrushBlue}" 
+                               FontWeight="Bold"/>
+                    <materialDesign:PackIcon Grid.Column="1" 
+                                             HorizontalAlignment="Right" 
+                                             Foreground="{StaticResource BrushYellow}" 
+                                             Kind="InfoCircleOutline" 
+                                             Height="32" 
+                                             Width="32"/>
+                </Grid>
+
+                <ListView Grid.Row="2" 
+                          Grid.Column="1" 
+                          VerticalAlignment="Center">
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       Text="Name:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}" 
+                                       VerticalAlignment="Center"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="Test frame"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       VerticalAlignment="Center" 
+                                       Text="Type:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="Subscriber"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       Text="ID:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}" 
+                                       VerticalAlignment="Center"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="0x27"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="0" 
+                             Grid.RowSpan="2" 
+                             Grid.Column="1" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" 
+                            Background="{StaticResource BrushGreen}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Signals" 
+                               FontSize="25" 
+                               Foreground="{StaticResource BrushGreen}" 
+                               FontWeight="Bold"/>
+                    <materialDesign:PackIcon Grid.Column="1" 
+                                             HorizontalAlignment="Right" 
+                                             Foreground="{StaticResource BrushYellow}" 
+                                             Kind="ChartLine" 
+                                             Height="32" 
+                                             Width="32"/>
+                </Grid>
+
+                <DataGrid Grid.Row="2" 
+                          Grid.Column="1" 
+                          x:Name="DataGrid"
+                          Background="Transparent"
+                          Foreground="{StaticResource BrushBlue}"
+                          CanUserSortColumns="False"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          ColumnWidth="*"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Disabled"
+                          RowBackground="Transparent"
+                          Margin="0,20,0,0">
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn
+                          Binding="{Binding Pressure}"
+                          Header="Press"
+                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                            <materialDesign:DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
+                                    <Setter Property="ToolTip" Value="Pressure" />
+                                </Style>
+                            </materialDesign:DataGridTextColumn.HeaderStyle>
+                        </materialDesign:DataGridTextColumn>
+                        <materialDesign:DataGridTextColumn
+                          Binding="{Binding ExternalTemperature}"
+                          Header="ExtTemp"
+                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                            <materialDesign:DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
+                                    <Setter Property="ToolTip" Value="External temperature" />
+                                </Style>
+                            </materialDesign:DataGridTextColumn.HeaderStyle>
+                        </materialDesign:DataGridTextColumn>
+                        <materialDesign:DataGridTextColumn
+                          Binding="{Binding InternalTemperature}"
+                          Header="IntTemp"
+                          MaxLength="255"
+                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                            <materialDesign:DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
+                                    <Setter Property="ToolTip" Value="Internal temperature" />
+                                </Style>
+                            </materialDesign:DataGridTextColumn.HeaderStyle>
+                        </materialDesign:DataGridTextColumn>
+                        <materialDesign:DataGridTextColumn
+                            Binding="{Binding Time}"
+                            Header="Time"
+                            MaxLength="255"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                            <materialDesign:DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
+                                    <Setter Property="ToolTip" Value="Time" />
+                                </Style>
+                            </materialDesign:DataGridTextColumn.HeaderStyle>
+                        </materialDesign:DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
