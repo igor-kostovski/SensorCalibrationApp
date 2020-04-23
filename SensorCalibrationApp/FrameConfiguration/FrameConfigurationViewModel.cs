@@ -14,8 +14,6 @@ namespace SensorCalibrationApp.FrameConfiguration
     class FrameConfigurationViewModel : ViewModelBase
     {
         private readonly ICommandService _commandService;
-        private readonly FileDatabase _db;
-        private readonly IFrameService _frameService;
         private readonly ILinProvider _linProvider;
 
         public FrameConfigurationViewModel()
@@ -27,12 +25,9 @@ namespace SensorCalibrationApp.FrameConfiguration
             };
             _linProvider = new PeakLinInterface(linConfig);
             _commandService = new CommandService(_linProvider);
-            _db = new FileDatabase();
-            _frameService = new FrameService(_db);
         }
 
         private DeviceType _frameDeviceType;
-        private int _frameDbId;
 
         private FrameModel _frame;
         public FrameModel Frame
@@ -45,16 +40,15 @@ namespace SensorCalibrationApp.FrameConfiguration
             }
         }
 
-        public void Set(int id, DeviceType device)
+        public void Set(FrameModel frame, DeviceType device)
         {
-            _frameDbId = id;
+            Frame = frame;
             _frameDeviceType = device;
         }
 
-        public void LoadFrame()
+        public void Load()
         {
             _commandService.Load(_frameDeviceType);
-            //Frame = _commandService.Get(_frameDbId);
         }
     }
 }
