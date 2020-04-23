@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RimacLINBusInterfacesLib", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensorCalibrationApp.FileDb", "SensorCalibrationApp.FileDb\SensorCalibrationApp.FileDb.csproj", "{40A673EB-FC58-422A-9D3B-ECCC88A598C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorCalibrationApp.Common", "SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj", "{CEFAF316-6D1D-456D-891C-DAECA9399495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensorCalibrationApp.Common", "SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj", "{CEFAF316-6D1D-456D-891C-DAECA9399495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

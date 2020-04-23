@@ -56,7 +56,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         {
             try
             {
-                _communicationProvider.Send(message);
+                _communicationProvider?.Send(message);
             }
             catch (CommunicationError err)
             {
@@ -66,7 +66,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
         public void Dispose()
         {
-            _communicationProvider.RemoveReceiveThread();
+            _communicationProvider?.RemoveReceiveThread();
             CloseConnection();
             GC.SuppressFinalize(this);
         }

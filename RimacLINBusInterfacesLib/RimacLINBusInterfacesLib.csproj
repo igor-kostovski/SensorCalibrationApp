@@ -13,4 +13,10 @@
     <ProjectReference Include="..\SensorCalibrationApp.Domain\SensorCalibrationApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Libs\PLinApi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
