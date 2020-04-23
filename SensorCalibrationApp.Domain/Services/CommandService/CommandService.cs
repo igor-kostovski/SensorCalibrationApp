@@ -8,17 +8,24 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 {
     public class CommandService : ICommandService
     {
-        private readonly IDevice _device;
-        private readonly ILinProvider _linProvider;
-        private readonly EventManager _eventManager;
+        private IDevice _device;
+        private EventManager _eventManager;
 
-        public CommandService(DeviceType device, ILinProvider provider)
+        private readonly ILinProvider _linProvider;
+
+        public CommandService(ILinProvider provider)
+        {
+            _linProvider = provider;
+        }
+
+        public ICommandService Load(DeviceType device)
         {
             _device = DeviceFactory.CreateDevice(device);
-            _linProvider = provider;
             _eventManager = new EventManager(_device);
 
             AssignEvents();
+
+            return this;
         }
 
         private void AssignEvents()
