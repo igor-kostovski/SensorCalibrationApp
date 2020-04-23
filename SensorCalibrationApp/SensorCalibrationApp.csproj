@@ -166,6 +166,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RimacLINBusInterfacesLib\RimacLINBusInterfacesLib.csproj">
+      <Project>{06991A17-5D69-4696-ADD0-D04648094E28}</Project>
+      <Name>RimacLINBusInterfacesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj">
+      <Project>{CEFAF316-6D1D-456D-891C-DAECA9399495}</Project>
+      <Name>SensorCalibrationApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SensorCalibrationApp.Domain\SensorCalibrationApp.Domain.csproj">
       <Project>{EA9578EF-622D-485A-B4F7-AD06A4C508A8}</Project>
       <Name>SensorCalibrationApp.Domain</Name>
