@@ -5,7 +5,7 @@ using SensorCalibrationApp.Domain.Interfaces;
 
 namespace SensorCalibrationApp.Domain.Factories
 {
-    internal static class DeviceFactory
+    public static class DeviceFactory
     {
         public static IDevice CreateDevice(DeviceType device)
         {

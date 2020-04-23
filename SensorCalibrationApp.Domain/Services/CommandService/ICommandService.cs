@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SensorCalibrationApp.Domain.Enums;
+using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
@@ -9,6 +9,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         Task ReadById();
         Task UpdateFrameId(byte newFrameId);
         Task SendDeviceSpecificFrame(FrameModel frame);
-        ICommandService Load(DeviceType device);
+        void Load(IDevice device);
     }
 }

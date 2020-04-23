@@ -5,11 +5,11 @@ namespace SensorCalibrationApp.Domain
 {
     public class EventManager
     {
-        private readonly IDevice _device;
+        private IDevice _device;
 
         public bool UseDeviceParser { get; set; }
 
-        public EventManager(IDevice device)
+        public void Load(IDevice device)
         {
             _device = device;
         }
