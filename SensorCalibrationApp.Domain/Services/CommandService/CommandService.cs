@@ -16,13 +16,13 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         public CommandService(ILinProvider provider)
         {
             _linProvider = provider;
-
-            AssignEvents();
         }
 
         public void Load(IDevice device)
         {
             _device = device;
+            _eventManager = new EventManager();
+            AssignEvents();
         }
 
         private void AssignEvents()
