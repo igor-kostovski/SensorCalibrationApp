@@ -40,6 +40,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
@@ -73,6 +74,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
@@ -106,6 +108,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
@@ -177,6 +180,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
@@ -210,6 +214,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
@@ -243,6 +248,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
                                         Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
