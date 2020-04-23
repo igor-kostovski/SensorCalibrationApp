@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SensorCalibrationApp.FrameConfiguration"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -13,6 +14,7 @@
             <b:CallMethodAction TargetObject="{Binding}" MethodName="Load"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
+
     <UserControl.Resources>
         <Style x:Key="Style" TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="{StaticResource BrushBlue}"></Setter>
@@ -21,6 +23,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         </Style>
+        <conv:ValueToHex x:Key="ValueToHex"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -135,7 +138,7 @@
                                        Foreground="{StaticResource BrushBlue}" 
                                        VerticalAlignment="Center"/>
                             <TextBlock VerticalAlignment="Center"
-                                       Text="{Binding Frame.FrameId}"
+                                       Text="{Binding Frame.FrameId, Converter={StaticResource ValueToHex}}"
                                        Foreground="{StaticResource BrushGreen}"
                                        FontSize="18"
                                        FontWeight="Bold"/>
@@ -237,7 +240,7 @@
                                 </Style>
                             </materialDesign:DataGridTextColumn.HeaderStyle>
                         </materialDesign:DataGridTextColumn>
-                        <materialDesign:DataGridTextColumn
+                        <!--<materialDesign:DataGridTextColumn
                             Binding="{Binding Time}"
                             Header="Time"
                             MaxLength="255"
@@ -247,7 +250,7 @@
                                     <Setter Property="ToolTip" Value="Time" />
                                 </Style>
                             </materialDesign:DataGridTextColumn.HeaderStyle>
-                        </materialDesign:DataGridTextColumn>
+                        </materialDesign:DataGridTextColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
