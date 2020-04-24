@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
@@ -8,21 +7,22 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 {
     public class CommandService : ICommandService
     {
-        private IDevice _device;
-        private EventManager _eventManager;
-
+        private readonly EventManager _eventManager;
         private readonly ILinProvider _linProvider;
 
-        public CommandService(ILinProvider provider)
+        public CommandService(ILinProvider provider, EventManager eventManager)
         {
             _linProvider = provider;
+            _eventManager = eventManager;
+
+            AssignEvents();
         }
+
+        private IDevice _device;
 
         public void Load(IDevice device)
         {
             _device = device;
-            _eventManager = new EventManager();
-            AssignEvents();
         }
 
         private void AssignEvents()
