@@ -8,9 +8,9 @@ namespace SensorCalibrationApp
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private readonly DeviceSelectionViewModel _deviceSelectionViewModel = new DeviceSelectionViewModel();
-        private readonly FrameConfigurationViewModel _frameConfigurationViewModel = new FrameConfigurationViewModel();
-        private readonly DiagnosticsViewModel _diagnosticsViewModel = new DiagnosticsViewModel();
+        private readonly DeviceSelectionViewModel _deviceSelectionViewModel;
+        private readonly FrameConfigurationViewModel _frameConfigurationViewModel;
+        private readonly DiagnosticsViewModel _diagnosticsViewModel;
 
         private List<ViewModelBase> _navigationStack;
 
@@ -31,10 +31,16 @@ namespace SensorCalibrationApp
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
+            FrameConfigurationViewModel frameConfigurationViewModel, 
+            DiagnosticsViewModel diagnosticsViewModel)
         {
-            Forward = new RelayCommand(OnForward, CanGoForward);
-            Back = new RelayCommand(OnBack, CanGoBack);
+            _deviceSelectionViewModel = deviceSelectionViewModel;
+            _frameConfigurationViewModel = frameConfigurationViewModel;
+            _diagnosticsViewModel = diagnosticsViewModel;
+
+            InitializeCommands();
+            InitializeNavigationStack();
 
             CurrentViewModel = _deviceSelectionViewModel;
 
@@ -43,8 +49,12 @@ namespace SensorCalibrationApp
                 _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
                 Forward.RaiseCanExecuteChanged();
             };
+        }
 
-            InitializeNavigationStack();
+        private void InitializeCommands()
+        {
+            Forward = new RelayCommand(OnForward, CanGoForward);
+            Back = new RelayCommand(OnBack, CanGoBack);
         }
 
         private void InitializeNavigationStack()
