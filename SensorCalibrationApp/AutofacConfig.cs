@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Data;
+using System.Threading;
+using Autofac;
 using RimacLINBusInterfacesLib.LinInterfaces.PEAK;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Enums;
@@ -8,6 +10,7 @@ using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
+using SensorCalibrationApp.FileDb;
 using SensorCalibrationApp.FileDb.Services;
 using SensorCalibrationApp.FrameConfiguration;
 
@@ -19,13 +22,24 @@ namespace SensorCalibrationApp
         {
             var builder = new ContainerBuilder();
 
-            var container = builder.Build();
-
+            //registering domain types
             builder.RegisterType<CommandService>().As<ICommandService>().SingleInstance();
+            builder.RegisterType<EventManager>().AsSelf().SingleInstance();
+
+            //set in config file whether you want FileDb or EF and depending on that variable register types
+            //if(DbType == FileDb)
+            //    //register FileDb
+            //else
+            //    //register EF 
+
+            //registering FileDb types
             builder.RegisterType<FrameService>().As<IFrameService>().SingleInstance();
             builder.RegisterType<EcuService>().As<IEcuService>().SingleInstance();
-            builder.RegisterType<EventManager>().SingleInstance();
+            builder.RegisterType<FileDatabase>().AsSelf().SingleInstance();
 
+            //registering EF types -> to be implemented
+
+            //registering RimacLinBusInterfaces types
             var linConfig = new LinConfiguration
             {
                 BaudRate = BaudRate.Baud_192,
@@ -33,11 +47,16 @@ namespace SensorCalibrationApp
             };
             builder.Register(b => new PeakLinInterface(linConfig)).As<ILinProvider>().SingleInstance();
 
-            builder.RegisterType<DeviceSelectionViewModel>().SingleInstance();
-            builder.RegisterType<FrameConfigurationViewModel>().SingleInstance();
-            builder.RegisterType<DiagnosticsViewModel>().SingleInstance();
+            //registering view model types
+            builder.RegisterType<DeviceSelectionViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<FrameConfigurationViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<DiagnosticsViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
 
-            return container;
+            //registering main view
+            builder.Register(b => new MainWindow(b.Resolve<MainWindowViewModel>())).AsSelf().SingleInstance();
+
+            return builder.Build();
         }
     }
 }
