@@ -1,10 +1,6 @@
-﻿using RimacLINBusInterfacesLib.LinInterfaces.PEAK;
-using SensorCalibrationApp.Common;
-using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.Domain;
+﻿using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Factories;
-using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services.CommandService;
 
@@ -13,8 +9,13 @@ namespace SensorCalibrationApp.FrameConfiguration
     class FrameConfigurationViewModel : ViewModelBase
     {
         private readonly ICommandService _commandService;
-        private readonly ILinProvider _linProvider;
         private readonly EventManager _eventManager;
+
+        public FrameConfigurationViewModel(ICommandService commandService, EventManager eventManager)
+        {
+            _commandService = commandService;
+            _eventManager = eventManager;
+        }
 
         private DeviceType _frameDeviceType;
 
@@ -27,18 +28,6 @@ namespace SensorCalibrationApp.FrameConfiguration
                 _frame = value;
                 OnPropertyChanged();
             }
-        }
-
-        public FrameConfigurationViewModel()
-        {
-            var linConfig = new LinConfiguration
-            {
-                BaudRate = BaudRate.Baud_192,
-                HardwareMode = HardwareMode.Master
-            };
-            _linProvider = new PeakLinInterface(linConfig);
-            _commandService = new CommandService(_linProvider);
-            _eventManager = new EventManager();
         }
 
         public void Set(FrameModel frame, DeviceType device)
