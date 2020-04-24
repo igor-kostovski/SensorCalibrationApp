@@ -73,7 +73,10 @@ namespace SensorCalibrationApp
             var backIndex = --currentIndex;
 
             if(backIndex > -1)
+            {
+                CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(backIndex);
+            }
         }
 
         private bool CanGoBack()
@@ -87,7 +90,10 @@ namespace SensorCalibrationApp
             var forwardIndex = ++currentIndex;
 
             if(forwardIndex < _navigationStack.Count)
+            {
+                CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(forwardIndex);
+            }
         }
 
         private bool CanGoForward()
