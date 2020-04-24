@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using SensorCalibrationApp.Domain.Devices;
 using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
 {
-    public class CommandService : ICommandService
+    public class CommandService : DeviceBound, ICommandService
     {
         private readonly EventManager _eventManager;
         private readonly ILinProvider _linProvider;
@@ -16,13 +17,7 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
             _eventManager = eventManager;
 
             AssignEvents();
-        }
-
-        private IDevice _device;
-
-        public void Load(IDevice device)
-        {
-            _device = device;
+            _linProvider.OpenConnection();
         }
 
         private void AssignEvents()
@@ -33,8 +28,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task ReadById()
         {
-            _eventManager.UseDeviceParser = false;
-
             return Task.Run(() =>
             {
                 var message = MessageFactory.CreateReadByIdMessage();
@@ -46,8 +39,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task UpdateFrameId(byte newFrameId)
         {
-            _eventManager.UseDeviceParser = false;
-
             return Task.Run(() =>
             {
                 _linProvider.GetPIDFor(ref newFrameId);
@@ -60,8 +51,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
         public Task SendDeviceSpecificFrame(FrameModel frame)
         {
-            _eventManager.UseDeviceParser = true;
-
             return Task.Run(() =>
             {
                 var message = _device.CreateMessageFor(frame);

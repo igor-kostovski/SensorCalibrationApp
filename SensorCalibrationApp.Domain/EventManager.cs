@@ -1,19 +1,10 @@
 ﻿using System;
-using SensorCalibrationApp.Domain.Interfaces;
+using SensorCalibrationApp.Domain.Devices;
 
 namespace SensorCalibrationApp.Domain
 {
-    public class EventManager
+    public class EventManager : DeviceBound
     {
-        private IDevice _device;
-
-        public bool UseDeviceParser { get; set; }
-
-        public void Load(IDevice device)
-        {
-            _device = device;
-        }
-
         public void HandleError(object sender, string message)
         {
             Console.WriteLine($"Error: {message}");
@@ -23,7 +14,7 @@ namespace SensorCalibrationApp.Domain
         {
             var message = "";
 
-            if (UseDeviceParser)
+            if (_device != null)
                 ReadWithDevice(data, ref message);
             else
                 message = BitConverter.ToString(data).Replace('-', '|');

@@ -1,6 +1,6 @@
-﻿using SensorCalibrationApp.Domain;
+﻿using System.Threading;
+using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Enums;
-using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services.CommandService;
 
@@ -18,6 +18,8 @@ namespace SensorCalibrationApp.FrameConfiguration
         }
 
         private DeviceType _frameDeviceType;
+        private volatile bool _shouldTxThreadBeAlive;
+        private Thread _txThread;
 
         private FrameModel _frame;
         public FrameModel Frame
@@ -38,10 +40,48 @@ namespace SensorCalibrationApp.FrameConfiguration
 
         public void Load()
         {
-            var device = DeviceFactory.CreateDevice(_frameDeviceType);
+            InjectDevice();
+            SetupTransmitThread();
+        }
 
-            _commandService.Load(device);
-            _eventManager.Load(device);
+        public override void Unload()
+        {
+            RemoveDevice();
+            RemoveTransmitThread();
+        }
+
+        private void SetupTransmitThread()
+        {
+            _shouldTxThreadBeAlive = true;
+            _txThread = new Thread(async () =>
+            {
+                while (_shouldTxThreadBeAlive)
+                {
+                    await _commandService.SendDeviceSpecificFrame(Frame);
+                    Thread.Sleep(1000);
+                }
+            });
+
+            _txThread.IsBackground = true;
+            _txThread.Start();
+        }
+
+        private void InjectDevice()
+        {
+            _commandService.SetDevice(_frameDeviceType);
+            _eventManager.SetDevice(_frameDeviceType);
+        }
+
+        private void RemoveTransmitThread()
+        {
+            _shouldTxThreadBeAlive = false;
+            _txThread = null;
+        }
+
+        private void RemoveDevice()
+        {
+            _commandService.ResetDevice();
+            _eventManager.ResetDevice();
         }
     }
 }
