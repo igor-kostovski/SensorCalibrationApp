@@ -2,20 +2,16 @@
 using System.Collections.ObjectModel;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
-using SensorCalibrationApp.FileDb;
-using SensorCalibrationApp.FileDb.Services;
 
 namespace SensorCalibrationApp.DeviceSelection
 {
     class DeviceSelectionViewModel : ViewModelBase
     {
-        private FileDatabase _db;
-        private IEcuService _ecuService;
+        private readonly IEcuService _ecuService;
 
-        public DeviceSelectionViewModel()
+        public DeviceSelectionViewModel(IEcuService ecuService)
         {
-            _db = new FileDatabase();
-            _ecuService = new EcuService(_db);
+            _ecuService = ecuService;
             IsDeviceSupported = true;
         }
 
