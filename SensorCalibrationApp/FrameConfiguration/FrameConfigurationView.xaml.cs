@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,6 +24,12 @@ namespace SensorCalibrationApp.FrameConfiguration
         public FrameConfigurationView()
         {
             InitializeComponent();
+        }
+
+        private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+        {
+                Storyboard sb = ((Grid) sender).Resources["LoadedStoryboard"] as Storyboard;
+                sb.Begin();
         }
     }
 }

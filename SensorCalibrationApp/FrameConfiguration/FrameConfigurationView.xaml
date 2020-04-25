@@ -196,61 +196,58 @@
                 </Grid>
 
                 <DataGrid Grid.Row="2" 
-                          Grid.Column="1" 
-                          x:Name="DataGrid"
-                          Background="Transparent"
-                          Foreground="{StaticResource BrushBlue}"
-                          CanUserSortColumns="False"
-                          CanUserAddRows="False"
+                          Grid.Column="1"
                           AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserResizeColumns="False"
+                          CanUserReorderColumns="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
                           ColumnWidth="*"
-                          HorizontalScrollBarVisibility="Disabled"
-                          VerticalScrollBarVisibility="Disabled"
-                          RowBackground="Transparent"
-                          Margin="0,20,0,0">
+                          ItemsSource="{Binding Signals}">
                     <DataGrid.Columns>
-                        <materialDesign:DataGridTextColumn
-                          Binding="{Binding Pressure}"
-                          Header="Press"
-                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
-                            <materialDesign:DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
-                                    <Setter Property="ToolTip" Value="Pressure" />
-                                </Style>
-                            </materialDesign:DataGridTextColumn.HeaderStyle>
-                        </materialDesign:DataGridTextColumn>
-                        <materialDesign:DataGridTextColumn
-                          Binding="{Binding ExternalTemperature}"
-                          Header="ExtTemp"
-                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
-                            <materialDesign:DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
-                                    <Setter Property="ToolTip" Value="External temperature" />
-                                </Style>
-                            </materialDesign:DataGridTextColumn.HeaderStyle>
-                        </materialDesign:DataGridTextColumn>
-                        <materialDesign:DataGridTextColumn
-                          Binding="{Binding InternalTemperature}"
-                          Header="IntTemp"
-                          MaxLength="255"
-                          EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
-                            <materialDesign:DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
-                                    <Setter Property="ToolTip" Value="Internal temperature" />
-                                </Style>
-                            </materialDesign:DataGridTextColumn.HeaderStyle>
-                        </materialDesign:DataGridTextColumn>
-                        <!--<materialDesign:DataGridTextColumn
-                            Binding="{Binding Time}"
-                            Header="Time"
-                            MaxLength="255"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
-                            <materialDesign:DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource Style}">
-                                    <Setter Property="ToolTip" Value="Time" />
-                                </Style>
-                            </materialDesign:DataGridTextColumn.HeaderStyle>
-                        </materialDesign:DataGridTextColumn>-->
+                        <DataGridTemplateColumn Header="Data" HeaderStyle="{StaticResource Style}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type local:SignalValue}">
+                                    <Grid Loaded="FrameworkElement_OnLoaded" 
+                                          x:Name="TemplateRoot" 
+                                          Opacity="0">
+                                        <Grid.Resources>
+                                            <Storyboard x:Key="LoadedStoryboard">
+                                                <DoubleAnimation Storyboard.TargetName="TemplateRoot"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 BeginTime="0:0:0"
+                                                                 Duration="0:0:0.3"
+                                                                 To="1" />
+                                            </Storyboard>
+                                        </Grid.Resources>
+                                        <Border x:Name="Border"
+                                                BorderThickness="4"
+                                                CornerRadius="10"
+                                                Padding="10"
+                                                Background="{StaticResource BrushBlue}"
+                                                Opacity="0.8">
+                                            <TextBlock Text="{Binding Data}"
+                                                       Foreground="White" 
+                                                       FontSize="15"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Time" HeaderStyle="{StaticResource Style}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type local:SignalValue}">
+                                    <TextBlock Text="{Binding Time}"
+                                               Foreground="{StaticResource BrushBlue}" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

@@ -78,14 +78,14 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
         private void SetClientFilter()
         {
-            var result = PLinApi.RegisterFrameId(linClientHandle, linHardwareHandle, 0x27, 0x3D);
+            var result = PLinApi.RegisterFrameId(linClientHandle, linHardwareHandle, 0x01, 0x3D);
             if (result != LinError.Ok)
                 throw new ConnectionError($"Error while setting client filter: {result.ToString()}");
         }
 
         protected void KeepAlive()
         {
-            var result = PLinApi.StartKeepAlive(linClientHandle, linHardwareHandle, 0x00, 10);
+            var result = PLinApi.StartKeepAlive(linClientHandle, linHardwareHandle, 0x00, 1000);
             if (result != LinError.Ok)
                 throw new ConnectionError($"Error while starting a keep alive session: {result.ToString()}");
         }

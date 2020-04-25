@@ -2,7 +2,7 @@
 using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Interfaces;
 
-namespace SensorCalibrationApp.Domain.Devices
+namespace SensorCalibrationApp.Domain
 {
     public abstract class DeviceBound : IDeviceBound
     {

@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;
@@ -32,6 +34,17 @@ namespace SensorCalibrationApp.FrameConfiguration
             }
         }
 
+        private ObservableCollection<SignalValue> _signals;
+        public ObservableCollection<SignalValue> Signals
+        {
+            get { return _signals;}
+            set
+            {
+                _signals = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void Set(FrameModel frame, DeviceType device)
         {
             Frame = frame;
@@ -42,12 +55,35 @@ namespace SensorCalibrationApp.FrameConfiguration
         {
             InjectDevice();
             SetupTransmitThread();
+
+            _eventManager.PushData += OnNewData;
+            Signals = new ObservableCollection<SignalValue>();
         }
 
         public override void Unload()
         {
             RemoveDevice();
             RemoveTransmitThread();
+
+            _eventManager.PushData -= OnNewData;
+        }
+
+        private void OnNewData(object sender, string signal)
+        {
+            if(Signals.Count > 4)
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    Signals.Clear();
+                });
+
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                Signals.Add(new SignalValue
+                {
+                    Data = signal,
+                    Time = DateTime.Now.ToString("HH:mm:ss")
+                });
+            });
         }
 
         private void SetupTransmitThread()

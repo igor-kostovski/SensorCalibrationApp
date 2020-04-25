@@ -5,9 +5,12 @@ namespace SensorCalibrationApp.Domain
 {
     public class EventManager : DeviceBound
     {
+        public event EventHandler<string> PushData;
+        public event EventHandler<string> PushError;
+        
         public void HandleError(object sender, string message)
         {
-            Console.WriteLine($"Error: {message}");
+            PushError?.Invoke(this, message);
         }
 
         public void HandleRead(object sender, byte[] data)
@@ -19,7 +22,7 @@ namespace SensorCalibrationApp.Domain
             else
                 message = BitConverter.ToString(data).Replace('-', '|');
 
-            Console.WriteLine($"Received: {message}");
+            PushData?.Invoke(this, message);
         }
 
         private void ReadWithDevice(byte[] data, ref string message)

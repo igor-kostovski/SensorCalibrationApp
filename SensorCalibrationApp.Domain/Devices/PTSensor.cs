@@ -16,8 +16,8 @@ namespace SensorCalibrationApp.Domain.Devices
 
         private List<PTSensorValue> Data { get; }
 
-        private Func<int, double> GetPress = x => x * 0.0088;
-        private Func<int, double> GetTemp = x => x * 0.1 - 40;
+        private Func<int, string> GetPress = x => $"{x * 0.0088} bar";
+        private Func<int, string> GetTemp = x => $"{x * 0.1 - 40} °C";
 
         public PTSensor()
         {
