@@ -83,6 +83,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutofacConfig.cs" />
+    <Compile Include="Controls\ErrorBar.xaml.cs">
+      <DependentUpon>ErrorBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Page Include="Controls\ErrorBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\NavigationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

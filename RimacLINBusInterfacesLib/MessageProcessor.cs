@@ -16,7 +16,7 @@ namespace RimacLINBusInterfacesLib
                 case LinError.ReceiveQueueEmpty:
                     return (MessageProcessorResult.EmptyQueue, null);
                 default:
-                    return (MessageProcessorResult.Error,$"{result.ToString()}");
+                    return (MessageProcessorResult.Error,$"Error while reading message: {result.ToString()}");
             }
         }
 
@@ -27,7 +27,7 @@ namespace RimacLINBusInterfacesLib
                 case MessageType.Standard:
                     return ProcessStandardMessage(message);
                 default:
-                    return (MessageProcessorResult.Info, $"{message.Type.ToString()}");
+                    return (MessageProcessorResult.Info, $"Error while reading message: {message.Type.ToString()}");
             }
         }
 
@@ -43,7 +43,7 @@ namespace RimacLINBusInterfacesLib
                 case MessageErrors.Ok:
                     return (MessageProcessorResult.Regular, null);
                 default:
-                    return (MessageProcessorResult.Error, $"{error.ToString()}");
+                    return (MessageProcessorResult.Error, $"Error while reading message: {error.ToString()}");
             }
         }
 

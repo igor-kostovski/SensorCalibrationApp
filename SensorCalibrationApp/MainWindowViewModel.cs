@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SensorCalibrationApp.Common;
 using SensorCalibrationApp.DeviceSelection;
 using SensorCalibrationApp.Diagnostics;
+using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.FrameConfiguration;
 
 namespace SensorCalibrationApp
@@ -11,6 +13,7 @@ namespace SensorCalibrationApp
         private readonly DeviceSelectionViewModel _deviceSelectionViewModel;
         private readonly FrameConfigurationViewModel _frameConfigurationViewModel;
         private readonly DiagnosticsViewModel _diagnosticsViewModel;
+        private readonly EventManager _eventManager;
 
         private List<ViewModelBase> _navigationStack;
 
@@ -28,21 +31,49 @@ namespace SensorCalibrationApp
             }
         }
 
+        private ErrorMessage _errorMessage;
+        public ErrorMessage ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
 
         public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
             FrameConfigurationViewModel frameConfigurationViewModel, 
-            DiagnosticsViewModel diagnosticsViewModel)
+            DiagnosticsViewModel diagnosticsViewModel,
+            EventManager eventManager)
         {
+            #region InjectingDependencies
+
             _deviceSelectionViewModel = deviceSelectionViewModel;
             _frameConfigurationViewModel = frameConfigurationViewModel;
             _diagnosticsViewModel = diagnosticsViewModel;
+            _eventManager = eventManager;
+
+            #endregion
 
             InitializeCommands();
             InitializeNavigationStack();
 
             CurrentViewModel = _navigationStack.First();
+
+            AssignEvents();
+        }
+
+        private void AssignEvents()
+        {
+            _eventManager.PushError += (sender, error) =>
+            {
+                ErrorMessage = new ErrorMessage(error);
+            };
 
             _deviceSelectionViewModel.SelectionDone += (sender, args) =>
             {
