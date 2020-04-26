@@ -57,5 +57,11 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
                 _linProvider.Send(message);
             });
         }
+
+        public void Dispose()
+        {
+            _linProvider.OnRead -= _eventManager.HandleRead;
+            _linProvider.OnError -= _eventManager.HandleError;
+        }
     }
 }

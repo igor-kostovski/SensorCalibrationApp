@@ -62,8 +62,8 @@ namespace SensorCalibrationApp.FrameConfiguration
 
         public override void Unload()
         {
-            RemoveDevice();
             RemoveTransmitThread();
+            RemoveDevice();
 
             _eventManager.PushData -= OnNewData;
         }

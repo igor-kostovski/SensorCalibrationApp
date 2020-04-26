@@ -42,7 +42,7 @@ namespace SensorCalibrationApp
             InitializeCommands();
             InitializeNavigationStack();
 
-            CurrentViewModel = _deviceSelectionViewModel;
+            CurrentViewModel = _navigationStack.First();
 
             _deviceSelectionViewModel.SelectionDone += (sender, args) =>
             {
@@ -100,6 +100,11 @@ namespace SensorCalibrationApp
         {
             return _deviceSelectionViewModel.SelectedFrame != null
                 && CurrentViewModel != _navigationStack.Last();
+        }
+
+        public override void Unload()
+        {
+            CurrentViewModel.Unload();
         }
     }
 }
