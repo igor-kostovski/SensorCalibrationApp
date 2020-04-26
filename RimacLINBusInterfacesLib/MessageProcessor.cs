@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Extensions;
 using SensorCalibrationApp.Common.Structs;
 
 namespace RimacLINBusInterfacesLib
@@ -16,7 +17,7 @@ namespace RimacLINBusInterfacesLib
                 case LinError.ReceiveQueueEmpty:
                     return (MessageProcessorResult.EmptyQueue, null);
                 default:
-                    return (MessageProcessorResult.Error,$"Error while reading message: {result.ToString()}");
+                    return (MessageProcessorResult.Error,$"Error while reading message: {result.ToString().ToSentence()}");
             }
         }
 
@@ -27,7 +28,7 @@ namespace RimacLINBusInterfacesLib
                 case MessageType.Standard:
                     return ProcessStandardMessage(message);
                 default:
-                    return (MessageProcessorResult.Info, $"Error while reading message: {message.Type.ToString()}");
+                    return (MessageProcessorResult.Info, $"Error while reading message: {message.Type.ToString().ToSentence()}");
             }
         }
 
@@ -43,7 +44,7 @@ namespace RimacLINBusInterfacesLib
                 case MessageErrors.Ok:
                     return (MessageProcessorResult.Regular, null);
                 default:
-                    return (MessageProcessorResult.Error, $"Error while reading message: {error.ToString()}");
+                    return (MessageProcessorResult.Error, $"Error while reading message: {error.ToString().ToSentence()}");
             }
         }
 

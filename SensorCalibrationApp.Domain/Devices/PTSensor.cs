@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Extensions;
 using SensorCalibrationApp.Common.Structs;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
@@ -76,7 +77,7 @@ namespace SensorCalibrationApp.Domain.Devices
                 var binaryStr = String.Concat(x.Binary);
                 var value = Convert.ToInt32(binaryStr, 2);
 
-                messages.Add($"{x.Type.ToString()}: {Get(value)}");
+                messages.Add($"{x.Type.ToString().ToSentence()}: {Get(value)}");
             });
 
             Message = string.Join("\n", messages);
