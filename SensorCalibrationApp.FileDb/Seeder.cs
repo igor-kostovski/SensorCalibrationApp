@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.FileDb
@@ -31,12 +33,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 3,
                                 Name = "PT sensors evaporator outlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel
@@ -62,12 +67,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 4,
                                 Name = "PT sensors compressor outlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel
@@ -93,12 +101,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 5,
                                 Name = "PT sensors compressor inlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel
@@ -162,12 +173,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 3,
                                 Name = "PT sensors evaporator outlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel
@@ -193,12 +207,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 4,
                                 Name = "PT sensors compressor outlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel
@@ -224,12 +241,15 @@ namespace SensorCalibrationApp.FileDb
                             {
                                 Id = 5,
                                 Name = "PT sensors compressor inlet",
+                                Type = DeviceType.PTSensor,
                                 Frames = new List<FrameModel>
                                 {
                                     new FrameModel
                                     {
                                         Id = 1,
                                         Name = "DTSs_01",
+                                        FrameId = 0x27,
+                                        Direction = Direction.Subscriber,
                                         Signals = new List<SignalModel>
                                         {
                                             new SignalModel

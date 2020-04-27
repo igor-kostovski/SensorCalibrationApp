@@ -4,9 +4,253 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.FrameConfiguration"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="Load"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Style x:Key="Style" TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="{StaticResource BrushBlue}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+        <conv:ValueToHex x:Key="ValueToHex"/>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Frame config"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Grid.Row="0" 
+                             Grid.Column="0" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" 
+                            Background="{StaticResource BrushBlue}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Frame info" 
+                               FontSize="25" 
+                               Foreground="{StaticResource BrushBlue}" 
+                               FontWeight="Bold"/>
+                    <materialDesign:PackIcon Grid.Column="1" 
+                                             HorizontalAlignment="Right" 
+                                             Foreground="{StaticResource BrushYellow}" 
+                                             Kind="InfoCircleOutline" 
+                                             Height="32" 
+                                             Width="32"/>
+                </Grid>
+
+                <ListView Grid.Row="2" 
+                          Grid.Column="1" 
+                          VerticalAlignment="Center">
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       Text="Name:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}" 
+                                       VerticalAlignment="Center"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding Frame.Name}"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       VerticalAlignment="Center" 
+                                       Text="Direction:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding Frame.Direction}"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="6" 
+                                     Width="6" 
+                                     Fill="{StaticResource BrushBlue}" 
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Margin="10,0,5,0" 
+                                       Text="ID:" 
+                                       FontSize="18" 
+                                       FontWeight="Heavy" 
+                                       Foreground="{StaticResource BrushBlue}" 
+                                       VerticalAlignment="Center"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{Binding Frame.FrameId, Converter={StaticResource ValueToHex}}"
+                                       Foreground="{StaticResource BrushGreen}"
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="0" 
+                             Grid.RowSpan="2" 
+                             Grid.Column="1" 
+                             Background="#fff" 
+                             UniformCornerRadius="5" 
+                             Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Grid.RowSpan="4" 
+                            Orientation="Horizontal">
+                    <Border BorderThickness="0" 
+                            CornerRadius="0" 
+                            Background="{StaticResource BrushGreen}">
+                        <Ellipse Height="10" Width="10"/>
+                    </Border>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" 
+                               Text="Signals" 
+                               FontSize="25" 
+                               Foreground="{StaticResource BrushGreen}" 
+                               FontWeight="Bold"/>
+                    <materialDesign:PackIcon Grid.Column="1" 
+                                             HorizontalAlignment="Right" 
+                                             Foreground="{StaticResource BrushYellow}" 
+                                             Kind="ChartLine" 
+                                             Height="32" 
+                                             Width="32"/>
+                </Grid>
+
+                <DataGrid Grid.Row="2" 
+                          Grid.Column="1"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserResizeColumns="False"
+                          CanUserReorderColumns="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True"
+                          ColumnWidth="*"
+                          ItemsSource="{Binding Signals}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Data" HeaderStyle="{StaticResource Style}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type local:SignalValue}">
+                                    <Grid Loaded="FrameworkElement_OnLoaded" 
+                                          x:Name="TemplateRoot" 
+                                          Opacity="0">
+                                        <Grid.Resources>
+                                            <Storyboard x:Key="LoadedStoryboard">
+                                                <DoubleAnimation Storyboard.TargetName="TemplateRoot"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 BeginTime="0:0:0"
+                                                                 Duration="0:0:0.3"
+                                                                 To="1" />
+                                            </Storyboard>
+                                        </Grid.Resources>
+                                        <Border x:Name="Border"
+                                                BorderThickness="4"
+                                                CornerRadius="10"
+                                                Padding="10"
+                                                Background="{StaticResource BrushBlue}"
+                                                Opacity="0.8">
+                                            <TextBlock Text="{Binding Data}"
+                                                       Foreground="White" 
+                                                       FontSize="15"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Time" HeaderStyle="{StaticResource Style}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type local:SignalValue}">
+                                    <TextBlock Text="{Binding Time}"
+                                               Foreground="{StaticResource BrushBlue}" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

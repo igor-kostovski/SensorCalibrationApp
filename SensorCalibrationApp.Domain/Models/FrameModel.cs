@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using SensorCalibrationApp.Common.Enums;
 
 namespace SensorCalibrationApp.Domain.Models
 {
@@ -8,5 +7,6 @@ namespace SensorCalibrationApp.Domain.Models
     {
         public byte FrameId { get; set; }
         public List<SignalModel> Signals { get; set; }
+        public Direction Direction { get; set; }
     }
 }
