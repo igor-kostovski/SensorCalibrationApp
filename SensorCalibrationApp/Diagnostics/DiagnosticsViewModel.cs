@@ -1,4 +1,5 @@
 ﻿using SensorCalibrationApp.Domain;
+using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services.CommandService;
 
 namespace SensorCalibrationApp.Diagnostics
@@ -14,6 +15,17 @@ namespace SensorCalibrationApp.Diagnostics
             _eventManager = eventManager;
         }
 
+        private FrameModel _frame;
+        public FrameModel Frame
+        {
+            get { return _frame;}
+            set
+            {
+                _frame = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void Load()
         {
             _eventManager.PushData += OnNewData;
@@ -22,6 +34,11 @@ namespace SensorCalibrationApp.Diagnostics
         public override void Unload()
         {
             _eventManager.PushData -= OnNewData;
+        }
+
+        public void Set(FrameModel frame)
+        {
+            Frame = frame;
         }
 
         private void OnNewData(object sender, string e)

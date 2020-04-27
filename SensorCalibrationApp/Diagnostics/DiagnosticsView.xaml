@@ -10,7 +10,7 @@
 
     <materialDesign:Card Background="#fff"
                          UniformCornerRadius="5"
-                         Margin="0,0,0,10">
+                         Margin="20">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
@@ -52,7 +52,7 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type local:Command}">
+                    <DataTemplate>
                         <Border
                                     x:Name="Border"
                                     BorderThickness="4"
@@ -67,8 +67,7 @@
                                 </Grid.ColumnDefinitions>
                                 <CheckBox VerticalAlignment="Center"
                                           IsChecked="{Binding IsSelected}"
-                                          Background="{StaticResource BrushYellow}"
-                                          Click="ButtonBase_OnClick"/>
+                                          Background="{StaticResource BrushYellow}"/>
                                 <StackPanel Grid.Column="1"
                                             Margin="8 0 0 0" 
                                             VerticalAlignment="Center">
@@ -133,8 +132,6 @@
                                     BorderThickness="1" 
                                     Margin="1">
                                 <TextBox VerticalAlignment="Center" 
-                                         PreviewKeyUp="UIElement_OnPreviewKeyUp" 
-                                         LostFocus="UIElement_OnLostFocus" 
                                          IsEnabled="{Binding IsEnabled}" 
                                          HorizontalAlignment="Center" 
                                          Text="{Binding Value, StringFormat='{}{0:#}', Mode=TwoWay}" />
@@ -149,9 +146,7 @@
                         Width="200" 
                         Background="Transparent" 
                         Foreground="{StaticResource BrushBlue}" 
-                        Content="Run" 
-                        x:Name="RunButton" 
-                        Click="RunButton_OnClick"/>
+                        Content="Run" />
 
                 <TextBlock Grid.Column="1" 
                            Grid.Row="3" 
@@ -178,8 +173,6 @@
                                     BorderThickness="1" 
                                     Margin="1">
                                 <TextBox VerticalAlignment="Center" 
-                                         PreviewKeyUp="UIElement_OnPreviewKeyUp" 
-                                         LostFocus="UIElement_OnLostFocus" 
                                          IsEnabled="{Binding IsEnabled}" 
                                          HorizontalAlignment="Center" 
                                          Text="{Binding Value, StringFormat='{}{0:#}', Mode=TwoWay}" />

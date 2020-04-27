@@ -78,6 +78,7 @@ namespace SensorCalibrationApp
             _deviceSelectionViewModel.SelectionDone += (sender, args) =>
             {
                 _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
+                _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
                 Forward.RaiseCanExecuteChanged();
             };
         }
