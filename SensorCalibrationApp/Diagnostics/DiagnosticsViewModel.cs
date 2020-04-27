@@ -1,5 +1,8 @@
-﻿using SensorCalibrationApp.Domain;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Models;
+using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
 
 namespace SensorCalibrationApp.Diagnostics
@@ -8,11 +11,13 @@ namespace SensorCalibrationApp.Diagnostics
     {
         private readonly ICommandService _commandService;
         private readonly EventManager _eventManager;
+        private readonly IFrameService _frameService;
 
-        public DiagnosticsViewModel(ICommandService commandService, EventManager eventManager)
+        public DiagnosticsViewModel(ICommandService commandService, EventManager eventManager, IFrameService frameService)
         {
             _commandService = commandService;
             _eventManager = eventManager;
+            _frameService = frameService;
         }
 
         private FrameModel _frame;
@@ -26,9 +31,23 @@ namespace SensorCalibrationApp.Diagnostics
             }
         }
 
+        private ObservableCollection<Command> _commands;
+        public ObservableCollection<Command> Commands
+        {
+            get { return _commands; }
+            set
+            {
+                _commands = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private byte _frameId;
+
         public void Load()
         {
             _eventManager.PushData += OnNewData;
+            Commands = CommandsFactory.CreateCommands(ref _frameId);
         }
 
         public override void Unload()
@@ -39,6 +58,7 @@ namespace SensorCalibrationApp.Diagnostics
         public void Set(FrameModel frame)
         {
             Frame = frame;
+            _frameId = Frame.FrameId;
         }
 
         private void OnNewData(object sender, string e)

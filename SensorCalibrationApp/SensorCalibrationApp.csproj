@@ -93,6 +93,7 @@
     <Compile Include="Converters\ValueToStyleOrContent\ValueToContentConverter.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleConverter.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleOrContentConverterBase.cs" />
+    <Compile Include="Diagnostics\CommandsFactory.cs" />
     <Compile Include="Enums\Screen.cs" />
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
