@@ -39,4 +39,41 @@ namespace SensorCalibrationApp
             _executeMethod?.Invoke();
         }
     }
+
+    public class RelayCommand<T> : ICommand
+    {
+        private readonly Action<T> _parameterizedExecuteMethod;
+        private readonly Func<T, bool> _parameterizedCanExecuteMethod;
+
+        public RelayCommand(Action<T> executeMethod)
+        {
+            _parameterizedExecuteMethod = executeMethod;
+        }
+
+        public RelayCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
+        {
+            _parameterizedExecuteMethod = executeMethod;
+            _parameterizedCanExecuteMethod = canExecuteMethod;
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            if (_parameterizedCanExecuteMethod == null)
+                return _parameterizedExecuteMethod != null;
+
+            return _parameterizedCanExecuteMethod((T)parameter);
+        }
+
+        public event EventHandler CanExecuteChanged = delegate { };
+
+        public void Execute(object parameter)
+        {
+            _parameterizedExecuteMethod?.Invoke((T)parameter);
+        }
+    }
 }

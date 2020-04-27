@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Linq;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
@@ -18,6 +18,13 @@ namespace SensorCalibrationApp.Diagnostics
             _commandService = commandService;
             _eventManager = eventManager;
             _frameService = frameService;
+
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
+        {
+            Select = new RelayCommand<string>(OnSelect);
         }
 
         private FrameModel _frame;
@@ -42,6 +49,19 @@ namespace SensorCalibrationApp.Diagnostics
             }
         }
 
+        private Command _selectedCommand;
+        public Command SelectedCommand
+        {
+            get { return _selectedCommand;}
+            set
+            {
+                _selectedCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand<string> Select { get; set; }
+
         private byte _frameId;
 
         public void Load()
@@ -64,6 +84,15 @@ namespace SensorCalibrationApp.Diagnostics
         private void OnNewData(object sender, string e)
         {
             throw new System.NotImplementedException();
+        }
+
+        private void OnSelect(string name)
+        {
+            var selectedCommands = Commands.Where(x => x.Name != name && x.IsSelected).ToList();
+            if (selectedCommands.Any())
+                selectedCommands.ForEach(x => x.IsSelected = false);
+
+            SelectedCommand = Commands.SingleOrDefault(x => x.IsSelected);
         }
     }
 }
