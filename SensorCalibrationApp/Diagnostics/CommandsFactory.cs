@@ -55,9 +55,9 @@ namespace SensorCalibrationApp.Diagnostics
 
     public static class CommandsFactory
     {
-        public static ObservableCollection<Command> CreateCommands(ref byte frameId)
+        public static ObservableCollection<Command> CreateCommands(byte frameId)
         {
-            var assignFrameId = CreateAssignFrameIdCommand(ref frameId);
+            var assignFrameId = CreateAssignFrameIdCommand(frameId);
             var readById = CreateReadByIdCommand();
 
             return new ObservableCollection<Command>
@@ -111,7 +111,7 @@ namespace SensorCalibrationApp.Diagnostics
             };
         }
 
-        private static Command CreateAssignFrameIdCommand(ref byte frameId)
+        private static Command CreateAssignFrameIdCommand(byte frameId)
         {
             return new Command
             {

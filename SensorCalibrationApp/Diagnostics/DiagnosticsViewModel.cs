@@ -13,6 +13,8 @@ namespace SensorCalibrationApp.Diagnostics
         private readonly EventManager _eventManager;
         private readonly IFrameService _frameService;
 
+        private readonly object[] _initialRes = { -1, -1, -1, -1, -1, -1, -1, -1 };
+
         public DiagnosticsViewModel(ICommandService commandService, EventManager eventManager, IFrameService frameService)
         {
             _commandService = commandService;
@@ -20,6 +22,8 @@ namespace SensorCalibrationApp.Diagnostics
             _frameService = frameService;
 
             InitializeCommands();
+
+            ResBytes = _initialRes;
         }
 
         private void InitializeCommands()
@@ -60,14 +64,27 @@ namespace SensorCalibrationApp.Diagnostics
             }
         }
 
-        public RelayCommand<string> Select { get; set; }
+        private object[] _resBytes;
+        public object[] ResBytes
+        {
+            get { return _resBytes; }
+            set
+            {
+                _resBytes = value;
+                OnPropertyChanged();
+            }
+        }
 
-        private byte _frameId;
+
+        public RelayCommand<string> Select { get; set; }
 
         public void Load()
         {
             _eventManager.PushData += OnNewData;
-            Commands = CommandsFactory.CreateCommands(ref _frameId);
+            Commands = CommandsFactory.CreateCommands(Frame.FrameId);
+
+            SelectedCommand = Commands.First();
+            Commands.First().IsSelected = true;
         }
 
         public override void Unload()
@@ -78,7 +95,6 @@ namespace SensorCalibrationApp.Diagnostics
         public void Set(FrameModel frame)
         {
             Frame = frame;
-            _frameId = Frame.FrameId;
         }
 
         private void OnNewData(object sender, string e)
@@ -93,6 +109,7 @@ namespace SensorCalibrationApp.Diagnostics
                 selectedCommands.ForEach(x => x.IsSelected = false);
 
             SelectedCommand = Commands.SingleOrDefault(x => x.IsSelected);
+            ResBytes = _initialRes;
         }
     }
 }

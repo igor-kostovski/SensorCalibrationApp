@@ -6,6 +6,7 @@
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:SensorCalibrationApp.Diagnostics"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -13,6 +14,10 @@
             <b:CallMethodAction TargetObject="{Binding}" MethodName="Load"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <conv:ByteToString x:Key="ByteToString"/>
+    </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
                          UniformCornerRadius="5"
@@ -125,6 +130,7 @@
                 <ItemsControl Grid.Column="1" 
                               Grid.Row="1" 
                               Padding="30"
+                              x:Name="SignalsItemsControl"
                               ItemsSource="{Binding SelectedCommand.Signals}">
 
                     <ItemsControl.ItemsPanel>
@@ -141,7 +147,11 @@
                                 <TextBox VerticalAlignment="Center" 
                                          IsEnabled="{Binding IsEnabled}" 
                                          HorizontalAlignment="Center" 
-                                         Text="{Binding Value, StringFormat='{}{0:#}', Mode=TwoWay}" />
+                                         TextAlignment="Center"
+                                         BorderBrush="{x:Null}"
+                                         Text="{Binding Value, 
+                                    Converter={StaticResource ByteToString},
+                                    Mode=TwoWay}" />
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -165,7 +175,7 @@
                 <ItemsControl Grid.Column="1" 
                               Grid.Row="4" 
                               Padding="30" 
-                              x:Name="ItemsControl1">
+                              ItemsSource="{Binding ResBytes}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -179,9 +189,11 @@
                                     BorderThickness="1" 
                                     Margin="1">
                                 <TextBox VerticalAlignment="Center" 
-                                         IsEnabled="{Binding IsEnabled}" 
+                                         IsEnabled="False" 
                                          HorizontalAlignment="Center" 
-                                         Text="{Binding Value, StringFormat='{}{0:#}', Mode=TwoWay}" />
+                                         TextAlignment="Center"
+                                         BorderBrush="{x:Null}"
+                                         Text="{Binding Mode=OneWay, Converter={StaticResource ByteToString}}" />
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

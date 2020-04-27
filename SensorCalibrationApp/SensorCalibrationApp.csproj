@@ -89,6 +89,7 @@
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ByteToString.cs" />
     <Compile Include="Converters\ValueToHex.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToContentConverter.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleConverter.cs" />
