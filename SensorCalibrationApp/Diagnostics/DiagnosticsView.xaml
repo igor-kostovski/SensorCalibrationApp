@@ -32,6 +32,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <validations:BindingProxy x:Key="RaiseAfterValidationProxy"
+                                  Data="{Binding DataContext.RaiseCanRunExecuteChange, ElementName=SignalsItemsControl}"/>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -164,14 +167,15 @@
                                          TextAlignment="Center"
                                          Style="{StaticResource TextBoxInError}"
                                          BorderBrush="{x:Null}"
-                                         x:Name="TextBox">
+                                         x:Name="TextBoxToValidate">
                                     <TextBox.Text>
                                         <Binding Path="Value"
                                                  Converter="{StaticResource ByteToString}"
-                                                 Mode="TwoWay"
-                                                 >
+                                                 Mode="TwoWay">
                                             <Binding.ValidationRules>
-                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue" Min="0x20" Max="0x3B"/>
+                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue" Min="0x20" Max="0x3B">
+                                                    <validations:ComparisonValue RaiseAfterValidation="{Binding Path=Data, Source={StaticResource RaiseAfterValidationProxy}}"/>
+                                                </validations:FrameIdRangeRule>
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>

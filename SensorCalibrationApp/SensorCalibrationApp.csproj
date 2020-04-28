@@ -102,6 +102,8 @@
     <Compile Include="Enums\Screen.cs" />
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Validations\BindingProxy.cs" />
+    <Compile Include="Validations\ComparisonValue.cs" />
     <Compile Include="Validations\FrameIdRangeRule.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="Controls\EmptyResponseFrame.xaml">

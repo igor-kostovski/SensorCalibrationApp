@@ -10,7 +10,6 @@ namespace SensorCalibrationApp.Diagnostics
 {
     public delegate Task CommandWithParams<T>(T param);
     public delegate Task CommandWithoutParams();
-    public delegate void NotifyForValidation();
 
     public class Command : INotifyPropertyChanged
     {
@@ -79,20 +78,7 @@ namespace SensorCalibrationApp.Diagnostics
             {
                 _value = value;
                 OnPropertyChanged();
-                _notify?.Invoke();
             }
-        }
-
-        private readonly NotifyForValidation _notify;
-
-        public Signal(NotifyForValidation notify)
-        {
-            _notify = notify;
-        }
-
-        public Signal()
-        {
-            
         }
 
         public bool IsEnabled { get; set; }
@@ -100,9 +86,9 @@ namespace SensorCalibrationApp.Diagnostics
 
     public static class CommandsFactory
     {
-        public static ObservableCollection<Command> CreateCommands(byte frameId, ICommandService service, NotifyForValidation raiseValidation)
+        public static ObservableCollection<Command> CreateCommands(byte frameId, ICommandService service)
         {
-            var assignFrameId = CreateAssignFrameIdCommand(frameId, service.UpdateFrameId, raiseValidation);
+            var assignFrameId = CreateAssignFrameIdCommand(frameId, service.UpdateFrameId);
             var readById = CreateReadByIdCommand(service.ReadById);
 
             return new ObservableCollection<Command>
@@ -132,7 +118,7 @@ namespace SensorCalibrationApp.Diagnostics
             };
         }
 
-        private static Command CreateAssignFrameIdCommand(byte frameId, CommandWithParams<byte> command, NotifyForValidation raiseValidation)
+        private static Command CreateAssignFrameIdCommand(byte frameId, CommandWithParams<byte> command)
         {
             return new Command(command)
             {
@@ -144,7 +130,7 @@ namespace SensorCalibrationApp.Diagnostics
                     new Signal {Value = 0x06},
                     new Signal {Value = 0xB7},
                     new Signal {Value = 0x02},
-                    new Signal(raiseValidation) {Value = frameId, IsEnabled = true},
+                    new Signal {Value = frameId, IsEnabled = true},
                     new Signal {Value = 0xFF},
                     new Signal {Value = 0xFF},
                     new Signal {Value = 0xFF}

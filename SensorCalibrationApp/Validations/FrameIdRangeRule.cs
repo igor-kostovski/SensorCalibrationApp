@@ -2,19 +2,22 @@
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 using SensorCalibrationApp.Diagnostics;
 
 namespace SensorCalibrationApp.Validations
 {
+    [ContentProperty("ComparisonValue")]
     public class FrameIdRangeRule : ValidationRule
     {
         public byte Max { get; set; }
         public byte Min { get; set; }
+        public ComparisonValue ComparisonValue { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             byte frameId;
-
+            ComparisonValue.RaiseAfterValidation?.Invoke();
             try
             {
                 frameId = (byte) GetValue(value);
@@ -29,6 +32,7 @@ namespace SensorCalibrationApp.Validations
                 return new ValidationResult(false,
                     $"Please enter an frameId in the range: {BitConverter.ToString(new[] { Min })}-{BitConverter.ToString(new[] { Max })}.");
             }
+            
             return ValidationResult.ValidResult;
         }
 

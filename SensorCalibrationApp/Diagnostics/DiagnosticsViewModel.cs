@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
+using SensorCalibrationApp.Validations;
 
 namespace SensorCalibrationApp.Diagnostics
 {
@@ -27,6 +27,7 @@ namespace SensorCalibrationApp.Diagnostics
         {
             Select = new RelayCommand<string>(OnSelect);
             Run = new RelayCommand(OnRun, CanRun);
+            RaiseCanRunExecuteChange = Run.RaiseCanExecuteChanged;
         }
 
         private FrameModel _frame;
@@ -73,6 +74,7 @@ namespace SensorCalibrationApp.Diagnostics
             }
         }
 
+        public NotifyForValidation RaiseCanRunExecuteChange { get; set; }
 
         public RelayCommand<string> Select { get; set; }
         public RelayCommand Run { get; set; }
@@ -80,7 +82,7 @@ namespace SensorCalibrationApp.Diagnostics
         public void Load()
         {
             _eventManager.PushData += OnNewData;
-            Commands = CommandsFactory.CreateCommands(Frame.FrameId, _commandService, Run.RaiseCanExecuteChanged);
+            Commands = CommandsFactory.CreateCommands(Frame.FrameId, _commandService);
 
             SelectedCommand = Commands.First();
             SelectedCommand.IsSelected = true;

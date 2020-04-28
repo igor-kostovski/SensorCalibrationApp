@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
@@ -17,7 +18,16 @@ namespace SensorCalibrationApp.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var strVal = value as string;
-            var intVal = System.Convert.ToInt64(strVal, 16);
+            long intVal;
+            try
+            {
+                intVal = System.Convert.ToInt64(strVal, 16);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return 0x00;
+            }
 
             return BitConverter.GetBytes(intVal).First();
         }
