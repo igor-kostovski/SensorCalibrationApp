@@ -77,10 +77,10 @@ namespace SensorCalibrationApp.Diagnostics
         public void Load()
         {
             _eventManager.PushData += OnNewData;
-            Commands = CommandsFactory.CreateCommands(Frame.FrameId);
+            Commands = CommandsFactory.CreateCommands(Frame.FrameId, _commandService);
 
             SelectedCommand = Commands.First();
-            Commands.First().IsSelected = true;
+            SelectedCommand.IsSelected = true;
         }
 
         public override void Unload()

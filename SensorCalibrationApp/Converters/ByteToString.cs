@@ -19,8 +19,7 @@ namespace SensorCalibrationApp.Converters
             var strVal = value as string;
             var intVal = System.Convert.ToInt64(strVal, 16);
 
-            var test =  BitConverter.GetBytes(intVal).First();
-            return test;
+            return BitConverter.GetBytes(intVal).First();
         }
     }
 }
