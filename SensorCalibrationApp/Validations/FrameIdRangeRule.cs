@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Controls;
+using System.Windows.Data;
+using SensorCalibrationApp.Diagnostics;
 
 namespace SensorCalibrationApp.Validations
 {
@@ -11,13 +13,11 @@ namespace SensorCalibrationApp.Validations
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            byte frameId = 0x00;
+            byte frameId;
 
             try
             {
-                var strVal = value as string;
-                if (!string.IsNullOrEmpty(strVal))
-                    frameId = byte.Parse(strVal);
+                frameId = (byte) GetValue(value);
             }
             catch (Exception e)
             {
@@ -27,9 +27,24 @@ namespace SensorCalibrationApp.Validations
             if ((frameId < Min) || (frameId > Max))
             {
                 return new ValidationResult(false,
-                    $"Please enter an frameId in the range: {Min}-{Max}.");
+                    $"Please enter an frameId in the range: {BitConverter.ToString(new[] { Min })}-{BitConverter.ToString(new[] { Max })}.");
             }
             return ValidationResult.ValidResult;
+        }
+
+        private object GetValue(object value)
+        {
+            if (value is BindingExpression)
+            {
+                BindingExpression binding = (BindingExpression)value;
+                
+                object dataItem = binding.DataItem;
+
+                if (dataItem is Signal)
+                    return (dataItem as Signal).Value;
+            }
+
+            return value;
         }
     }
 }

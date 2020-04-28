@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
@@ -25,6 +26,7 @@ namespace SensorCalibrationApp.Diagnostics
         private void InitializeCommands()
         {
             Select = new RelayCommand<string>(OnSelect);
+            Run = new RelayCommand(OnRun, CanRun);
         }
 
         private FrameModel _frame;
@@ -73,11 +75,12 @@ namespace SensorCalibrationApp.Diagnostics
 
 
         public RelayCommand<string> Select { get; set; }
+        public RelayCommand Run { get; set; }
 
         public void Load()
         {
             _eventManager.PushData += OnNewData;
-            Commands = CommandsFactory.CreateCommands(Frame.FrameId, _commandService);
+            Commands = CommandsFactory.CreateCommands(Frame.FrameId, _commandService, Run.RaiseCanExecuteChanged);
 
             SelectedCommand = Commands.First();
             SelectedCommand.IsSelected = true;
@@ -106,6 +109,27 @@ namespace SensorCalibrationApp.Diagnostics
 
             SelectedCommand = Commands.SingleOrDefault(x => x.IsSelected);
             ResBytes = null;
+            Run.RaiseCanExecuteChanged();
+        }
+
+        private async void OnRun()
+        {
+            await SelectedCommand.Run();
+
+            if(SelectedCommand.Signals.SingleOrDefault(x => x.IsEnabled) != null)
+            {
+                Frame.FrameId = SelectedCommand.Signals.Single(x => x.IsEnabled).Value;
+                await _frameService.Update(Frame);
+            }
+        }
+
+        private bool CanRun()
+        {
+            if (SelectedCommand?.Signals.SingleOrDefault(x => x.IsEnabled) == null)
+                return true;
+
+            var newFrameId = SelectedCommand?.Signals.SingleOrDefault(x => x.IsEnabled)?.Value;
+            return newFrameId != null && newFrameId > 0x20 && newFrameId < 0x3C;
         }
     }
 }

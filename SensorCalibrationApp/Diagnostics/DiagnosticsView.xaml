@@ -168,9 +168,10 @@
                                     <TextBox.Text>
                                         <Binding Path="Value"
                                                  Converter="{StaticResource ByteToString}"
-                                                 Mode="TwoWay">
+                                                 Mode="TwoWay"
+                                                 >
                                             <Binding.ValidationRules>
-                                                <validations:FrameIdRangeRule Min="0x01" Max="0x3B"/>
+                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue" Min="0x20" Max="0x3B"/>
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -185,7 +186,8 @@
                         Width="200" 
                         Background="Transparent" 
                         Foreground="{StaticResource BrushBlue}" 
-                        Content="Run" />
+                        Content="Run"
+                        Command="{Binding Run}"/>
 
                 <TextBlock Grid.Column="1" 
                            Grid.Row="3" 
