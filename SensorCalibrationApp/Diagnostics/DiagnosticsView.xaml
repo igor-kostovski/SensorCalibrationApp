@@ -8,6 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              xmlns:ctrls="clr-namespace:SensorCalibrationApp.Controls"
+             xmlns:validations="clr-namespace:SensorCalibrationApp.Validations"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -20,6 +21,17 @@
         <conv:ByteToString x:Key="ByteToString"/>
         <conv:ByteArrayToVisibility x:Key="ByteArrayToVisibility" Negate="False"/>
         <conv:ByteArrayToVisibility x:Key="NegByteArrayToVisibility" Negate="True"/>
+
+        <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -68,8 +80,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:Command}">
-                        <Border
-                                    x:Name="Border"
+                        <Border x:Name="Border"
                                     BorderThickness="4"
                                     CornerRadius="10"
                                     Padding="4"
@@ -144,17 +155,26 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" 
-                                    BorderThickness="1" 
-                                    Margin="1">
+                            <Border BorderThickness="1" 
+                                    Margin="1"
+                                    BorderBrush="Black">
                                 <TextBox VerticalAlignment="Center" 
                                          IsEnabled="{Binding IsEnabled}" 
                                          HorizontalAlignment="Center" 
                                          TextAlignment="Center"
+                                         Style="{StaticResource TextBoxInError}"
                                          BorderBrush="{x:Null}"
-                                         Text="{Binding Value, 
-                                    Converter={StaticResource ByteToString},
-                                    Mode=TwoWay}" />
+                                         x:Name="TextBox">
+                                    <TextBox.Text>
+                                        <Binding Path="Value"
+                                                 Converter="{StaticResource ByteToString}"
+                                                 Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <validations:FrameIdRangeRule Min="0x01" Max="0x3B"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

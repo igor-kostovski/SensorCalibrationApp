@@ -102,6 +102,7 @@
     <Compile Include="Enums\Screen.cs" />
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Validations\FrameIdRangeRule.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="Controls\EmptyResponseFrame.xaml">
       <SubType>Designer</SubType>
@@ -216,6 +217,7 @@
       <Name>SensorCalibrationApp.FileDb</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
