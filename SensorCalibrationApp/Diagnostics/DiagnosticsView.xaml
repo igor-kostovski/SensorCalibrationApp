@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:SensorCalibrationApp.Diagnostics"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
+             xmlns:ctrls="clr-namespace:SensorCalibrationApp.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -17,6 +18,8 @@
 
     <UserControl.Resources>
         <conv:ByteToString x:Key="ByteToString"/>
+        <conv:ByteArrayToVisibility x:Key="ByteArrayToVisibility" Negate="False"/>
+        <conv:ByteArrayToVisibility x:Key="NegByteArrayToVisibility" Negate="True"/>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -175,7 +178,8 @@
                 <ItemsControl Grid.Column="1" 
                               Grid.Row="4" 
                               Padding="30" 
-                              ItemsSource="{Binding ResBytes}">
+                              ItemsSource="{Binding ResBytes}"
+                              Visibility="{Binding ResBytes, Converter={StaticResource ByteArrayToVisibility}}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -198,6 +202,10 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
+                <ctrls:EmptyResponseFrame Grid.Column="1" 
+                                          Grid.Row="4"
+                                          Visibility="{Binding ResBytes, Converter={StaticResource NegByteArrayToVisibility}}"/>
             </Grid>
         </Grid>
     </materialDesign:Card>

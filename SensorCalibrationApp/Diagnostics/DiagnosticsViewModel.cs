@@ -13,8 +13,6 @@ namespace SensorCalibrationApp.Diagnostics
         private readonly EventManager _eventManager;
         private readonly IFrameService _frameService;
 
-        private readonly object[] _initialRes = { -1, -1, -1, -1, -1, -1, -1, -1 };
-
         public DiagnosticsViewModel(ICommandService commandService, EventManager eventManager, IFrameService frameService)
         {
             _commandService = commandService;
@@ -22,8 +20,6 @@ namespace SensorCalibrationApp.Diagnostics
             _frameService = frameService;
 
             InitializeCommands();
-
-            ResBytes = _initialRes;
         }
 
         private void InitializeCommands()
@@ -64,8 +60,8 @@ namespace SensorCalibrationApp.Diagnostics
             }
         }
 
-        private object[] _resBytes;
-        public object[] ResBytes
+        private byte[] _resBytes;
+        public byte[] ResBytes
         {
             get { return _resBytes; }
             set
@@ -109,7 +105,7 @@ namespace SensorCalibrationApp.Diagnostics
                 selectedCommands.ForEach(x => x.IsSelected = false);
 
             SelectedCommand = Commands.SingleOrDefault(x => x.IsSelected);
-            ResBytes = _initialRes;
+            ResBytes = null;
         }
     }
 }
