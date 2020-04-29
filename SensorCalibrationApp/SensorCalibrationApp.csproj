@@ -95,11 +95,9 @@
     <Compile Include="Converters\ByteArrayToVisibility.cs" />
     <Compile Include="Converters\ByteToString.cs" />
     <Compile Include="Converters\ValueToHex.cs" />
-    <Compile Include="Converters\ValueToStyleOrContent\ValueToContentConverter.cs" />
-    <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleConverter.cs" />
-    <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleOrContentConverterBase.cs" />
+    <Compile Include="Converters\ViewModelConverters\ViewModelToContent.cs" />
+    <Compile Include="Converters\ViewModelConverters\ViewModelToStyle.cs" />
     <Compile Include="Diagnostics\CommandsFactory.cs" />
-    <Compile Include="Enums\Screen.cs" />
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Validations\BindingProxy.cs" />

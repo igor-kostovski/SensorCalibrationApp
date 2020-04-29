@@ -42,6 +42,18 @@ namespace SensorCalibrationApp
             }
         }
 
+        private int _currentViewModelIndex;
+        public int CurrentViewModelIndex
+        {
+            get { return _currentViewModelIndex; }
+            set
+            {
+                _currentViewModelIndex = value; 
+                OnPropertyChanged();
+            }
+        }
+
+
 
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
@@ -116,6 +128,7 @@ namespace SensorCalibrationApp
             {
                 CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(backIndex);
+                CurrentViewModelIndex = backIndex;
             }
         }
 
@@ -133,6 +146,7 @@ namespace SensorCalibrationApp
             {
                 CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(forwardIndex);
+                CurrentViewModelIndex = forwardIndex;
             }
         }
 

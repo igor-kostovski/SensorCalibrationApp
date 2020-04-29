@@ -5,14 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters.ValueToStyleOrContent"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters.ViewModelConverters"
+             mc:Ignorable="d">
 
     <UserControl.Resources>
-        <conv:ValueToStyleConverter x:Key="ValueToTitleStyleConverter" IconOrTitle="Title"/>
-        <conv:ValueToStyleConverter x:Key="ValueToIconStyleConverter" IconOrTitle="Icon"/>
-        <conv:ValueToContentConverter x:Key="ValueToContentConverter"/>
+        <conv:ViewModelToStyle x:Key="ViewModelToTitleStyle" IconOrTitle="Title"/>
+        <conv:ViewModelToStyle x:Key="ViewModelToIconStyle" IconOrTitle="Icon"/>
+        <conv:ViewModelToContent x:Key="ViewModelToContent"/>
 
         <Visibility x:Key="TitlesVisibility">Visible</Visibility>
     </UserControl.Resources>
@@ -26,16 +25,14 @@
         </EventTrigger>
     </UserControl.Triggers>
 
-    <Grid x:Name="NavBar">
+    <Grid x:Name="NavBar"> <!--Name needed for animation, check animations resource-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MinHeight="100"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto" MinHeight="100"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <Grid.Background>
@@ -62,46 +59,46 @@
             <Separator Grid.Row="1" Height="2" Foreground="White"/>
         </Grid>
 
-        <StackPanel Grid.Row="2"  Style="{StaticResource StackPanelStyle}" Margin="0,0,0,5">
+        <StackPanel Grid.Row="1"  Style="{StaticResource StackPanelStyle}" Margin="0,0,0,5">
             <materialDesign:PackIcon Kind="FormatListNumbers" 
-                                     Style="{Binding CurrentViewModel, Mode=OneWay, 
-                Converter={StaticResource ValueToIconStyleConverter}, 
-                ConverterParameter='DeviceSelection'}"/>
+                                     Style="{Binding CurrentViewModelIndex, Mode=OneWay, 
+                Converter={StaticResource ViewModelToIconStyle}, 
+                ConverterParameter=0}"/>
             <TextBlock Visibility="{DynamicResource TitlesVisibility}"
-                       Style="{Binding CurrentViewModel, Mode=OneWay, 
-                Converter={StaticResource ValueToTitleStyleConverter}, 
-                ConverterParameter='DeviceSelection'}" 
+                       Style="{Binding CurrentViewModelIndex, Mode=OneWay, 
+                Converter={StaticResource ViewModelToTitleStyle}, 
+                ConverterParameter=0}" 
                        Text="Device selection"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Style="{StaticResource StackPanelStyle}">
-            <ContentControl HorizontalAlignment="Center" Content="{Binding CurrentViewModel, Mode=OneWay,
-                Converter={StaticResource ValueToContentConverter}, 
-                ConverterParameter='DeviceSelection'}"/>
+        <StackPanel Grid.Row="2" Style="{StaticResource StackPanelStyle}">
+            <ContentControl HorizontalAlignment="Center" Content="{Binding CurrentViewModelIndex, Mode=OneWay,
+                Converter={StaticResource ViewModelToContent}, 
+                ConverterParameter=0}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,5">
-            <materialDesign:PackIcon Kind="CogOutline" Style="{Binding CurrentViewModel, Mode=OneWay, 
-                Converter={StaticResource ValueToIconStyleConverter},
-                ConverterParameter='FrameConfiguration'}"/>
-            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModel, Mode=OneWay, 
-                Converter={StaticResource ValueToTitleStyleConverter},
-                ConverterParameter='FrameConfiguration'}"  Text="Frame configuration"/>
+        <StackPanel Grid.Row="3" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,5">
+            <materialDesign:PackIcon Kind="CogOutline" Style="{Binding CurrentViewModelIndex, Mode=OneWay, 
+                Converter={StaticResource ViewModelToIconStyle},
+                ConverterParameter=1}"/>
+            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModelIndex, Mode=OneWay, 
+                Converter={StaticResource ViewModelToTitleStyle},
+                ConverterParameter=1}"  Text="Frame configuration"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="5" Style="{StaticResource StackPanelStyle}">
-            <ContentControl Content="{Binding CurrentViewModel, Mode=OneWay,
-                Converter={StaticResource ValueToContentConverter}, 
-                ConverterParameter='FrameConfiguration'}"/>
+        <StackPanel Grid.Row="4" Style="{StaticResource StackPanelStyle}">
+            <ContentControl Content="{Binding CurrentViewModelIndex, Mode=OneWay,
+                Converter={StaticResource ViewModelToContent}, 
+                ConverterParameter=1}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,0">
-            <materialDesign:PackIcon Kind="Tools" Style="{Binding CurrentViewModel, Mode=OneWay, 
-                Converter={StaticResource ValueToIconStyleConverter},
-                ConverterParameter='Diagnostics'}" />
-            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModel, Mode=OneWay,
-                Converter={StaticResource ValueToTitleStyleConverter},
-                ConverterParameter='Diagnostics'}"  Text="Diagnostics" />
+        <StackPanel Grid.Row="5" Style="{StaticResource StackPanelStyle}" Margin="0,5,0,0">
+            <materialDesign:PackIcon Kind="Tools" Style="{Binding CurrentViewModelIndex, Mode=OneWay, 
+                Converter={StaticResource ViewModelToIconStyle},
+                ConverterParameter=2}" />
+            <TextBlock Visibility="{DynamicResource TitlesVisibility}" Style="{Binding CurrentViewModelIndex, Mode=OneWay,
+                Converter={StaticResource ViewModelToTitleStyle},
+                ConverterParameter=2}"  Text="Diagnostics" />
         </StackPanel>
     </Grid>
 </UserControl>
