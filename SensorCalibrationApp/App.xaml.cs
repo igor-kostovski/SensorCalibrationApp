@@ -17,7 +17,6 @@ namespace SensorCalibrationApp
             Container = AutofacConfig.Initialize();
 
             Window main = Container.Resolve<MainWindow>();
-
             main.Show();
         }
 

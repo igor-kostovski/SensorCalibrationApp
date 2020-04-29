@@ -10,5 +10,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         Task ReadById();
         Task UpdateFrameId(byte newFrameId);
         Task SendDeviceSpecificFrame(FrameModel frame);
+        void OpenConnection();
     }
 }

@@ -4,6 +4,7 @@ using SensorCalibrationApp.Common;
 using SensorCalibrationApp.DeviceSelection;
 using SensorCalibrationApp.Diagnostics;
 using SensorCalibrationApp.Domain;
+using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.FrameConfiguration;
 
 namespace SensorCalibrationApp
@@ -14,6 +15,7 @@ namespace SensorCalibrationApp
         private readonly FrameConfigurationViewModel _frameConfigurationViewModel;
         private readonly DiagnosticsViewModel _diagnosticsViewModel;
         private readonly EventManager _eventManager;
+        private readonly ICommandService _commandService;
 
         private List<ViewModelBase> _navigationStack;
 
@@ -53,15 +55,14 @@ namespace SensorCalibrationApp
             }
         }
 
-
-
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
 
         public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
             FrameConfigurationViewModel frameConfigurationViewModel, 
             DiagnosticsViewModel diagnosticsViewModel,
-            EventManager eventManager)
+            EventManager eventManager,
+            ICommandService commandService)
         {
             #region InjectingDependencies
 
@@ -69,38 +70,16 @@ namespace SensorCalibrationApp
             _frameConfigurationViewModel = frameConfigurationViewModel;
             _diagnosticsViewModel = diagnosticsViewModel;
             _eventManager = eventManager;
+            _commandService = commandService;
 
             #endregion
 
             InitializeCommands();
             InitializeNavigationStack();
+            AssignEvents();
 
             CurrentViewModel = _navigationStack.First();
-
-            AssignEvents();
-        }
-
-        private void AssignEvents()
-        {
-            _eventManager.PushError += (sender, error) =>
-            {
-                ErrorMessage = new ErrorMessage(error);
-            };
-
-            _deviceSelectionViewModel.SelectionChanged += (sender, isFrameSelected) =>
-            {
-                if(isFrameSelected)
-                    SetFrameOnDependentViewModels();
-
-                Forward.RaiseCanExecuteChanged();
-            };
-        }
-
-        private void SetFrameOnDependentViewModels()
-        {
-            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame,
-                _deviceSelectionViewModel.SelectedDevice.Type);
-            _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
+            _commandService.OpenConnection();
         }
 
         private void InitializeCommands()
@@ -117,6 +96,31 @@ namespace SensorCalibrationApp
                 _frameConfigurationViewModel,
                 _diagnosticsViewModel
             };
+        }
+
+        private void AssignEvents()
+        {
+            _eventManager.PushError += HandleError;
+            _deviceSelectionViewModel.SelectionChanged += HandleSelectionChanged;
+        }
+
+        private void HandleError(object sender, string error)
+        {
+            ErrorMessage = new ErrorMessage(error);
+        }
+
+        private void HandleSelectionChanged(object sender, bool isFrameSelected)
+        {
+            if (isFrameSelected)
+                SetFrameOnDependentViewModels();
+
+            Forward.RaiseCanExecuteChanged();
+        }
+
+        private void SetFrameOnDependentViewModels()
+        {
+            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
+            _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
         }
 
         private void OnBack()
@@ -159,6 +163,13 @@ namespace SensorCalibrationApp
         public override void Unload()
         {
             CurrentViewModel.Unload();
+            UnassignEvents();
+        }
+
+        private void UnassignEvents()
+        {
+            _eventManager.PushError -= HandleError;
+            _deviceSelectionViewModel.SelectionChanged -= HandleSelectionChanged;
         }
     }
 }
