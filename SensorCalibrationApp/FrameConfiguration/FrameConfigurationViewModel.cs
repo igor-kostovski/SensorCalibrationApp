@@ -68,7 +68,7 @@ namespace SensorCalibrationApp.FrameConfiguration
             _eventManager.PushData -= OnNewData;
         }
 
-        private void OnNewData(object sender, string signal)
+        private void OnNewData(object sender, object signal)
         {
             if(Signals.Count > 4)
                 App.Current.Dispatcher.Invoke(() =>
@@ -80,7 +80,7 @@ namespace SensorCalibrationApp.FrameConfiguration
             {
                 Signals.Add(new SignalValue
                 {
-                    Data = signal,
+                    Data = signal as string,
                     Time = DateTime.Now.ToString("HH:mm:ss")
                 });
             });

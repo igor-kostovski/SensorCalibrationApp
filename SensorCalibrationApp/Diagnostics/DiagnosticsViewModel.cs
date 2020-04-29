@@ -91,6 +91,7 @@ namespace SensorCalibrationApp.Diagnostics
         public override void Unload()
         {
             _eventManager.PushData -= OnNewData;
+            ResBytes = null;
         }
 
         public void Set(FrameModel frame)
@@ -98,9 +99,10 @@ namespace SensorCalibrationApp.Diagnostics
             Frame = frame;
         }
 
-        private void OnNewData(object sender, string e)
+        private void OnNewData(object sender, object resBytes)
         {
-            throw new System.NotImplementedException();
+            var resBytesVal = resBytes as byte[];
+            ResBytes = resBytesVal;
         }
 
         private void OnSelect(string name)

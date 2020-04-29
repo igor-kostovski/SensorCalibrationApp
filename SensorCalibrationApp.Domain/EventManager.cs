@@ -1,11 +1,10 @@
 ﻿using System;
-using SensorCalibrationApp.Domain.Devices;
 
 namespace SensorCalibrationApp.Domain
 {
     public class EventManager : DeviceBound
     {
-        public event EventHandler<string> PushData;
+        public event EventHandler<object> PushData;
         public event EventHandler<string> PushError;
         
         public void HandleError(object sender, string message)
@@ -15,14 +14,18 @@ namespace SensorCalibrationApp.Domain
 
         public void HandleRead(object sender, byte[] data)
         {
-            var message = "";
-
             if (_device != null)
+            {
+                var message = "";
                 ReadWithDevice(data, ref message);
+                PushData?.Invoke(this, message);
+            }
             else
-                message = BitConverter.ToString(data).Replace('-', '|');
+            {
+                PushData?.Invoke(this, data);
+            }
 
-            PushData?.Invoke(this, message);
+            
         }
 
         private void ReadWithDevice(byte[] data, ref string message)
