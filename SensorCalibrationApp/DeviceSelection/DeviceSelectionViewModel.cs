@@ -60,7 +60,7 @@ namespace SensorCalibrationApp.DeviceSelection
                 _selectedFrame = value;
                 OnPropertyChanged();
 
-                SelectionDone?.Invoke(this, EventArgs.Empty);
+                SelectionChanged?.Invoke(this, _selectedFrame != null);
             }
         }
 
@@ -86,6 +86,6 @@ namespace SensorCalibrationApp.DeviceSelection
             IsDeviceSupported = _selectedDevice?.Frames.Count != 0;
         }
 
-        public event EventHandler SelectionDone;
+        public event EventHandler<bool> SelectionChanged;
     }
 }

@@ -2,11 +2,237 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:SensorCalibrationApp.Diagnostics"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
+             xmlns:ctrls="clr-namespace:SensorCalibrationApp.Controls"
+             xmlns:validations="clr-namespace:SensorCalibrationApp.Validations"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Diagnostics"/>
-    </Grid>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="Load"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <conv:ByteToString x:Key="ByteToString"/>
+        <conv:ByteArrayToVisibility x:Key="ByteArrayToVisibility" Negate="False"/>
+        <conv:ByteArrayToVisibility x:Key="NegByteArrayToVisibility" Negate="True"/>
+
+        <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <validations:BindingProxy x:Key="RaiseAfterValidationProxy"
+                                  Data="{Binding DataContext.RaiseCanRunExecuteChange, ElementName=SignalsItemsControl}"/>
+    </UserControl.Resources>
+
+    <materialDesign:Card Background="#fff"
+                         UniformCornerRadius="5"
+                         Margin="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.RowSpan="5" Orientation="Horizontal">
+                <Border BorderThickness="0" 
+                            CornerRadius="0" Background="{StaticResource BrushGreen}">
+                    <Ellipse Height="10" Width="10"/>
+                </Border>
+            </StackPanel>
+
+            <TextBlock Grid.ColumnSpan="2" 
+                       Grid.Column="1" 
+                       Grid.Row="1" 
+                       Text="Command palette" 
+                       FontSize="25" 
+                       Foreground="{StaticResource BrushGreen}" 
+                       FontWeight="Bold"/>
+
+            <ItemsControl Grid.Column="1" 
+                          Grid.Row="2" 
+                          Margin="0,10,0,0"
+                          x:Name="CommandsItemsControl"
+                          ItemsSource="{Binding Commands}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Command}">
+                        <Border x:Name="Border"
+                                    BorderThickness="4"
+                                    CornerRadius="10"
+                                    Padding="4"
+                                    Background="{StaticResource BrushBlue}"
+                                    Opacity="0.8">
+                            <CheckBox VerticalAlignment="Center"
+                                          IsChecked="{Binding IsSelected}"
+                                          Background="{StaticResource BrushYellow}"
+                                          Command="{Binding DataContext.Select, ElementName=CommandsItemsControl}"
+                                          CommandParameter="{Binding Name}">
+                                <StackPanel
+                                            Margin="8 0 0 0" 
+                                            VerticalAlignment="Center">
+                                    <TextBlock FontWeight="Bold"
+                                               FontSize="18"
+                                               Foreground="White"
+                                               Text="{Binding Name}" />
+                                    <TextBlock FontSize="18"
+                                               Foreground="White"
+                                               TextWrapping="Wrap"
+                                               Text="{Binding Description}" />
+                                </StackPanel>
+                            </CheckBox>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsSelected}"
+                                Value="True">
+                                <Setter
+                                    TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{StaticResource BrushYellow}" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1" 
+                           Text="Request" 
+                           Margin="0,10,0,0"  
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource BrushBlue}"/>
+
+                <ItemsControl Grid.Column="1" 
+                              Grid.Row="1" 
+                              Padding="30"
+                              x:Name="SignalsItemsControl"
+                              ItemsSource="{Binding SelectedCommand.Signals}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" 
+                                    Margin="1"
+                                    BorderBrush="Black">
+                                <TextBox VerticalAlignment="Center" 
+                                         IsEnabled="{Binding IsEnabled}" 
+                                         HorizontalAlignment="Center" 
+                                         TextAlignment="Center"
+                                         Style="{StaticResource TextBoxInError}"
+                                         BorderBrush="{x:Null}"
+                                         x:Name="TextBoxToValidate">
+                                    <TextBox.Text>
+                                        <Binding Path="Value"
+                                                 Converter="{StaticResource ByteToString}"
+                                                 Mode="TwoWay">
+                                            <Binding.ValidationRules>
+                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue" Min="0x20" Max="0x3B">
+                                                    <validations:ComparisonValue RaiseAfterValidation="{Binding Path=Data, Source={StaticResource RaiseAfterValidationProxy}}"/>
+                                                </validations:FrameIdRangeRule>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Button Grid.Column="1"
+                        Grid.Row="2" 
+                        Width="200" 
+                        Background="Transparent" 
+                        Foreground="{StaticResource BrushBlue}" 
+                        Content="Run"
+                        Command="{Binding Run}"/>
+
+                <TextBlock Grid.Column="1" 
+                           Grid.Row="3" 
+                           Margin="0,10,0,0" 
+                           Text="Response" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource BrushBlue}"/>
+
+                <ItemsControl Grid.Column="1" 
+                              Grid.Row="4" 
+                              Padding="30" 
+                              ItemsSource="{Binding ResBytes}"
+                              Visibility="{Binding ResBytes, Converter={StaticResource ByteArrayToVisibility}}">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" 
+                                    BorderThickness="1" 
+                                    Margin="1">
+                                <TextBox VerticalAlignment="Center" 
+                                         IsEnabled="False" 
+                                         HorizontalAlignment="Center" 
+                                         TextAlignment="Center"
+                                         BorderBrush="{x:Null}"
+                                         Text="{Binding Mode=OneWay, Converter={StaticResource ByteToString}}" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <ctrls:EmptyResponseFrame Grid.Column="1" 
+                                          Grid.Row="4"
+                                          Visibility="{Binding ResBytes, Converter={StaticResource NegByteArrayToVisibility}}"/>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </UserControl>

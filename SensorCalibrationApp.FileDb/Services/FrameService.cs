@@ -15,7 +15,7 @@ namespace SensorCalibrationApp.FileDb.Services
             _db = db;
         }
 
-        public async Task Update(byte newId, FrameModel model)
+        public async Task Update(FrameModel model)
         {
             await _db.Load();
 
@@ -25,7 +25,7 @@ namespace SensorCalibrationApp.FileDb.Services
             if (entity == null)
                 return;
 
-            entity.FrameId = newId;
+            entity.FrameId = model.FrameId;
 
             await _db.Save();
         }

@@ -75,11 +75,20 @@ namespace SensorCalibrationApp
                 ErrorMessage = new ErrorMessage(error);
             };
 
-            _deviceSelectionViewModel.SelectionDone += (sender, args) =>
+            _deviceSelectionViewModel.SelectionChanged += (sender, isFrameSelected) =>
             {
-                _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
+                if(isFrameSelected)
+                    SetFrameOnDependentViewModels();
+
                 Forward.RaiseCanExecuteChanged();
             };
+        }
+
+        private void SetFrameOnDependentViewModels()
+        {
+            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame,
+                _deviceSelectionViewModel.SelectedDevice.Type);
+            _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
         }
 
         private void InitializeCommands()

@@ -83,20 +83,33 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutofacConfig.cs" />
+    <Compile Include="Controls\EmptyResponseFrame.xaml.cs">
+      <DependentUpon>EmptyResponseFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ErrorBar.xaml.cs">
       <DependentUpon>ErrorBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ByteArrayToVisibility.cs" />
+    <Compile Include="Converters\ByteToString.cs" />
     <Compile Include="Converters\ValueToHex.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToContentConverter.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleConverter.cs" />
     <Compile Include="Converters\ValueToStyleOrContent\ValueToStyleOrContentConverterBase.cs" />
+    <Compile Include="Diagnostics\CommandsFactory.cs" />
     <Compile Include="Enums\Screen.cs" />
     <Compile Include="FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Validations\BindingProxy.cs" />
+    <Compile Include="Validations\ComparisonValue.cs" />
+    <Compile Include="Validations\FrameIdRangeRule.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Page Include="Controls\EmptyResponseFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ErrorBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +219,7 @@
       <Name>SensorCalibrationApp.FileDb</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
