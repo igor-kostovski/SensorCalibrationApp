@@ -65,15 +65,6 @@ namespace SensorCalibrationApp.Controls
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(Selector), new PropertyMetadata(null));
 
-        public Color ThemeColor
-        {
-            get { return (Color)GetValue(ThemeColorProperty); }
-            set { SetValue(ThemeColorProperty, value); }
-        }
-
-        public static readonly DependencyProperty ThemeColorProperty =
-            DependencyProperty.Register(nameof(ThemeColor), typeof(Color), typeof(Selector), new PropertyMetadata(null));
-
         public PackIconKind IconKind
         {
             get { return (PackIconKind)GetValue(IconKindProperty); }

@@ -59,10 +59,6 @@
                       SelectionChanged="ComboBox_OnSelectionChanged"
                       SelectedIndex="{Binding SelectorSelectedIndex, Mode=OneWayToSource}">
 
-                <ComboBox.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{Binding ThemeColor}"/>
-                </ComboBox.Resources>
-
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ComboBoxItem}">
                         <Style.Triggers>
