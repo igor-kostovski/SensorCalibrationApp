@@ -97,7 +97,6 @@
     </Compile>
     <Compile Include="Converters\ByteArrayToVisibility.cs" />
     <Compile Include="Converters\ByteToString.cs" />
-    <Compile Include="Converters\ValueToHex.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToContent.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToStyle.cs" />
     <Compile Include="Diagnostics\CommandsFactory.cs" />

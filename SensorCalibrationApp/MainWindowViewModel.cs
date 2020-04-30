@@ -156,8 +156,16 @@ namespace SensorCalibrationApp
 
         private bool CanGoForward()
         {
-            return _deviceSelectionViewModel.SelectedFrame != null
+            return DeviceSelectionConditions()
                 && CurrentViewModel != _navigationStack.Last();
+        }
+
+        private bool DeviceSelectionConditions()
+        {
+            if (CurrentViewModel != _deviceSelectionViewModel)
+                return true;
+
+            return _deviceSelectionViewModel.SelectedFrame != null;
         }
 
         public override void Unload()

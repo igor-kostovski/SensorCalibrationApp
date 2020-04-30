@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading;
-using SensorCalibrationApp.Domain;
+using System.Windows;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services.CommandService;
+using EventManager = SensorCalibrationApp.Domain.EventManager;
 
 namespace SensorCalibrationApp.FrameConfiguration
 {
@@ -12,12 +13,6 @@ namespace SensorCalibrationApp.FrameConfiguration
     {
         private readonly ICommandService _commandService;
         private readonly EventManager _eventManager;
-
-        public FrameConfigurationViewModel(ICommandService commandService, EventManager eventManager)
-        {
-            _commandService = commandService;
-            _eventManager = eventManager;
-        }
 
         private DeviceType _frameDeviceType;
         private volatile bool _shouldTxThreadBeAlive;
@@ -45,6 +40,12 @@ namespace SensorCalibrationApp.FrameConfiguration
             }
         }
 
+        public FrameConfigurationViewModel(ICommandService commandService, EventManager eventManager)
+        {
+            _commandService = commandService;
+            _eventManager = eventManager;
+        }
+
         public void Set(FrameModel frame, DeviceType device)
         {
             Frame = frame;
@@ -70,13 +71,13 @@ namespace SensorCalibrationApp.FrameConfiguration
 
         private void OnNewData(object sender, object signal)
         {
-            if(Signals.Count > 4)
-                App.Current.Dispatcher.Invoke(() =>
+            if(Signals.Count > 3)
+                Application.Current?.Dispatcher.Invoke(() =>
                 {
                     Signals.Clear();
                 });
 
-            App.Current.Dispatcher.Invoke(() =>
+            Application.Current?.Dispatcher.Invoke(() =>
             {
                 Signals.Add(new SignalValue
                 {
@@ -102,16 +103,16 @@ namespace SensorCalibrationApp.FrameConfiguration
             _txThread.Start();
         }
 
-        private void InjectDevice()
-        {
-            _commandService.SetDevice(_frameDeviceType);
-            _eventManager.SetDevice(_frameDeviceType);
-        }
-
         private void RemoveTransmitThread()
         {
             _shouldTxThreadBeAlive = false;
             _txThread = null;
+        }
+
+        private void InjectDevice()
+        {
+            _commandService.SetDevice(_frameDeviceType);
+            _eventManager.SetDevice(_frameDeviceType);
         }
 
         private void RemoveDevice()
