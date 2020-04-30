@@ -6,9 +6,10 @@ using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.FileDb
 {
-    public class FileDatabase
+    public partial class FileDatabase
     {
         private const string filePath = "database.txt";
+
         public Stream Connection { get; set; }
         public List<EcuModel> Collection { get;set; }
 
@@ -34,10 +35,8 @@ namespace SensorCalibrationApp.FileDb
         {
             XmlSerializer xmlFormat = new XmlSerializer(typeof(List<EcuModel>));
 
-            return Task.Run(async () =>
+            return Task.Run(() =>
             {
-                await SeedDbIfEmpty();
-
                 OpenFor(FileAccess.Read);
                 Collection = (List<EcuModel>) xmlFormat.Deserialize(Connection);
 
@@ -45,16 +44,13 @@ namespace SensorCalibrationApp.FileDb
             });
         }
 
-        private async Task SeedDbIfEmpty()
+        private async Task SeedDb(List<EcuModel> seed)
         {
             OpenFor(FileAccess.Read);
-            if (Connection.Length == 0)
-                await SeedDb();
-        }
+            if (Connection.Length != 0)
+                return;
 
-        private async Task SeedDb()
-        {
-            Collection = Seeder.DataCollection;
+            Collection = seed;
             await Save();
         }
 

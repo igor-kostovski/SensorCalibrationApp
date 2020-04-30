@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Threading;
-using Autofac;
+﻿using Autofac;
 using RimacLINBusInterfacesLib.LinInterfaces.PEAK;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Enums;
@@ -36,6 +34,7 @@ namespace SensorCalibrationApp
             builder.RegisterType<FrameService>().As<IFrameService>().SingleInstance();
             builder.RegisterType<EcuService>().As<IEcuService>().SingleInstance();
             builder.RegisterType<FileDatabase>().AsSelf().SingleInstance();
+            builder.RegisterType<FileDatabase.Seeder>().As<ISeeder>().SingleInstance();
 
             //registering EF types -> to be implemented
 
