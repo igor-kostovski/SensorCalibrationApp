@@ -53,7 +53,7 @@ namespace RimacLINBusInterfacesLib
             if (errorFlags == 0)
                 return MessageErrors.Ok;
 
-            var errorOffset = 24;
+            const int errorOffset = 24;
             var result = (int)errorFlags - errorOffset;
 
             if (result == 0)
