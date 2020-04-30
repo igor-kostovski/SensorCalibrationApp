@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 
-namespace SensorCalibrationApp.DeviceSelection
+namespace SensorCalibrationApp.Screens.DeviceSelection
 {
     class DeviceSelectionViewModel : ViewModelBase
     {

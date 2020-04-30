@@ -3,6 +3,7 @@ using Autofac;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
+using SensorCalibrationApp.Screens.Main;
 
 namespace SensorCalibrationApp
 {

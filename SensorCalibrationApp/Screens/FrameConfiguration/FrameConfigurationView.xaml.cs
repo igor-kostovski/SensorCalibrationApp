@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace SensorCalibrationApp.FrameConfiguration
+namespace SensorCalibrationApp.Screens.FrameConfiguration
 {
     /// <summary>
     /// Interaction logic for FrameConfigurationView.xaml

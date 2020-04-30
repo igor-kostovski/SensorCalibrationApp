@@ -1,4 +1,4 @@
-﻿namespace SensorCalibrationApp.FrameConfiguration
+﻿namespace SensorCalibrationApp.Screens.FrameConfiguration
 {
     public class SignalValue
     {

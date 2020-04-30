@@ -2,15 +2,16 @@
 using RimacLINBusInterfacesLib.LinInterfaces.PEAK;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.DeviceSelection;
-using SensorCalibrationApp.Diagnostics;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.FileDb;
 using SensorCalibrationApp.FileDb.Services;
-using SensorCalibrationApp.FrameConfiguration;
+using SensorCalibrationApp.Screens.DeviceSelection;
+using SensorCalibrationApp.Screens.Diagnostics;
+using SensorCalibrationApp.Screens.FrameConfiguration;
+using SensorCalibrationApp.Screens.Main;
 
 namespace SensorCalibrationApp
 {

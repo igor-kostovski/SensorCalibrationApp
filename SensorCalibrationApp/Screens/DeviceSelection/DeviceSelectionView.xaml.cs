@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SensorCalibrationApp.DeviceSelection
+namespace SensorCalibrationApp.Screens.DeviceSelection
 {
     /// <summary>
     /// Interaction logic for DeviceSelectionView.xaml

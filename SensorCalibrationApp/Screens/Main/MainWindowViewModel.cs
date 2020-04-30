@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SensorCalibrationApp.Common;
-using SensorCalibrationApp.DeviceSelection;
-using SensorCalibrationApp.Diagnostics;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Services.CommandService;
-using SensorCalibrationApp.FrameConfiguration;
+using SensorCalibrationApp.Screens.DeviceSelection;
+using SensorCalibrationApp.Screens.Diagnostics;
+using SensorCalibrationApp.Screens.FrameConfiguration;
 
-namespace SensorCalibrationApp
+namespace SensorCalibrationApp.Screens.Main
 {
     class MainWindowViewModel : ViewModelBase
     {

@@ -7,7 +7,7 @@ using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services.CommandService;
 using EventManager = SensorCalibrationApp.Domain.EventManager;
 
-namespace SensorCalibrationApp.FrameConfiguration
+namespace SensorCalibrationApp.Screens.FrameConfiguration
 {
     class FrameConfigurationViewModel : ViewModelBase
     {

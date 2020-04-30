@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SensorCalibrationApp.Diagnostics
+namespace SensorCalibrationApp.Screens.Diagnostics
 {
     /// <summary>
     /// Interaction logic for DiagnosticsView.xaml

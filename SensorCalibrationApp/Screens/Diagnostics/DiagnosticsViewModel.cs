@@ -10,7 +10,7 @@ using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.Validations;
 
-namespace SensorCalibrationApp.Diagnostics
+namespace SensorCalibrationApp.Screens.Diagnostics
 {
     class DiagnosticsViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SensorCalibrationApp
+namespace SensorCalibrationApp.Screens.Main
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
