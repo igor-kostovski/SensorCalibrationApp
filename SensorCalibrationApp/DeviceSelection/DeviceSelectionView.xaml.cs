@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SensorCalibrationApp.DeviceSelection
 {
@@ -24,7 +12,6 @@ namespace SensorCalibrationApp.DeviceSelection
         public DeviceSelectionView()
         {
             InitializeComponent();
-            AdjustPlaceholders();
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -34,21 +21,21 @@ namespace SensorCalibrationApp.DeviceSelection
 
         private void AdjustPlaceholders()
         {
-            if (ECU.SelectedIndex == -1)
-                ECU.Text = "Select ECU";
+            if (ECU.SelectorSelectedIndex == -1)
+                ECU.SelectorText = "Select ECU";
 
-            if (device.SelectedIndex == -1)
-                device.Text = "Select device";
+            if (Device.SelectorSelectedIndex == -1)
+                Device.SelectorText = "Select device";
 
-            if (!frame.IsEnabled)
+            if (!Frame.IsSelectorEnabled)
             {
-                frame.Text = "Selected device is currently not supported. Please select another device.";
-                frame.Foreground = new SolidColorBrush(Colors.Red);
+                Frame.SelectorText = "Selected device is currently not supported. Please select another device.";
+                Frame.SelectorForeground = new SolidColorBrush(Colors.Red);
             }
-            else if (frame.SelectedIndex == -1)
+            else if (Frame.SelectorSelectedIndex == -1)
             {
-                frame.Text = "Select frame";
-                frame.Foreground = Application.Current.FindResource("BrushYellow") as SolidColorBrush;
+                Frame.SelectorText = "Select frame";
+                Frame.SelectorForeground = Application.Current.FindResource("BrushYellow") as SolidColorBrush;
             }
         }
     }

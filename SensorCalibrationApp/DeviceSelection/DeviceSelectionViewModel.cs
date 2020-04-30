@@ -9,11 +9,7 @@ namespace SensorCalibrationApp.DeviceSelection
     {
         private readonly IEcuService _ecuService;
 
-        public DeviceSelectionViewModel(IEcuService ecuService)
-        {
-            _ecuService = ecuService;
-            IsDeviceSupported = true;
-        }
+        public event EventHandler<bool> SelectionChanged;
 
         private ObservableCollection<EcuModel> _ecuModels;
         public ObservableCollection<EcuModel> EcuModels
@@ -75,6 +71,12 @@ namespace SensorCalibrationApp.DeviceSelection
             }
         }
 
+        public DeviceSelectionViewModel(IEcuService ecuService)
+        {
+            _ecuService = ecuService;
+            IsDeviceSupported = true;
+        }
+
         public async void LoadECUs()
         {
             if(EcuModels == null)
@@ -85,7 +87,5 @@ namespace SensorCalibrationApp.DeviceSelection
         {
             IsDeviceSupported = _selectedDevice?.Frames.Count != 0;
         }
-
-        public event EventHandler<bool> SelectionChanged;
     }
 }
