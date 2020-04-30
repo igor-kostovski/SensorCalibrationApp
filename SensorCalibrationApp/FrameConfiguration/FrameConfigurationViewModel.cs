@@ -71,7 +71,7 @@ namespace SensorCalibrationApp.FrameConfiguration
 
         private void OnNewData(object sender, object signal)
         {
-            if(Signals.Count > 3)
+            if(Signals.Count > 4)
                 Application.Current?.Dispatcher.Invoke(() =>
                 {
                     Signals.Clear();

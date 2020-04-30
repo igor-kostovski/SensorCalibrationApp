@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:local="clr-namespace:SensorCalibrationApp.Diagnostics"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              xmlns:ctrls="clr-namespace:SensorCalibrationApp.Controls"
              xmlns:validations="clr-namespace:SensorCalibrationApp.Validations"
+             xmlns:common="clr-namespace:SensorCalibrationApp.Common;assembly=SensorCalibrationApp.Common"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -21,6 +21,7 @@
         <conv:ByteToString x:Key="ByteToString"/>
         <conv:ByteArrayToVisibility x:Key="ByteArrayToVisibility" Negate="False"/>
         <conv:ByteArrayToVisibility x:Key="NegByteArrayToVisibility" Negate="True"/>
+        <conv:ByteArrayToIcon x:Key="ByteArrayToIcon"/>
 
         <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -34,7 +35,7 @@
         </Style>
 
         <validations:BindingProxy x:Key="RaiseAfterValidationProxy"
-                                  Data="{Binding DataContext.RaiseCanRunExecuteChange, ElementName=SignalsItemsControl}"/>
+                                  Data="{Binding DataContext.RaiseAfterValidation, ElementName=SignalsItemsControl}"/>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -82,7 +83,7 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type local:Command}">
+                    <DataTemplate DataType="{x:Type common:Command}">
                         <Border x:Name="Border"
                                     BorderThickness="4"
                                     CornerRadius="10"
@@ -173,7 +174,7 @@
                                                  Converter="{StaticResource ByteToString}"
                                                  Mode="TwoWay">
                                             <Binding.ValidationRules>
-                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue" Min="0x20" Max="0x3B">
+                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue">
                                                     <validations:ComparisonValue RaiseAfterValidation="{Binding Path=Data, Source={StaticResource RaiseAfterValidationProxy}}"/>
                                                 </validations:FrameIdRangeRule>
                                             </Binding.ValidationRules>
@@ -232,6 +233,11 @@
                 <ctrls:EmptyResponseFrame Grid.Column="1" 
                                           Grid.Row="4"
                                           Visibility="{Binding ResBytes, Converter={StaticResource NegByteArrayToVisibility}}"/>
+
+                <ContentControl Grid.Column="2" 
+                                Grid.Row="4"
+                                Content="{Binding ResBytes, Converter={StaticResource ByteArrayToIcon}}"
+                                Visibility="{Binding ResBytes, Converter={StaticResource ByteArrayToVisibility}}"/>
             </Grid>
         </Grid>
     </materialDesign:Card>

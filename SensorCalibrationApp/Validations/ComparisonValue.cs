@@ -2,13 +2,13 @@
 
 namespace SensorCalibrationApp.Validations
 {
-    public delegate void NotifyForValidation();
+    public delegate void ValidationNotifier();
 
     public class ComparisonValue : DependencyObject
     {
-        public NotifyForValidation RaiseAfterValidation
+        public ValidationNotifier RaiseAfterValidation
         {
-            get { return (NotifyForValidation)GetValue(RaiseAfterValidationProperty); }
+            get { return (ValidationNotifier)GetValue(RaiseAfterValidationProperty); }
             set
             {
                 SetValue(RaiseAfterValidationProperty, value);
@@ -17,6 +17,6 @@ namespace SensorCalibrationApp.Validations
 
         public static readonly DependencyProperty RaiseAfterValidationProperty =
             DependencyProperty.Register(nameof(RaiseAfterValidation),
-                typeof(NotifyForValidation), typeof(ComparisonValue), new FrameworkPropertyMetadata(default(NotifyForValidation)));
+                typeof(ValidationNotifier), typeof(ComparisonValue), new FrameworkPropertyMetadata(default(ValidationNotifier)));
     }
 }

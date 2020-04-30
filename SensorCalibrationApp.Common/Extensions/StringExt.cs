@@ -2,7 +2,7 @@
 
 namespace SensorCalibrationApp.Common.Extensions
 {
-    public static class MakeSentence
+    public static class StringExt
     {
         public static string ToSentence(this string message)
         {
