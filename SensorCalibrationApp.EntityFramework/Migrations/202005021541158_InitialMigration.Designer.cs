@@ -13,7 +13,7 @@ namespace SensorCalibrationApp.EntityFramework.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202005021021265_InitialMigration"; }
+            get { return "202005021541158_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

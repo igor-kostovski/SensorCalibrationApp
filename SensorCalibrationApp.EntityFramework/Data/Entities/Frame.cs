@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SensorCalibrationApp.Common.Enums;
 
 namespace SensorCalibrationApp.EntityFramework.Data.Entities
@@ -9,7 +8,9 @@ namespace SensorCalibrationApp.EntityFramework.Data.Entities
         public byte FrameId { get; set; }
         public Direction Direction { get; set; }
 
+        public int DeviceId { get; set; }
+        public Device Device { get; set; }
+
         public List<Signal> Signals { get; set; }
-        public List<Device> Devices { get; set; }
     }
 }

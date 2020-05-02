@@ -55,19 +55,49 @@ namespace SensorCalibrationApp.EntityFramework.Data
                     {
                         Id = 3,
                         Name = "PT sensors evaporator outlet",
-                        Type = DeviceType.PTSensor
+                        Type = DeviceType.PTSensor,
+                        Frames = new List<Frame>
+                        {
+                            new Frame
+                            {
+                                Name = "DTSs_01",
+                                FrameId = 0x27,
+                                Direction = Direction.Subscriber,
+                                DeviceId = 3
+                            }
+                        }
                     },
                     new Device
                     {
                         Id = 4,
                         Name = "PT sensors compressor outlet",
-                        Type = DeviceType.PTSensor
+                        Type = DeviceType.PTSensor,
+                        Frames = new List<Frame>
+                        {
+                            new Frame
+                            {
+                                Name = "DTSs_01",
+                                FrameId = 0x27,
+                                Direction = Direction.Subscriber,
+                                DeviceId = 4
+                            }
+                        }
                     },
                     new Device
                     {
                         Id = 5,
                         Name = "PT sensors compressor inlet",
-                        Type = DeviceType.PTSensor
+                        Type = DeviceType.PTSensor,
+                        Frames = new List<Frame>
+                        {
+                            new Frame
+                            {
+                                Name = "DTSs_01",
+                                FrameId = 0x27,
+                                Direction = Direction.Subscriber,
+                                DeviceId = 5
+                            }
+                        }
                     },
                     new Device
                     {
@@ -111,16 +141,6 @@ namespace SensorCalibrationApp.EntityFramework.Data
                     }
                 );
 
-                _db.Frames.AddOrUpdate(f => f.Id,
-                    new Frame
-                    {
-                        Id = 1,
-                        Name = "DTSs_01",
-                        FrameId = 0x27,
-                        Direction = Direction.Subscriber
-                    }
-                );
-
                 _db.Signals.AddOrUpdate(s => s.Id,
                     new Signal
                     {
@@ -144,14 +164,6 @@ namespace SensorCalibrationApp.EntityFramework.Data
                 var frame = _db.Frames.SingleOrDefault(x => x.Id == 1);
                 if (frame != null && frame.Signals == null)
                     frame.Signals = new List<Signal>(_db.Signals.ToList());
-
-                var deviceIds = new List<int>(new int[] {3, 4, 5});
-                var devices = _db.Devices.Where(x => deviceIds.Any(y => x.Id == y)).ToList();
-                devices.ForEach(x =>
-                {
-                    if (x.Frames == null)
-                        x.Frames = new List<Frame> {frame};
-                });
 
                 var ecu = _db.Ecus.SingleOrDefault(x => x.Id == 1);
                 if (ecu != null && ecu.Devices == null)

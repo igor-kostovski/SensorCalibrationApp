@@ -11,10 +11,10 @@ namespace SensorCalibrationApp.EntityFramework.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override async void Seed(DataContext context)
+        protected override void Seed(DataContext context)
         {
             var seeder = new Seeder(context);
-            await seeder.Seed();
+            seeder.Seed().Wait();
         }
     }
 }

@@ -8,13 +8,8 @@ namespace SensorCalibrationApp.EntityFramework.Data.EntityConfigurations
         public DeviceConfiguration()
         {
             HasMany(x => x.Frames)
-                .WithMany(x => x.Devices)
-                .Map(x =>
-                {
-                    x.MapLeftKey("DeviceId");
-                    x.MapRightKey("Frame_Id");
-                    x.ToTable("DeviceFrames");
-                });
+                .WithRequired(x => x.Device)
+                .HasForeignKey(x => x.DeviceId);
         }
     }
 }

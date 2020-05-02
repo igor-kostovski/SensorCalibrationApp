@@ -33,9 +33,12 @@
                         Id = c.Int(nullable: false, identity: true),
                         FrameId = c.Byte(nullable: false),
                         Direction = c.Byte(nullable: false),
+                        DeviceId = c.Int(nullable: false),
                         Name = c.String(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Devices", t => t.DeviceId, cascadeDelete: true)
+                .Index(t => t.DeviceId);
             
             CreateTable(
                 "dbo.Signals",
@@ -72,36 +75,20 @@
                 .Index(t => t.Frame_Id)
                 .Index(t => t.SignalId);
             
-            CreateTable(
-                "dbo.DeviceFrames",
-                c => new
-                    {
-                        DeviceId = c.Int(nullable: false),
-                        Frame_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.DeviceId, t.Frame_Id })
-                .ForeignKey("dbo.Devices", t => t.DeviceId, cascadeDelete: true)
-                .ForeignKey("dbo.Frames", t => t.Frame_Id, cascadeDelete: true)
-                .Index(t => t.DeviceId)
-                .Index(t => t.Frame_Id);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.DeviceFrames", "Frame_Id", "dbo.Frames");
-            DropForeignKey("dbo.DeviceFrames", "DeviceId", "dbo.Devices");
+            DropForeignKey("dbo.Frames", "DeviceId", "dbo.Devices");
             DropForeignKey("dbo.FrameSignals", "SignalId", "dbo.Signals");
             DropForeignKey("dbo.FrameSignals", "Frame_Id", "dbo.Frames");
             DropForeignKey("dbo.EcuDevices", "DeviceId", "dbo.Devices");
             DropForeignKey("dbo.EcuDevices", "EcuId", "dbo.Ecus");
-            DropIndex("dbo.DeviceFrames", new[] { "Frame_Id" });
-            DropIndex("dbo.DeviceFrames", new[] { "DeviceId" });
             DropIndex("dbo.FrameSignals", new[] { "SignalId" });
             DropIndex("dbo.FrameSignals", new[] { "Frame_Id" });
             DropIndex("dbo.EcuDevices", new[] { "DeviceId" });
             DropIndex("dbo.EcuDevices", new[] { "EcuId" });
-            DropTable("dbo.DeviceFrames");
+            DropIndex("dbo.Frames", new[] { "DeviceId" });
             DropTable("dbo.FrameSignals");
             DropTable("dbo.EcuDevices");
             DropTable("dbo.Signals");
