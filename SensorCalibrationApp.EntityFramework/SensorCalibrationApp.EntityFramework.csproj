@@ -61,6 +61,10 @@
     <Compile Include="Data\EntityConfigurations\DeviceConfiguration.cs" />
     <Compile Include="Data\EntityConfigurations\EcuConfiguration.cs" />
     <Compile Include="Data\EntityConfigurations\FrameConfiguration.cs" />
+    <Compile Include="Migrations\202005021021265_InitialMigration.cs" />
+    <Compile Include="Migrations\202005021021265_InitialMigration.designer.cs">
+      <DependentUpon>202005021021265_InitialMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,7 +82,11 @@
       <Name>SensorCalibrationApp.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202005021021265_InitialMigration.resx">
+      <DependentUpon>202005021021265_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
