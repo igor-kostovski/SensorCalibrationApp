@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Domain.Models;
+using SensorCalibrationApp.EntityFramework.Data.Entities;
 
 namespace SensorCalibrationApp.EntityFramework.Automapper
 {

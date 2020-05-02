@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.EntityFramework.Data;
@@ -22,13 +23,11 @@ namespace SensorCalibrationApp.EntityFramework.Services
 
         public async Task<List<EcuModel>> GetAll()
         {
-            var entities = await _db.Ecus
+            return await _db.Ecus
                 .Include(x => x.Devices)
-                .Include(x => x.Devices.Select(y => y.Frames))
-                .Include(x => x.Devices.SelectMany(y => y.Frames).Select(z => z.Signals))
+                .Include(x => x.Devices.Select(y => y.Frames.Select(z => z.Signals)))
+                .ProjectTo<EcuModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return _mapper.Map<List<EcuModel>>(entities);
         }
     }
 }
