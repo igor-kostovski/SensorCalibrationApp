@@ -2,7 +2,7 @@
 using SensorCalibrationApp.EntityFramework.Data.Entities;
 using SensorCalibrationApp.EntityFramework.Data.EntityConfigurations;
 
-namespace SensorCalibrationApp.EntityFramework
+namespace SensorCalibrationApp.EntityFramework.Data
 {
     public class DataContext : DbContext
     {

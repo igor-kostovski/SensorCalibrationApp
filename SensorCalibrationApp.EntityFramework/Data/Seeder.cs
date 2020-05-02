@@ -7,7 +7,7 @@ using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.EntityFramework.Data.Entities;
 
-namespace SensorCalibrationApp.EntityFramework
+namespace SensorCalibrationApp.EntityFramework.Data
 {
     public class Seeder : ISeeder
     {

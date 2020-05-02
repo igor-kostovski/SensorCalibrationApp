@@ -1,8 +1,10 @@
-﻿namespace SensorCalibrationApp.EntityFramework.Migrations
+﻿using SensorCalibrationApp.EntityFramework.Data;
+
+namespace SensorCalibrationApp.EntityFramework.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SensorCalibrationApp.EntityFramework.DataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()
         {
