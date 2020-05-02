@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using SensorCalibrationApp.Domain.Models;
+using SensorCalibrationApp.EntityFramework.Data.Entities;
 
 namespace SensorCalibrationApp.EntityFramework
 {
@@ -8,9 +8,9 @@ namespace SensorCalibrationApp.EntityFramework
         public DataContext() : base()
         { }
 
-        public DbSet<EcuModel> Ecus { get; set; }
-        public DbSet<FrameModel> Frames { get; set; }
-        public DbSet<DeviceModel> Devices { get; set; }
-        public DbSet<SignalModel> Signals { get; set; }
+        public DbSet<Ecu> Ecus { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<Frame> Frames { get; set; }
+        public DbSet<Signal> Signals { get; set; }
     }
 }

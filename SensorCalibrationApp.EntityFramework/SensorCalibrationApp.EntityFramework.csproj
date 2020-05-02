@@ -53,7 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="EntityConfigurations\EcuConfiguration.cs" />
+    <Compile Include="Data\Entities\BaseEntity.cs" />
+    <Compile Include="Data\Entities\Device.cs" />
+    <Compile Include="Data\Entities\Ecu.cs" />
+    <Compile Include="Data\Entities\Frame.cs" />
+    <Compile Include="Data\Entities\Signal.cs" />
+    <Compile Include="Data\EntityConfigurations\EcuConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj">
+      <Project>{CEFAF316-6D1D-456D-891C-DAECA9399495}</Project>
+      <Name>SensorCalibrationApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SensorCalibrationApp.Domain\SensorCalibrationApp.Domain.csproj">
       <Project>{EA9578EF-622D-485A-B4F7-AD06A4C508A8}</Project>
       <Name>SensorCalibrationApp.Domain</Name>
