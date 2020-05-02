@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -161,19 +162,27 @@ namespace SensorCalibrationApp.EntityFramework.Data
 
                 _db.SaveChanges();
 
-                var frame = _db.Frames.SingleOrDefault(x => x.Id == 1);
+                var frame = _db.Frames
+                    .Include(x => x.Signals)
+                    .SingleOrDefault(x => x.Id == 1);
                 if (frame != null && frame.Signals == null)
                     frame.Signals = new List<Signal>(_db.Signals.ToList());
 
-                var ecu = _db.Ecus.SingleOrDefault(x => x.Id == 1);
+                var ecu = _db.Ecus
+                    .Include(x => x.Devices)
+                    .SingleOrDefault(x => x.Id == 1);
                 if (ecu != null && ecu.Devices == null)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id < 10).ToList());
 
-                ecu = _db.Ecus.SingleOrDefault(x => x.Id == 2);
+                ecu = _db.Ecus
+                    .Include(x => x.Devices)
+                    .SingleOrDefault(x => x.Id == 2);
                 if (ecu != null && ecu.Devices == null)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id < 6 || x.Id == 10).ToList());
 
-                ecu = _db.Ecus.SingleOrDefault(x => x.Id == 3);
+                ecu = _db.Ecus
+                    .Include(x => x.Devices)
+                    .SingleOrDefault(x => x.Id == 3);
                 if (ecu != null && ecu.Devices == null)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id > 10).ToList());
 
