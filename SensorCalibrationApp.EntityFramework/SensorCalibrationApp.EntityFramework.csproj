@@ -55,7 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automapper\DeviceProfile.cs" />
     <Compile Include="Automapper\EcuProfile.cs" />
+    <Compile Include="Automapper\FrameProfile.cs" />
+    <Compile Include="Automapper\SignalProfile.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
     <Compile Include="Data\Entities\Device.cs" />
