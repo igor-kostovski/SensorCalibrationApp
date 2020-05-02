@@ -21,6 +21,10 @@ namespace SensorCalibrationApp.EntityFramework.Data
 
         public Task Seed()
         {
+            var isEmpty = _db.Ecus.First() == null;
+            if (!isEmpty)
+                return Task.CompletedTask;
+
             return Task.Run(() =>
             {
                 _db.Ecus.AddOrUpdate(e => e.Id,
