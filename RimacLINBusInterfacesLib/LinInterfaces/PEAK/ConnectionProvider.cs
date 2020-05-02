@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Extensions;
 using HardwareHandle = System.UInt16;
 using ClientHandle = System.Byte;
 
@@ -19,7 +20,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
         public (ClientHandle, HardwareHandle) Open()
         {
-            ConnectionExists();
+            CheckIfConnectionExists();
             Register();
             DetermineHardware();
             Connect();
@@ -36,7 +37,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
             linClientHandle = 0;
         }
 
-        private void ConnectionExists()
+        private void CheckIfConnectionExists()
         {
             if (linClientHandle != 0)
                 throw new ConnectionError("Connection with this client already exists");
@@ -46,7 +47,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         {
             var result = PLinApi.RegisterClient("Master", 0, out linClientHandle);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while registering a client: {result.ToString()}");
+                throw new ConnectionError($"Error while registering a client: {result.ToString().ToSentence()}");
         }
 
         protected void DetermineHardware()
@@ -57,7 +58,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
             var result = PLinApi.GetAvailableHardware(hardwareHandles,
                 (ushort)(hardwareHandles.Length * sizeof(HardwareHandle)), out hardwareHandlesCount);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while getting available hardware: {result.ToString()}");
+                throw new ConnectionError($"Error while getting available hardware: {result.ToString().ToSentence()}");
 
             linHardwareHandle = hardwareHandles.First();
         }
@@ -66,28 +67,28 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         {
             var result = PLinApi.ConnectClient(linClientHandle, linHardwareHandle);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while connecting a client: {result.ToString()}");
+                throw new ConnectionError($"Error while connecting a client: {result.ToString().ToSentence()}");
         }
 
         private void Initialize(BaudRate baudRate, HardwareMode hardwareMode)
         {
             var result = PLinApi.InitializeHardware(linClientHandle, linHardwareHandle, hardwareMode, (ushort)baudRate);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while initializing hardware: {result.ToString()}");
+                throw new ConnectionError($"Error while initializing hardware: {result.ToString().ToSentence()}");
         }
 
         private void SetClientFilter()
         {
             var result = PLinApi.RegisterFrameId(linClientHandle, linHardwareHandle, 0x01, 0x3D);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while setting client filter: {result.ToString()}");
+                throw new ConnectionError($"Error while setting client filter: {result.ToString().ToSentence()}");
         }
 
         protected void KeepAlive()
         {
             var result = PLinApi.StartKeepAlive(linClientHandle, linHardwareHandle, 0x00, 1000);
             if (result != LinError.Ok)
-                throw new ConnectionError($"Error while starting a keep alive session: {result.ToString()}");
+                throw new ConnectionError($"Error while starting a keep alive session: {result.ToString().ToSentence()}");
         }
 
         private void Disconnect()

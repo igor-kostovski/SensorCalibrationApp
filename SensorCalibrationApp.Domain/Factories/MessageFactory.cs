@@ -1,7 +1,5 @@
-﻿using System;
-using SensorCalibrationApp.Common.Enums;
+﻿using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Common.Structs;
-using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Factories
 {

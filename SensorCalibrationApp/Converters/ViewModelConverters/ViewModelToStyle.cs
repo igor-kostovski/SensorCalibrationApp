@@ -3,15 +3,16 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SensorCalibrationApp.Converters.ValueToStyleOrContent
+namespace SensorCalibrationApp.Converters.ViewModelConverters
 {
-    public class ValueToStyleConverter : ValueToStyleOrContentConverterBase, IValueConverter
+    public class ViewModelToStyle : IValueConverter
     {
         public string IconOrTitle { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var (currScreenIndex, menuItemIndex) = Parse(value, parameter);
+            var currScreenIndex = (int) value;
+            var menuItemIndex = System.Convert.ToInt32(parameter);
 
             if (currScreenIndex > menuItemIndex)
                 return Application.Current.FindResource($"Passed{IconOrTitle}Style") as Style;

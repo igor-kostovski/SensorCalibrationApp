@@ -3,49 +3,39 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
-using SensorCalibrationApp.Diagnostics;
+using SensorCalibrationApp.Common;
+using SensorCalibrationApp.Common.Extensions;
 
 namespace SensorCalibrationApp.Validations
 {
     [ContentProperty("ComparisonValue")]
     public class FrameIdRangeRule : ValidationRule
     {
-        public byte Max { get; set; }
-        public byte Min { get; set; }
         public ComparisonValue ComparisonValue { get; set; }
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            byte frameId;
-            ComparisonValue.RaiseAfterValidation?.Invoke();
-            try
-            {
-                frameId = (byte) GetValue(value);
-            }
-            catch (Exception e)
-            {
-                return new ValidationResult(false, $"Illegal characters or {e.Message}");
-            }
+            var frameId = (byte) GetValue(value);
+            ValidationResult result;
 
-            if ((frameId < Min) || (frameId > Max))
-            {
-                return new ValidationResult(false,
-                    $"Please enter an frameId in the range: {BitConverter.ToString(new[] { Min })}-{BitConverter.ToString(new[] { Max })}.");
-            }
-            
-            return ValidationResult.ValidResult;
+            if (!frameId.IsInRange())
+                result = new ValidationResult(false,
+                    $"Please enter an frameId in the range: {BitConverter.ToString(new[] { ByteExt.Min })}-{BitConverter.ToString(new[] { ByteExt.Max })}.");
+            else
+              result = ValidationResult.ValidResult;
+
+            ComparisonValue.RaiseAfterValidation?.Invoke();
+            return result;
         }
 
         private object GetValue(object value)
         {
-            if (value is BindingExpression)
+            if (value is BindingExpression binding)
             {
-                BindingExpression binding = (BindingExpression)value;
-                
                 object dataItem = binding.DataItem;
 
-                if (dataItem is Signal)
-                    return (dataItem as Signal).Value;
+                if (dataItem is Signal signal)
+                    return signal.Value;
             }
 
             return value;

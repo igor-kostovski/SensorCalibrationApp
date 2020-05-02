@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Common.Extensions;
 using SensorCalibrationApp.Common.Structs;
 using HardwareHandle = System.UInt16;
 using ClientHandle = System.Byte;
@@ -9,18 +10,18 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 {
     internal class CommunicationProvider
     {
-        private volatile bool isReceiveThreadAlive;
-        private Thread receiveThread;
-        private ClientHandle linClientHandle;
-        private HardwareHandle linHardwareHandle;
+        private volatile bool _isReceiveThreadAlive;
+        private Thread _receiveThread;
+        private ClientHandle _clientHandle;
+        private HardwareHandle _hardwareHandle;
 
         public event EventHandler<byte[]> OnData;
         public event EventHandler<string> OnError;
 
         public CommunicationProvider(ClientHandle clientHandle, HardwareHandle hardwareHandle)
         {
-            linClientHandle = clientHandle;
-            linHardwareHandle = hardwareHandle;
+            _clientHandle = clientHandle;
+            _hardwareHandle = hardwareHandle;
         }
 
         public void Send(Message message)
@@ -28,32 +29,32 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
             PLinApi.CalculateChecksum(ref message);
             PLinApi.GetPID(ref message.FrameId);
 
-            var result = PLinApi.Write(linClientHandle, linHardwareHandle, ref message);
+            var result = PLinApi.Write(_clientHandle, _hardwareHandle, ref message);
             if (result != LinError.Ok)
-                throw new CommunicationError($"Error while sending a message: {result.ToString()}");
+                throw new CommunicationError($"Error while sending a message: {result.ToString().ToSentence()}");
         }
 
         public void SetupReceiveThread()
         {
-            isReceiveThreadAlive = true;
+            _isReceiveThreadAlive = true;
 
-            receiveThread = new Thread(() =>
+            _receiveThread = new Thread(() =>
             {
-                while (isReceiveThreadAlive)
+                while (_isReceiveThreadAlive)
                 {
                     ReadAllFromQueue();
                     Thread.Sleep(500);
                 }
             });
 
-            receiveThread.IsBackground = true;
-            receiveThread.Start();
+            _receiveThread.IsBackground = true;
+            _receiveThread.Start();
         }
 
         public void RemoveReceiveThread()
         {
-            isReceiveThreadAlive = false;
-            receiveThread = null;
+            _isReceiveThreadAlive = false;
+            _receiveThread = null;
         }
 
         private void ReadAllFromQueue()
@@ -64,7 +65,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
             {
                 ReceivedMessage msg;
 
-                readResult = PLinApi.Read(linClientHandle, out msg);
+                readResult = PLinApi.Read(_clientHandle, out msg);
                 var (processorResult, processorMessage) = MessageProcessor.Process(readResult, msg);
 
                 switch (processorResult)

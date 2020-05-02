@@ -57,7 +57,7 @@ namespace SensorCalibrationApp.Domain.Devices
             {
                 Message = (
                     (PTSensorError)binary.FindIndex(x => x == 1)
-                ).ToString();
+                ).ToString().ToSentence();
                 HasError = true;
 
                 return false;

@@ -27,8 +27,7 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
                 var (clientHandle, hardwareHandle) = _connectionProvider.Open();
                 _communicationProvider = new CommunicationProvider(clientHandle, hardwareHandle);
 
-                _communicationProvider.OnData += OnRead;
-                _communicationProvider.OnError += OnError;
+                AssignEvents();
 
                 _communicationProvider.SetupReceiveThread();
             }
@@ -38,6 +37,12 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 
                 OnError?.Invoke(this, err.Message);
             }
+        }
+
+        private void AssignEvents()
+        {
+            _communicationProvider.OnData += OnRead;
+            _communicationProvider.OnError += OnError;
         }
 
         public void CloseConnection()
@@ -68,7 +73,6 @@ namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
         {
             _communicationProvider?.RemoveReceiveThread();
             CloseConnection();
-            GC.SuppressFinalize(this);
         }
 
         public void GetPIDFor(ref byte frameId) => PLinApi.GetPID(ref frameId);

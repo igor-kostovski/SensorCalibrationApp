@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using SensorCalibrationApp.Domain.Devices;
 using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
@@ -17,13 +16,17 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
             _eventManager = eventManager;
 
             AssignEvents();
-            _linProvider.OpenConnection();
         }
 
         private void AssignEvents()
         {
             _linProvider.OnError += _eventManager.HandleError;
             _linProvider.OnRead += _eventManager.HandleRead;
+        }
+
+        public void OpenConnection()
+        {
+            _linProvider.OpenConnection();
         }
 
         public Task ReadById()

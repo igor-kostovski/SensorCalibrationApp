@@ -12,7 +12,7 @@ namespace SensorCalibrationApp.Converters
         {
             var byteVal = (byte) value;
 
-            return BitConverter.ToString(new[] {byteVal});
+            return $"0x{BitConverter.ToString(new[] {byteVal})}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

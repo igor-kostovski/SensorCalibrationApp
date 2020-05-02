@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using Autofac;
 using SensorCalibrationApp.Domain.Interfaces;
+using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
+using SensorCalibrationApp.Screens.Main;
 
 namespace SensorCalibrationApp
 {
@@ -12,12 +14,14 @@ namespace SensorCalibrationApp
     {
         public IContainer Container { get; set; }
 
-        private void App_OnStartup(object sender, StartupEventArgs e)
+        private async void App_OnStartup(object sender, StartupEventArgs e)
         {
             Container = AutofacConfig.Initialize();
 
-            Window main = Container.Resolve<MainWindow>();
+            var seeder = Container.Resolve<ISeeder>();
+            await seeder.Seed();
 
+            Window main = Container.Resolve<MainWindow>();
             main.Show();
         }
 

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SensorCalibrationApp.Common;
-using SensorCalibrationApp.DeviceSelection;
-using SensorCalibrationApp.Diagnostics;
 using SensorCalibrationApp.Domain;
-using SensorCalibrationApp.FrameConfiguration;
+using SensorCalibrationApp.Domain.Services.CommandService;
+using SensorCalibrationApp.Screens.DeviceSelection;
+using SensorCalibrationApp.Screens.Diagnostics;
+using SensorCalibrationApp.Screens.FrameConfiguration;
 
-namespace SensorCalibrationApp
+namespace SensorCalibrationApp.Screens.Main
 {
     class MainWindowViewModel : ViewModelBase
     {
@@ -14,6 +15,7 @@ namespace SensorCalibrationApp
         private readonly FrameConfigurationViewModel _frameConfigurationViewModel;
         private readonly DiagnosticsViewModel _diagnosticsViewModel;
         private readonly EventManager _eventManager;
+        private readonly ICommandService _commandService;
 
         private List<ViewModelBase> _navigationStack;
 
@@ -42,6 +44,16 @@ namespace SensorCalibrationApp
             }
         }
 
+        private int _currentViewModelIndex;
+        public int CurrentViewModelIndex
+        {
+            get { return _currentViewModelIndex; }
+            set
+            {
+                _currentViewModelIndex = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
@@ -49,7 +61,8 @@ namespace SensorCalibrationApp
         public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
             FrameConfigurationViewModel frameConfigurationViewModel, 
             DiagnosticsViewModel diagnosticsViewModel,
-            EventManager eventManager)
+            EventManager eventManager,
+            ICommandService commandService)
         {
             #region InjectingDependencies
 
@@ -57,38 +70,16 @@ namespace SensorCalibrationApp
             _frameConfigurationViewModel = frameConfigurationViewModel;
             _diagnosticsViewModel = diagnosticsViewModel;
             _eventManager = eventManager;
+            _commandService = commandService;
 
             #endregion
 
             InitializeCommands();
             InitializeNavigationStack();
+            AssignEvents();
 
             CurrentViewModel = _navigationStack.First();
-
-            AssignEvents();
-        }
-
-        private void AssignEvents()
-        {
-            _eventManager.PushError += (sender, error) =>
-            {
-                ErrorMessage = new ErrorMessage(error);
-            };
-
-            _deviceSelectionViewModel.SelectionChanged += (sender, isFrameSelected) =>
-            {
-                if(isFrameSelected)
-                    SetFrameOnDependentViewModels();
-
-                Forward.RaiseCanExecuteChanged();
-            };
-        }
-
-        private void SetFrameOnDependentViewModels()
-        {
-            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame,
-                _deviceSelectionViewModel.SelectedDevice.Type);
-            _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
+            _commandService.OpenConnection();
         }
 
         private void InitializeCommands()
@@ -107,6 +98,31 @@ namespace SensorCalibrationApp
             };
         }
 
+        private void AssignEvents()
+        {
+            _eventManager.PushError += HandleError;
+            _deviceSelectionViewModel.SelectionChanged += HandleSelectionChanged;
+        }
+
+        private void HandleError(object sender, string error)
+        {
+            ErrorMessage = new ErrorMessage(error);
+        }
+
+        private void HandleSelectionChanged(object sender, bool isFrameSelected)
+        {
+            if (isFrameSelected)
+                SetFrameOnDependentViewModels();
+
+            Forward.RaiseCanExecuteChanged();
+        }
+
+        private void SetFrameOnDependentViewModels()
+        {
+            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
+            _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
+        }
+
         private void OnBack()
         {
             var currentIndex = _navigationStack.IndexOf(CurrentViewModel);
@@ -116,6 +132,7 @@ namespace SensorCalibrationApp
             {
                 CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(backIndex);
+                CurrentViewModelIndex = backIndex;
             }
         }
 
@@ -133,18 +150,34 @@ namespace SensorCalibrationApp
             {
                 CurrentViewModel.Unload();
                 CurrentViewModel = _navigationStack.ElementAt(forwardIndex);
+                CurrentViewModelIndex = forwardIndex;
             }
         }
 
         private bool CanGoForward()
         {
-            return _deviceSelectionViewModel.SelectedFrame != null
+            return DeviceSelectionConditions()
                 && CurrentViewModel != _navigationStack.Last();
+        }
+
+        private bool DeviceSelectionConditions()
+        {
+            if (CurrentViewModel != _deviceSelectionViewModel)
+                return true;
+
+            return _deviceSelectionViewModel.SelectedFrame != null;
         }
 
         public override void Unload()
         {
             CurrentViewModel.Unload();
+            UnassignEvents();
+        }
+
+        private void UnassignEvents()
+        {
+            _eventManager.PushError -= HandleError;
+            _deviceSelectionViewModel.SelectionChanged -= HandleSelectionChanged;
         }
     }
 }
