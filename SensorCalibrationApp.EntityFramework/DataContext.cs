@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using SensorCalibrationApp.EntityFramework.Data.Entities;
+using SensorCalibrationApp.EntityFramework.Data.EntityConfigurations;
 
 namespace SensorCalibrationApp.EntityFramework
 {
@@ -12,5 +13,14 @@ namespace SensorCalibrationApp.EntityFramework
         public DbSet<Device> Devices { get; set; }
         public DbSet<Frame> Frames { get; set; }
         public DbSet<Signal> Signals { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new EcuConfiguration());
+            modelBuilder.Configurations.Add(new DeviceConfiguration());
+            modelBuilder.Configurations.Add(new FrameConfiguration());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
