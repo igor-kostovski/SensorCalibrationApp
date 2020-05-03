@@ -4,14 +4,12 @@ using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Interfaces;
-using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
-using SensorCalibrationApp.FileDb;
-using SensorCalibrationApp.FileDb.Services;
 using SensorCalibrationApp.Screens.DeviceSelection;
 using SensorCalibrationApp.Screens.Diagnostics;
 using SensorCalibrationApp.Screens.FrameConfiguration;
 using SensorCalibrationApp.Screens.Main;
+using System.Configuration;
 
 namespace SensorCalibrationApp
 {
@@ -25,19 +23,17 @@ namespace SensorCalibrationApp
             builder.RegisterType<CommandService>().As<ICommandService>().SingleInstance();
             builder.RegisterType<EventManager>().AsSelf().SingleInstance();
 
-            //set in config file whether you want FileDb or EF and depending on that variable register types
-            //if(DbType == FileDb)
-            //    //register FileDb
-            //else
-            //    //register EF 
-
-            //registering FileDb types
-            builder.RegisterType<FrameService>().As<IFrameService>().SingleInstance();
-            builder.RegisterType<EcuService>().As<IEcuService>().SingleInstance();
-            builder.RegisterType<FileDatabase>().AsSelf().SingleInstance();
-            builder.RegisterType<FileDatabase.Seeder>().As<ISeeder>().SingleInstance();
-
-            //registering EF types -> to be implemented
+            var dbType = ConfigurationManager.AppSettings["DbType"];
+            if (dbType == "File")
+            {
+                //registering FileDb types
+                builder.RegisterModule(new FileDb.IoCModule());
+            }
+            else
+            {
+                //registering EF types
+                builder.RegisterModule(new EntityFramework.IoCModule());
+            }
 
             //registering RimacLinBusInterfaces types
             var linConfig = new LinConfiguration

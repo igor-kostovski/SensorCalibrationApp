@@ -10,7 +10,10 @@
         xmlns:controls="clr-namespace:SensorCalibrationApp.Controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="SensorCalibrationApp"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanMinimize" 
+        WindowState="Maximized">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type deviceSel:DeviceSelectionViewModel}">
