@@ -47,7 +47,6 @@ namespace SensorCalibrationApp.EntityFramework
                 .GetTypes()
                 .Where(x => x.Name.EndsWith("Profile"))
                 .Where(x => typeof(Profile).IsAssignableFrom(x) && x.IsPublic && !x.IsAbstract)
-                .Distinct()
                 .Select(x => (Profile)Activator.CreateInstance(x));
         }
     }

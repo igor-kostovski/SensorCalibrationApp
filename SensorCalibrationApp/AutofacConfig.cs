@@ -31,7 +31,7 @@ namespace SensorCalibrationApp
             }
             else
             {
-                //registering EF types -> to be implemented
+                //registering EF types
                 builder.RegisterModule(new EntityFramework.IoCModule());
             }
 
