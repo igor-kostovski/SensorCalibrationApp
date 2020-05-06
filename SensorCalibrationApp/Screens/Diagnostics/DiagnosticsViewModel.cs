@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Extensions;
@@ -87,7 +88,12 @@ namespace SensorCalibrationApp.Screens.Diagnostics
 
         public void Load()
         {
-            _eventManager.PushData += OnNewData;
+            Task.Run(() =>
+            {
+                //prevents capturing of response signals sent from sensor that are caused by requests from previous screens
+                Thread.Sleep(500);
+                _eventManager.PushData += OnNewData;
+            });
 
             Commands = CommandFactory.CreateCommands(Frame.FrameId, _commandService);
             SelectFirst();

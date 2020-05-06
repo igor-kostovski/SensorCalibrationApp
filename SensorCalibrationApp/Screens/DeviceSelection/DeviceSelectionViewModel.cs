@@ -79,7 +79,7 @@ namespace SensorCalibrationApp.Screens.DeviceSelection
 
         public async void LoadECUs()
         {
-            if(EcuModels == null)
+            //if(EcuModels == null)
                 EcuModels = new ObservableCollection<EcuModel>(await _ecuService.GetAll());
         }
 
