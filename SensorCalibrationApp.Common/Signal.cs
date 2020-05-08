@@ -24,5 +24,12 @@ namespace SensorCalibrationApp.Common
         }
 
         public bool IsEnabled { get; set; }
+
+        public string Description { get; set; }
+
+        public Signal(string description)
+        {
+            Description = description;
+        }
     }
 }
