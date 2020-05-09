@@ -48,6 +48,8 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
                 var message = MessageFactory.CreateUpdateFrameIdMessage(newFrameId);
 
                 _linProvider.Send(message);
+
+                _linProvider.Send(MessageFactory.CreateSaveConfigMessage());
                 _linProvider.Send(MessageFactory.CreateSubscriberMessage());
             });
         }

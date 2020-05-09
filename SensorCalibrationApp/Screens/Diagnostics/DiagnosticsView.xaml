@@ -158,10 +158,11 @@
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate DataType="{x:Type common:Signal}">
                             <Border BorderThickness="1" 
-                                    Margin="1"
-                                    BorderBrush="Black">
+                                        Margin="1"
+                                        BorderBrush="Black"
+                                        ToolTip="{Binding Description}">
                                 <TextBox VerticalAlignment="Center" 
                                          IsEnabled="{Binding IsEnabled}" 
                                          HorizontalAlignment="Center" 
@@ -185,6 +186,17 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
+                <materialDesign:PackIcon Grid.Column="2" 
+                                         Grid.Row="1"
+                                         Kind="InfoCircleOutline" 
+                                         Height="32" 
+                                         Width="32"
+                                         Foreground="{StaticResource BrushBlue}"
+                                         VerticalAlignment="Center"
+                                         Background="Transparent"
+                                         ToolTip="Hover over cells to see details"
+                                         ToolTipService.Placement="Right"/>
 
                 <Button Grid.Column="1"
                         Grid.Row="2" 

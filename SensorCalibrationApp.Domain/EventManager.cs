@@ -24,8 +24,6 @@ namespace SensorCalibrationApp.Domain
             {
                 PushData?.Invoke(this, data);
             }
-
-            
         }
 
         private void ReadWithDevice(byte[] data, ref string message)

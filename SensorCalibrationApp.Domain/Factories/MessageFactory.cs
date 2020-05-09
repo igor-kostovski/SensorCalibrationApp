@@ -27,5 +27,10 @@ namespace SensorCalibrationApp.Domain.Factories
         {
             return new Message(0x3D, Direction.Subscriber, ChecksumType.Classic, null);
         }
+
+        public static Message CreateSaveConfigMessage()
+        {
+            return new Message(0x3C, Direction.Publisher, ChecksumType.Classic, new byte[]{ 0x7F, 0x01, 0xB6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF });
+        }
     }
 }
