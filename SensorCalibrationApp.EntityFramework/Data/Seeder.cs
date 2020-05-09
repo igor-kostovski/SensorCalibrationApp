@@ -48,12 +48,14 @@ namespace SensorCalibrationApp.EntityFramework.Data
                     new Device
                     {
                         Id = 1,
-                        Name = "Compressor"
+                        Name = "Compressor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 2,
-                        Name = "Webasto heater"
+                        Name = "Webasto heater",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
@@ -106,42 +108,50 @@ namespace SensorCalibrationApp.EntityFramework.Data
                     new Device
                     {
                         Id = 6,
-                        Name = "EXV valve"
+                        Name = "EXV valve",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 7,
-                        Name = "Recirculation air quality sensor"
+                        Name = "Recirculation air quality sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 8,
-                        Name = "Fresh air quality sensor"
+                        Name = "Fresh air quality sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 9,
-                        Name = "Solar sensor"
+                        Name = "Solar sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 10,
-                        Name = "Gearbox oil pump"
+                        Name = "Gearbox oil pump",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 11,
-                        Name = "HVAC flaps"
+                        Name = "HVAC flaps",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 12,
-                        Name = "HVAC blower"
+                        Name = "HVAC blower",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 13,
-                        Name = "Temperature and humidity windscreen sensor"
+                        Name = "Temperature and humidity windscreen sensor",
+                        Type = DeviceType.Other
                     }
                 );
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
@@ -28,6 +29,14 @@ namespace SensorCalibrationApp.FileDb.Services
             entity.FrameId = model.FrameId;
 
             await _db.Save();
+        }
+
+        public async Task<List<FrameModel>> GetAll()
+        {
+            await _db.Load();
+            return _db.Collection
+                .Frames()
+                .ToList();
         }
     }
 }

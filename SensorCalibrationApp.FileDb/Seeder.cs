@@ -26,12 +26,14 @@ namespace SensorCalibrationApp.FileDb
                                 new DeviceModel
                                 {
                                     Id = 1,
-                                    Name = "Compressor"
+                                    Name = "Compressor",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 2,
-                                    Name = "Webasto heater"
+                                    Name = "Webasto heater",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
@@ -46,6 +48,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 3,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 3,
+                                                Name = "PT sensors evaporator outlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -80,6 +89,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 4,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 4,
+                                                Name = "PT sensors compressor outlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -114,6 +130,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 5,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 5,
+                                                Name = "PT sensors compressor inlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -138,22 +161,26 @@ namespace SensorCalibrationApp.FileDb
                                 new DeviceModel
                                 {
                                     Id = 6,
-                                    Name = "EXV valve"
+                                    Name = "EXV valve",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 7,
-                                    Name = "Recirculation air quality sensor"
+                                    Name = "Recirculation air quality sensor",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 8,
-                                    Name = "Fresh air quality sensor"
+                                    Name = "Fresh air quality sensor",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 9,
-                                    Name = "Solar sensor"
+                                    Name = "Solar sensor",
+                                    Type = DeviceType.Other
                                 }
                             }
                         },
@@ -166,12 +193,14 @@ namespace SensorCalibrationApp.FileDb
                                 new DeviceModel
                                 {
                                     Id = 1,
-                                    Name = "Compressor"
+                                    Name = "Compressor",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 2,
-                                    Name = "Webasto heater"
+                                    Name = "Webasto heater",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
@@ -186,6 +215,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 3,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 3,
+                                                Name = "PT sensors evaporator outlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -220,6 +256,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 4,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 4,
+                                                Name = "PT sensors compressor outlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -254,6 +297,13 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            DeviceId = 5,
+                                            Device = new DeviceModel
+                                            {
+                                                Id = 5,
+                                                Name = "PT sensors compressor inlet",
+                                                Type = DeviceType.PTSensor
+                                            },
                                             Signals = new List<SignalModel>
                                             {
                                                 new SignalModel
@@ -278,7 +328,8 @@ namespace SensorCalibrationApp.FileDb
                                 new DeviceModel
                                 {
                                     Id = 10,
-                                    Name = "Gearbox oil pump"
+                                    Name = "Gearbox oil pump",
+                                    Type = DeviceType.Other
                                 }
                             }
                         },
@@ -291,17 +342,20 @@ namespace SensorCalibrationApp.FileDb
                                 new DeviceModel
                                 {
                                     Id = 11,
-                                    Name = "HVAC flaps"
+                                    Name = "HVAC flaps",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 12,
-                                    Name = "HVAC blower"
+                                    Name = "HVAC blower",
+                                    Type = DeviceType.Other
                                 },
                                 new DeviceModel
                                 {
                                     Id = 13,
-                                    Name = "Temperature and humidity windscreen sensor"
+                                    Name = "Temperature and humidity windscreen sensor",
+                                    Type = DeviceType.Other
                                 }
                             }
                         }
