@@ -10,6 +10,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         public FrameManagementView()
         {
             InitializeComponent();
+            ItemsControl.ItemsSource = new string[8];
         }
     }
 }

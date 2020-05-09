@@ -4,7 +4,188 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.Screens.FrameManagement"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock Text="Frame management"/>
+
+    <materialDesign:Card Background="#fff"
+                         UniformCornerRadius="5"
+                         Margin="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.RowSpan="4" Orientation="Horizontal">
+                <Border BorderThickness="0" 
+                        CornerRadius="0" Background="{StaticResource BrushBlue}">
+                    <Ellipse Height="10" Width="10"/>
+                </Border>
+            </StackPanel>
+
+            <TextBlock Grid.Row="0" 
+                       Grid.Column="0" 
+                       Text="Frame management" 
+                       FontSize="25" 
+                       Foreground="{StaticResource BrushBlue}" 
+                       FontWeight="Bold"
+                       Margin="15,0,0,0"/>
+
+            <ComboBox Grid.Row="1" 
+                      Grid.Column="1" 
+                      IsTextSearchEnabled="True" 
+                      Text="Search by frame name" 
+                      FontSize="20" 
+                      IsEditable="True" 
+                      Width="300">
+                <ComboBoxItem>
+                    <TextBlock Text="Test 1"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Test 2"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Test 3"/>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold" 
+                               Text="Name:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"/>
+                    <TextBox Text="Test" Width="100"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold"
+                               Text="Direction:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"/>
+                    <ComboBox Width="200">
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 1"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 2"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 3"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"  
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold"
+                               Text="Request:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"
+                               VerticalAlignment="Center"/>
+
+                    <ItemsControl x:Name="ItemsControl" Height="50">
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="8"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" 
+                                        BorderThickness="1" 
+                                        Margin="1">
+                                    <TextBox VerticalAlignment="Center" 
+                                             IsEnabled="True" 
+                                             HorizontalAlignment="Center" 
+                                             TextAlignment="Center"
+                                             Width="70"
+                                             BorderBrush="{x:Null}"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1" Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource BrushBlue}"
+                               Text="Device:"
+                               Width="100"/>
+                    <ComboBox Width="200">
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 1"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 2"/>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <TextBlock Text="Test 3"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
+                    <RadioButton Width="200">
+                        <TextBlock Text="Assign Frame Id (Lin 2.0)"/>
+                    </RadioButton>
+
+                    <RadioButton Width="200">
+                        <TextBlock Text="Assign Frame Id Range (Lin 2.1)"/>
+                    </RadioButton>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,30">
+                    <Button>
+                        <TextBlock Text="Save" FontSize="18"/>
+                    </Button>
+                    <Button Margin="10,0,0,0">
+                        <TextBlock Text="Delete" FontSize="18"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </UserControl>
