@@ -7,6 +7,7 @@
         xmlns:deviceSel="clr-namespace:SensorCalibrationApp.Screens.DeviceSelection"
         xmlns:frameConfig="clr-namespace:SensorCalibrationApp.Screens.FrameConfiguration"
         xmlns:diag="clr-namespace:SensorCalibrationApp.Screens.Diagnostics"
+        xmlns:frameManag="clr-namespace:SensorCalibrationApp.Screens.FrameManagement"
         xmlns:controls="clr-namespace:SensorCalibrationApp.Controls"
         xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -25,6 +26,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type diag:DiagnosticsViewModel}">
             <diag:DiagnosticsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type frameManag:FrameManagementViewModel}">
+            <frameManag:FrameManagementView/>
         </DataTemplate>
 
         <conv:IndexToVisibility x:Key="IndexToVisibility"/>

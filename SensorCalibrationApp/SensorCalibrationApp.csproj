@@ -112,6 +112,10 @@
     <Compile Include="Converters\ViewModelConverters\ViewModelToStyle.cs" />
     <Compile Include="Screens\FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Screens\FrameManagement\FrameManagementView.xaml.cs">
+      <DependentUpon>FrameManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\FrameManagement\FrameManagementViewModel.cs" />
     <Compile Include="Validations\BindingProxy.cs" />
     <Compile Include="Validations\ComparisonValue.cs" />
     <Compile Include="Validations\FrameIdRangeRule.cs" />
@@ -141,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\FrameConfiguration\FrameConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\FrameManagement\FrameManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
