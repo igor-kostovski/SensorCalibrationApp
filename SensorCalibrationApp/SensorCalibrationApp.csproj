@@ -107,6 +107,7 @@
     <Compile Include="Converters\ByteArrayToIcon.cs" />
     <Compile Include="Converters\ByteArrayToVisibility.cs" />
     <Compile Include="Converters\ByteToString.cs" />
+    <Compile Include="Converters\IndexToVisibility.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToContent.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToStyle.cs" />
     <Compile Include="Screens\FrameConfiguration\SignalValue.cs" />

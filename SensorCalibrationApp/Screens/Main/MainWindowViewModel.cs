@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Domain;
@@ -57,6 +58,7 @@ namespace SensorCalibrationApp.Screens.Main
 
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
+        public RelayCommand Add { get; set; }
 
         public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
             FrameConfigurationViewModel frameConfigurationViewModel, 
@@ -86,6 +88,7 @@ namespace SensorCalibrationApp.Screens.Main
         {
             Forward = new RelayCommand(OnForward, CanGoForward);
             Back = new RelayCommand(OnBack, CanGoBack);
+            Add = new RelayCommand(OnAdd);
         }
 
         private void InitializeNavigationStack()
@@ -158,6 +161,11 @@ namespace SensorCalibrationApp.Screens.Main
         {
             return DeviceSelectionConditions()
                 && CurrentViewModel != _navigationStack.Last();
+        }
+
+        private void OnAdd()
+        {
+            Debug.WriteLine("Isao na add");
         }
 
         private bool DeviceSelectionConditions()
