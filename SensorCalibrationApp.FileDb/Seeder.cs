@@ -85,7 +85,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         new FrameModel
                                         {
-                                            Id = 1,
+                                            Id = 2,
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
@@ -126,7 +126,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         new FrameModel
                                         {
-                                            Id = 1,
+                                            Id = 3,
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
@@ -252,7 +252,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         new FrameModel
                                         {
-                                            Id = 1,
+                                            Id = 2,
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
@@ -293,7 +293,7 @@ namespace SensorCalibrationApp.FileDb
                                     {
                                         new FrameModel
                                         {
-                                            Id = 1,
+                                            Id = 3,
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,

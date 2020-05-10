@@ -39,6 +39,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
                 OnPropertyChanged();
 
                 Delete.RaiseCanExecuteChanged();
+                Clear.RaiseCanExecuteChanged();
             }
         }
 

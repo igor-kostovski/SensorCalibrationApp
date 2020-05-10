@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace SensorCalibrationApp.Screens.FrameManagement
 {
@@ -11,6 +12,11 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         {
             InitializeComponent();
             ItemsControl.ItemsSource = new string[8];
+        }
+
+        private void ClearButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            FrameComboBox.Text = "";
         }
     }
 }
