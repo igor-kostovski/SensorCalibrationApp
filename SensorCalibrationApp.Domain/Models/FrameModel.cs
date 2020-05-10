@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Domain.Dtos;
 
 namespace SensorCalibrationApp.Domain.Models
 {
@@ -12,6 +13,6 @@ namespace SensorCalibrationApp.Domain.Models
         public List<SignalModel> Signals { get; set; }
 
         public int DeviceId { get; set; }
-        public DeviceModel Device { get; set; }
+        public DeviceDto Device { get; set; }
     }
 }

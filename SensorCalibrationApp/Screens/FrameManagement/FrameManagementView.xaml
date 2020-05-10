@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SensorCalibrationApp.Screens.FrameManagement"
+             xmlns:conv="clr-namespace:SensorCalibrationApp.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:models="clr-namespace:SensorCalibrationApp.Domain.Models;assembly=SensorCalibrationApp.Domain"
@@ -14,6 +15,10 @@
             <b:CallMethodAction TargetObject="{Binding}" MethodName="Load"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <conv:BoolInvert x:Key="BoolInvert"/>
+    </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
                          UniformCornerRadius="5"
@@ -163,11 +168,11 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
-                    <RadioButton Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig}">
+                    <RadioButton GroupName="IncludeSaveConfig" Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig, Converter={StaticResource BoolInvert}, Mode=TwoWay}">
                         <TextBlock Text="Assign Frame Id (Lin 2.0)"/>
                     </RadioButton>
 
-                    <RadioButton Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig}">
+                    <RadioButton GroupName="IncludeSaveConfig" Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig, Mode=TwoWay}">
                         <TextBlock Text="Assign Frame Id Range (Lin 2.1)"/>
                     </RadioButton>
                 </StackPanel>

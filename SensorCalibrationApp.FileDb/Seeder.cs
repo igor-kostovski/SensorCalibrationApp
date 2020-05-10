@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Domain.Dtos;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
@@ -50,11 +51,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 3,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 3,
                                                 Name = "PT sensors evaporator outlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {
@@ -92,11 +94,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 4,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 4,
                                                 Name = "PT sensors compressor outlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {
@@ -134,11 +137,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 5,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 5,
                                                 Name = "PT sensors compressor inlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {
@@ -220,11 +224,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 3,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 3,
                                                 Name = "PT sensors evaporator outlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {
@@ -262,11 +267,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 4,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 4,
                                                 Name = "PT sensors compressor outlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {
@@ -304,11 +310,12 @@ namespace SensorCalibrationApp.FileDb
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
                                             DeviceId = 5,
-                                            Device = new DeviceModel
+                                            Device = new DeviceDto
                                             {
                                                 Id = 5,
                                                 Name = "PT sensors compressor inlet",
-                                                Type = DeviceType.PTSensor
+                                                Type = DeviceType.PTSensor,
+                                                IncludeSaveConfig = true
                                             },
                                             Signals = new List<SignalModel>
                                             {

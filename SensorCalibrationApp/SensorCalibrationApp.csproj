@@ -104,6 +104,7 @@
     <Compile Include="Controls\Selector.xaml.cs">
       <DependentUpon>Selector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolInvert.cs" />
     <Compile Include="Converters\ByteArrayToIcon.cs" />
     <Compile Include="Converters\ByteArrayToVisibility.cs" />
     <Compile Include="Converters\ByteToString.cs" />
