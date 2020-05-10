@@ -40,6 +40,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 3,
                                     Name = "PT sensors evaporator outlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel
@@ -81,6 +82,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 4,
                                     Name = "PT sensors compressor outlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel
@@ -122,6 +124,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 5,
                                     Name = "PT sensors compressor inlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel
@@ -207,6 +210,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 3,
                                     Name = "PT sensors evaporator outlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel
@@ -248,6 +252,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 4,
                                     Name = "PT sensors compressor outlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel
@@ -289,6 +294,7 @@ namespace SensorCalibrationApp.FileDb
                                     Id = 5,
                                     Name = "PT sensors compressor inlet",
                                     Type = DeviceType.PTSensor,
+                                    IncludeSaveConfig = true,
                                     Frames = new List<FrameModel>
                                     {
                                         new FrameModel

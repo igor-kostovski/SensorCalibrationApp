@@ -7,6 +7,7 @@ namespace SensorCalibrationApp.Domain.Models
     {
         public byte FrameId { get; set; }
         public Direction Direction { get; set; }
+        public byte[] Bytes { get; set; }
 
         public List<SignalModel> Signals { get; set; }
 
