@@ -38,11 +38,28 @@ namespace SensorCalibrationApp.Screens.FrameManagement
             set
             {
                 _selectedFrame = value;
+
+                FrameBytes = ByteValue.GetFrameBytes(SelectedFrame?.Bytes ?? new byte[8]);
+
                 OnPropertyChanged();
 
                 Delete.RaiseCanExecuteChanged();
                 Clear.RaiseCanExecuteChanged();
                 SelectDevice();
+            }
+        }
+
+        private ObservableCollection<ByteValue> _frameBytes;
+        public ObservableCollection<ByteValue> FrameBytes
+        {
+            get
+            {
+                return _frameBytes;
+            }
+            set
+            {
+                _frameBytes = value;
+                OnPropertyChanged();
             }
         }
 
@@ -120,7 +137,8 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
         private void OnSave()
         {
-            if(SelectedFrame.Id != 0)
+            SelectedFrame.Bytes = _frameBytes?.Select(x => x.Value).ToArray();
+            if (SelectedFrame.Id != 0)
             {
                 //_frameService.Update(SelectedFrame);
                 //var toUpdate = Frames.SingleOrDefault(x => x.Id == SelectedFrame.Id);
@@ -143,10 +161,9 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
         private void SelectDevice()
         {
-            if (SelectedFrame != null)
-                SelectedDevice = Devices?.FirstOrDefault(x => x.Id == _selectedFrame.DeviceId);
-            else
-                SelectedDevice = null;
+            SelectedDevice = SelectedFrame != null ? 
+                Devices?.FirstOrDefault(x => x.Id == _selectedFrame.DeviceId) : 
+                null;
         }
     }
 }

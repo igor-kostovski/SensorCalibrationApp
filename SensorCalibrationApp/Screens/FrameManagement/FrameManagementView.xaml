@@ -18,6 +18,7 @@
 
     <UserControl.Resources>
         <conv:BoolInvert x:Key="BoolInvert"/>
+        <conv:ByteToString x:Key="ByteToString"/>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -118,7 +119,7 @@
                                Width="100"
                                VerticalAlignment="Center"/>
 
-                    <ItemsControl x:Name="ItemsControl" Height="50">
+                    <ItemsControl Height="50" ItemsSource="{Binding FrameBytes}">
 
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -136,6 +137,7 @@
                                              HorizontalAlignment="Center" 
                                              TextAlignment="Center"
                                              Width="70"
+                                             Text="{Binding Value, Converter={StaticResource ByteToString}}"
                                              BorderBrush="{x:Null}"/>
                                 </Border>
                             </DataTemplate>
