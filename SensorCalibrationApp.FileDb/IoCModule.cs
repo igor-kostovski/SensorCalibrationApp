@@ -10,6 +10,7 @@ namespace SensorCalibrationApp.FileDb
         {
             builder.RegisterType<FrameService>().As<IFrameService>().SingleInstance();
             builder.RegisterType<EcuService>().As<IEcuService>().SingleInstance();
+            builder.RegisterType<DeviceService>().As<IDeviceService>().SingleInstance();
             builder.RegisterType<FileDatabase>().AsSelf().SingleInstance();
             builder.RegisterType<FileDatabase.Seeder>().As<ISeeder>().SingleInstance();
 

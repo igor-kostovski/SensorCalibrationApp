@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows.Media;
+using System.Linq;
 using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
@@ -11,6 +12,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
     class FrameManagementViewModel : ViewModelBase
     {
         private readonly IFrameService _frameService;
+        private readonly IDeviceService _deviceService;
 
         private ObservableCollection<FrameModel> _frames;
         public ObservableCollection<FrameModel> Frames
@@ -40,8 +42,35 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
                 Delete.RaiseCanExecuteChanged();
                 Clear.RaiseCanExecuteChanged();
+                SelectDevice();
             }
         }
+
+        private ObservableCollection<DeviceModel> _devices;
+        public ObservableCollection<DeviceModel> Devices
+        {
+            get
+            {
+                return _devices;
+            }
+            set
+            {
+                _devices = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DeviceModel _selectedDevice;
+        public DeviceModel SelectedDevice
+        {
+            get { return _selectedDevice; }
+            set
+            {
+                _selectedDevice = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public List<Direction> Directions { get; set; }
 
@@ -49,18 +78,13 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         public RelayCommand Delete { get; set; }
         public RelayCommand Clear { get; set; }
 
-        public FrameManagementViewModel(IFrameService frameService)
+        public FrameManagementViewModel(IFrameService frameService, IDeviceService deviceService)
         {
             _frameService = frameService;
+            _deviceService = deviceService;
             InitializeCommands();
 
-            Directions = new List<Direction>
-            {
-                Direction.Disabled,
-                Direction.Publisher,
-                Direction.Subscriber,
-                Direction.SubscriberAutoLength
-            };
+            Directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
         }
 
         private void InitializeCommands()
@@ -74,6 +98,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         {
             Frames = new ObservableCollection<FrameModel>(await _frameService.GetAll());
             SelectedFrame = new FrameModel();
+            Devices = new ObservableCollection<DeviceModel>(await _deviceService.GetAll());
         }
 
         private bool CanDelete()
@@ -83,7 +108,9 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
         private void OnDelete()
         {
-            Debug.WriteLine("Deleted");
+            Frames.Remove(SelectedFrame);
+            //_frameService.Delete(SelectedFrame.Id);
+            OnClear();
         }
 
         private bool CanSave()
@@ -94,14 +121,32 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         private void OnSave()
         {
             if(SelectedFrame.Id != 0)
+            {
+                //_frameService.Update(SelectedFrame);
+                //var toUpdate = Frames.SingleOrDefault(x => x.Id == SelectedFrame.Id);
+                //Update(toUpdate, SelectedFrame);
                 Debug.WriteLine("Updated");
+            }
             else
+            {
+                //Frames.Add(await _frameService.Add(SelectedFrame));
                 Debug.WriteLine("Added");
+            }
+            OnClear();
         }
 
         private void OnClear()
         {
+            SelectedFrame = null;
             SelectedFrame = new FrameModel();
+        }
+
+        private void SelectDevice()
+        {
+            if (SelectedFrame != null)
+                SelectedDevice = Devices?.FirstOrDefault(x => x.Id == _selectedFrame.DeviceId);
+            else
+                SelectedDevice = null;
         }
     }
 }

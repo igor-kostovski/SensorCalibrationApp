@@ -158,16 +158,16 @@
                                Width="100"/>
                     <ComboBox Width="200" 
                               ItemsSource="{Binding Devices}"
-                              SelectedItem="{Binding SelectedFrame.Device}" 
+                              SelectedItem="{Binding SelectedDevice}" 
                               DisplayMemberPath="Name"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
-                    <RadioButton Width="200" IsChecked="{Binding SelectedFrame.Device.IncludeSaveConfig}">
+                    <RadioButton Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig}">
                         <TextBlock Text="Assign Frame Id (Lin 2.0)"/>
                     </RadioButton>
 
-                    <RadioButton Width="200" IsChecked="{Binding SelectedFrame.Device.IncludeSaveConfig}">
+                    <RadioButton Width="200" IsChecked="{Binding SelectedDevice.IncludeSaveConfig}">
                         <TextBlock Text="Assign Frame Id Range (Lin 2.1)"/>
                     </RadioButton>
                 </StackPanel>
