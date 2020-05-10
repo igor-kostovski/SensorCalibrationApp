@@ -90,6 +90,18 @@
     <Compile Include="Migrations\202005101346289_AddedIncludeSaveConfigToDevice.designer.cs">
       <DependentUpon>202005101346289_AddedIncludeSaveConfigToDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005101750067_AddedBytesToFrame.cs" />
+    <Compile Include="Migrations\202005101750067_AddedBytesToFrame.designer.cs">
+      <DependentUpon>202005101750067_AddedBytesToFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101757486_AddedLengthToFrame.cs" />
+    <Compile Include="Migrations\202005101757486_AddedLengthToFrame.designer.cs">
+      <DependentUpon>202005101757486_AddedLengthToFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005101759371_AddedChecksumToFrame.cs" />
+    <Compile Include="Migrations\202005101759371_AddedChecksumToFrame.designer.cs">
+      <DependentUpon>202005101759371_AddedChecksumToFrame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Seeder.cs" />
@@ -122,6 +134,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005101346289_AddedIncludeSaveConfigToDevice.resx">
       <DependentUpon>202005101346289_AddedIncludeSaveConfigToDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101750067_AddedBytesToFrame.resx">
+      <DependentUpon>202005101750067_AddedBytesToFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101757486_AddedLengthToFrame.resx">
+      <DependentUpon>202005101757486_AddedLengthToFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101759371_AddedChecksumToFrame.resx">
+      <DependentUpon>202005101759371_AddedChecksumToFrame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -9,6 +9,8 @@ namespace SensorCalibrationApp.Domain.Models
         public byte FrameId { get; set; }
         public Direction Direction { get; set; }
         public byte[] Bytes { get; set; }
+        public byte Length { get; set; }
+        public ChecksumType Checksum { get; set; }
 
         public List<SignalModel> Signals { get; set; }
 
