@@ -21,7 +21,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
 
         public Task Seed()
         {
-            if (!_db.Ecus.Any())
+            if (_db.Ecus.FirstOrDefault() != null)
                 return Task.CompletedTask;
 
             return Task.Run(() =>
@@ -62,6 +62,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
                         Id = 3,
                         Name = "PT sensors evaporator outlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame
@@ -78,6 +79,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
                         Id = 4,
                         Name = "PT sensors compressor outlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame
@@ -94,6 +96,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
                         Id = 5,
                         Name = "PT sensors compressor inlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame

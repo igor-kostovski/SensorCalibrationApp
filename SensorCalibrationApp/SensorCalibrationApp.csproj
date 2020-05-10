@@ -212,7 +212,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\SensorCalibrationApp.Common\Config\connectionStrings.config">
+    <None Include="..\SensorCalibrationApp.EntityFramework\Config\connectionStrings.config">
       <Link>Config\connectionStrings.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

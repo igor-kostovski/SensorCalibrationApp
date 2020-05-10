@@ -86,6 +86,10 @@
     <Compile Include="Migrations\202005021541158_InitialMigration.designer.cs">
       <DependentUpon>202005021541158_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005101346289_AddedIncludeSaveConfigToDevice.cs" />
+    <Compile Include="Migrations\202005101346289_AddedIncludeSaveConfigToDevice.designer.cs">
+      <DependentUpon>202005101346289_AddedIncludeSaveConfigToDevice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Seeder.cs" />
@@ -95,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Config\connectionStrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -113,7 +120,11 @@
     <EmbeddedResource Include="Migrations\202005021541158_InitialMigration.resx">
       <DependentUpon>202005021541158_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101346289_AddedIncludeSaveConfigToDevice.resx">
+      <DependentUpon>202005101346289_AddedIncludeSaveConfigToDevice.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
