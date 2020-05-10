@@ -90,6 +90,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
 
         public List<Direction> Directions { get; set; }
+        public List<ChecksumType> Checksums { get; set; }
 
         public RelayCommand Save { get; set; }
         public RelayCommand Delete { get; set; }
@@ -102,6 +103,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
             InitializeCommands();
 
             Directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
+            Checksums = Enum.GetValues(typeof(ChecksumType)).Cast<ChecksumType>().ToList();
         }
 
         private void InitializeCommands()

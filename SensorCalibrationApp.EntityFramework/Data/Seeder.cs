@@ -70,7 +70,9 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 3
+                                DeviceId = 3,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },
@@ -87,7 +89,9 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 4
+                                DeviceId = 4,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },
@@ -104,7 +108,9 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 5
+                                DeviceId = 5,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },

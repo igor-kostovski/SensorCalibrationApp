@@ -50,6 +50,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 3,
                                             Device = new DeviceDto
                                             {
@@ -93,6 +95,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 4,
                                             Device = new DeviceDto
                                             {
@@ -136,6 +140,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 5,
                                             Device = new DeviceDto
                                             {
@@ -223,6 +229,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 3,
                                             Device = new DeviceDto
                                             {
@@ -266,6 +274,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 4,
                                             Device = new DeviceDto
                                             {
@@ -309,6 +319,8 @@ namespace SensorCalibrationApp.FileDb
                                             Name = "DTSs_01",
                                             FrameId = 0x27,
                                             Direction = Direction.Subscriber,
+                                            Length = 5,
+                                            Checksum = ChecksumType.Enhanced,
                                             DeviceId = 5,
                                             Device = new DeviceDto
                                             {

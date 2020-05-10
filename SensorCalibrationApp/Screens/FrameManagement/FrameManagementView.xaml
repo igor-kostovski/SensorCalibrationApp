@@ -85,6 +85,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
@@ -109,7 +111,31 @@
                               ItemsSource="{Binding Directions}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2"  
+                <StackPanel Grid.Row="2" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold"
+                               Text="Checksum:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"/>
+                    <ComboBox Width="200" 
+                              SelectedItem="{Binding SelectedFrame.Checksum, Mode=TwoWay}"
+                              ItemsSource="{Binding Checksums}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold"
+                               Text="Length:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"/>
+                    <TextBox Text="{Binding SelectedFrame.Length}" Width="100"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4"  
                             Orientation="Horizontal" 
                             VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
