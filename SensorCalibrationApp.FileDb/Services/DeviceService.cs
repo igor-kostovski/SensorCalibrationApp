@@ -37,19 +37,5 @@ namespace SensorCalibrationApp.FileDb.Services
 
             await _db.Save();
         }
-
-        public DeviceModel GetDeviceFromIdOfFrame(int id)
-        {
-            return _db.Collection
-                .Devices()
-                .SingleOrDefault(x => x.Frames.Any(frame => frame.Id == id));
-        }
-
-        public DeviceModel GetDevice(int id)
-        {
-            return _db.Collection
-                .Devices()
-                .SingleOrDefault(x => x.Id == id);
-        }
     }
 }

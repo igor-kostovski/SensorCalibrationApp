@@ -7,5 +7,16 @@ namespace SensorCalibrationApp.Domain.Dtos
     {
         public bool IncludeSaveConfig { get; set; }
         public DeviceType Type { get; set; }
+
+        public static DeviceDto MapFrom(DeviceModel model)
+        {
+            return new DeviceDto
+            {
+                Id = model.Id,
+                IncludeSaveConfig = model.IncludeSaveConfig,
+                Name = model.Name,
+                Type = model.Type
+            };
+        }
     }
 }

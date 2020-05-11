@@ -10,12 +10,10 @@ namespace SensorCalibrationApp.FileDb.Services
     public class FrameService : IFrameService
     {
         private readonly FileDatabase _db;
-        private readonly DeviceService _deviceService;
 
-        public FrameService(FileDatabase db, DeviceService deviceService)
+        public FrameService(FileDatabase db)
         {
             _db = db;
-            _deviceService = deviceService;
         }
 
         public async Task Update(FrameModel model)
@@ -45,7 +43,7 @@ namespace SensorCalibrationApp.FileDb.Services
 
             model.Id = _db.Collection.Frames().Max(x => x.Id) + 1;
 
-            var device = _deviceService.GetDevice(model.DeviceId);
+            var device = GetDevice(model.DeviceId);
             device?.Frames.Add(model);
 
             await _db.Save();
@@ -56,10 +54,24 @@ namespace SensorCalibrationApp.FileDb.Services
         {
             await _db.Load();
 
-            var device = _deviceService.GetDeviceFromIdOfFrame(id);
+            var device = GetDeviceFromIdOfFrame(id);
             device?.Frames.Remove(x => x.Id == id);
 
             await _db.Save();
+        }
+
+        private DeviceModel GetDeviceFromIdOfFrame(int id)
+        {
+            return _db.Collection
+                .Devices()
+                .SingleOrDefault(x => x.Frames.Any(frame => frame.Id == id));
+        }
+
+        private DeviceModel GetDevice(int id)
+        {
+            return _db.Collection
+                .Devices()
+                .SingleOrDefault(x => x.Id == id);
         }
     }
 }

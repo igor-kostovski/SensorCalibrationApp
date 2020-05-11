@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using SensorCalibrationApp.Common.Enums;
+using SensorCalibrationApp.Domain.Dtos;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 
@@ -85,6 +85,7 @@ namespace SensorCalibrationApp.Screens.FrameManagement
             {
                 _selectedDevice = value;
                 OnPropertyChanged();
+                Save.RaiseCanExecuteChanged();
             }
         }
 
@@ -100,8 +101,13 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         {
             _frameService = frameService;
             _deviceService = deviceService;
-            InitializeCommands();
 
+            InitializeCommands();
+            InitializeConstants();
+        }
+
+        private void InitializeConstants()
+        {
             Directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
             Checksums = Enum.GetValues(typeof(ChecksumType)).Cast<ChecksumType>().ToList();
         }
@@ -120,45 +126,49 @@ namespace SensorCalibrationApp.Screens.FrameManagement
             Devices = new ObservableCollection<DeviceModel>(await _deviceService.GetAll());
         }
 
+        private void OnClear()
+        {
+            SelectedFrame = null;
+            SelectedFrame = new FrameModel();
+        }
+
         private bool CanDelete()
         {
             return SelectedFrame?.Id != 0;
         }
 
-        private void OnDelete()
+        private async void OnDelete()
         {
+            await _frameService.Delete(SelectedFrame.Id);
             Frames.Remove(SelectedFrame);
-            //_frameService.Delete(SelectedFrame.Id);
             OnClear();
         }
 
         private bool CanSave()
         {
-            return true;
+            return SelectedDevice != null && SelectedFrame.Length <= 8;
         }
 
-        private void OnSave()
+        private async void OnSave()
         {
-            SelectedFrame.Bytes = _frameBytes?.Select(x => x.Value).ToArray();
+            AddBytesAndDevice();
+
+            await _deviceService.Update(SelectedDevice);
+
             if (SelectedFrame.Id != 0)
-            {
-                //_frameService.Update(SelectedFrame);
-                //var toUpdate = Frames.SingleOrDefault(x => x.Id == SelectedFrame.Id);
-                //Update(toUpdate, SelectedFrame);
-                Debug.WriteLine("Updated");
-            }
+                await _frameService.Update(SelectedFrame);
             else
             {
-                //Frames.Add(await _frameService.Add(SelectedFrame));
-                Debug.WriteLine("Added");
+                Frames.Add(await _frameService.Create(SelectedFrame));
+                OnClear();
             }
-            OnClear();
         }
 
-        private void OnClear()
+        private void AddBytesAndDevice()
         {
-            SelectedFrame = null;
-            SelectedFrame = new FrameModel();
+            SelectedFrame.Bytes = _frameBytes?.Select(x => x.Value).ToArray();
+            SelectedFrame.DeviceId = SelectedDevice.Id;
+            SelectedFrame.Device = DeviceDto.MapFrom(SelectedDevice);
         }
 
         private void SelectDevice()

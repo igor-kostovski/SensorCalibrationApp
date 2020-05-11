@@ -67,7 +67,7 @@
                           SelectedItem="{Binding SelectedFrame}"
                           FontSize="20" 
                           IsReadOnly="True"
-                          Width="300">
+                          Width="600">
                     <ComboBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:FrameModel}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
@@ -95,7 +95,7 @@
                                Text="Name:"
                                Foreground="{StaticResource BrushBlue}"
                                Width="100"/>
-                    <TextBox Text="{Binding SelectedFrame.Name}" Width="100"/>
+                    <TextBox Text="{Binding SelectedFrame.Name}" Width="300"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" 
@@ -189,7 +189,7 @@
                                Foreground="{StaticResource BrushBlue}"
                                Text="Device:"
                                Width="100"/>
-                    <ComboBox Width="200" 
+                    <ComboBox Width="300" 
                               ItemsSource="{Binding Devices}"
                               SelectedItem="{Binding SelectedDevice}" 
                               DisplayMemberPath="Name"/>

@@ -15,7 +15,20 @@ namespace SensorCalibrationApp.Domain.Models
         public List<SignalModel> Signals { get; set; }
 
         public int DeviceId { get; set; }
-        public DeviceDto Device { get; set; }
+
+        private DeviceDto _device;
+        public DeviceDto Device
+        {
+            get
+            {
+                return _device;
+            }
+            set
+            {
+                _device = value;
+                OnPropertyChanged();
+            }
+        }
 
         public void Update(FrameModel model)
         {
