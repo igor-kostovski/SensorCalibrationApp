@@ -26,10 +26,11 @@
                          Margin="20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -38,7 +39,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.RowSpan="4" Orientation="Horizontal">
+            <StackPanel Grid.RowSpan="5" Orientation="Horizontal">
                 <Border BorderThickness="0" 
                         CornerRadius="0" Background="{StaticResource BrushBlue}">
                     <Ellipse Height="10" Width="10"/>
@@ -53,31 +54,21 @@
                        FontWeight="Bold"
                        Margin="15,0,0,0"/>
 
-            <StackPanel Grid.Row="1" 
-                        Grid.Column="1"
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"
                         Orientation="Horizontal" 
-                        VerticalAlignment="Center">
-                <TextBlock FontSize="18" 
-                           FontWeight="Bold" 
-                           Text="Frame:"
-                           Foreground="{StaticResource BrushBlue}"
-                           Width="100"/>
-                <ComboBox x:Name="FrameComboBox"
-                          ItemsSource="{Binding Frames}"
-                          SelectedItem="{Binding SelectedFrame}"
-                          FontSize="20" 
-                          IsReadOnly="True"
-                          Width="600">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:FrameModel}">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text="-"/>
-                                <TextBlock Text="{Binding Device.Name}" FontSize="15" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Frame" 
+                           FontSize="22" 
+                           Foreground="{StaticResource BrushGreen}" 
+                           FontWeight="Bold"
+                           Margin="0,0,5,0"/>
+                <materialDesign:PackIcon Kind="IframeOutline"
+                                         Foreground="{StaticResource BrushYellow}"
+                                         Height="25"
+                                         Width="25"
+                                         VerticalAlignment="Bottom"/>
             </StackPanel>
 
             <Grid Grid.Row="2" Grid.Column="1">
@@ -87,9 +78,34 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Top">
+                    <TextBlock FontSize="18" 
+                               FontWeight="Bold" 
+                               Text="Selected:"
+                               Foreground="{StaticResource BrushBlue}"
+                               Width="100"/>
+                    <ComboBox x:Name="FrameComboBox"
+                              ItemsSource="{Binding Frames}"
+                              SelectedItem="{Binding SelectedFrame}"
+                              Width="600">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:FrameModel}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Device.Name}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
                                FontWeight="Bold" 
                                Text="Name:"
@@ -98,7 +114,7 @@
                     <TextBox Text="{Binding SelectedFrame.Name}" Width="300"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" 
+                <StackPanel Grid.Row="2" 
                             Orientation="Horizontal" 
                             VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
@@ -111,7 +127,7 @@
                               ItemsSource="{Binding Directions}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" 
+                <StackPanel Grid.Row="3" 
                             Orientation="Horizontal" 
                             VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
@@ -124,7 +140,7 @@
                               ItemsSource="{Binding Checksums}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="3" 
+                <StackPanel Grid.Row="4" 
                             Orientation="Horizontal" 
                             VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
@@ -135,7 +151,7 @@
                     <TextBox Text="{Binding SelectedFrame.Length}" Width="100"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="4"  
+                <StackPanel Grid.Row="5"  
                             Orientation="Horizontal" 
                             VerticalAlignment="Top">
                     <TextBlock FontSize="18" 
@@ -145,7 +161,7 @@
                                Width="100"
                                VerticalAlignment="Center"/>
 
-                    <ItemsControl Height="50" ItemsSource="{Binding FrameBytes}">
+                    <ItemsControl ItemsSource="{Binding FrameBytes}">
 
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -172,7 +188,24 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="3" Grid.Column="1" Margin="0,30,0,0">
+            <StackPanel Grid.Row="3"
+                        Grid.Column="0"
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Device" 
+                           FontSize="22" 
+                           Foreground="{StaticResource BrushGreen}" 
+                           FontWeight="Bold"
+                           Margin="0,0,5,0"/>
+                <materialDesign:PackIcon Kind="Devices"
+                                         Foreground="{StaticResource BrushYellow}"
+                                         Height="25"
+                                         Width="25"
+                                         VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <Grid Grid.Row="4" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -187,7 +220,7 @@
                     <TextBlock FontSize="18" 
                                FontWeight="Bold" 
                                Foreground="{StaticResource BrushBlue}"
-                               Text="Device:"
+                               Text="Selected:"
                                Width="100"/>
                     <ComboBox Width="300" 
                               ItemsSource="{Binding Devices}"
