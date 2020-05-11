@@ -9,7 +9,6 @@ using SensorCalibrationApp.Domain.Factories;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
-using SensorCalibrationApp.Validations;
 
 namespace SensorCalibrationApp.Screens.Diagnostics
 {

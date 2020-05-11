@@ -9,12 +9,24 @@ namespace SensorCalibrationApp.Domain.Models
         public byte FrameId { get; set; }
         public Direction Direction { get; set; }
         public byte[] Bytes { get; set; }
-        public byte Length { get; set; }
         public ChecksumType Checksum { get; set; }
-
         public List<SignalModel> Signals { get; set; }
-
         public int DeviceId { get; set; }
+
+        private byte _length;
+        public byte Length
+        {
+            get
+            {
+                return _length;
+            }
+            set
+            {
+                _length = value;
+                OnPropertyChanged();
+                RunValidation?.Invoke();
+            }
+        }
 
         private DeviceDto _device;
         public DeviceDto Device

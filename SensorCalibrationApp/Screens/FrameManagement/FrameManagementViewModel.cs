@@ -122,14 +122,17 @@ namespace SensorCalibrationApp.Screens.FrameManagement
         public async void Load()
         {
             Frames = new ObservableCollection<FrameModel>(await _frameService.GetAll());
-            SelectedFrame = new FrameModel();
             Devices = new ObservableCollection<DeviceModel>(await _deviceService.GetAll());
+
+            SelectedFrame = new FrameModel();
+            SelectedFrame.RunValidation = Save.RaiseCanExecuteChanged;
         }
 
         private void OnClear()
         {
             SelectedFrame = null;
             SelectedFrame = new FrameModel();
+            SelectedFrame.RunValidation = Save.RaiseCanExecuteChanged;
         }
 
         private bool CanDelete()
@@ -146,7 +149,10 @@ namespace SensorCalibrationApp.Screens.FrameManagement
 
         private bool CanSave()
         {
-            return SelectedDevice != null && SelectedFrame.Length <= 8;
+            return SelectedDevice != null && 
+                   SelectedFrame.Length <= 8 && 
+                   SelectedFrame.Length > 0 &&
+                   !string.IsNullOrWhiteSpace(SelectedFrame.Name);
         }
 
         private async void OnSave()

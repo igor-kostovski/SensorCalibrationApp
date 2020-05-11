@@ -1,9 +1,8 @@
 ﻿using System.Windows;
+using SensorCalibrationApp.Common;
 
 namespace SensorCalibrationApp.Validations
 {
-    public delegate void ValidationNotifier();
-
     public class ComparisonValue : DependencyObject
     {
         public ValidationNotifier RaiseAfterValidation
