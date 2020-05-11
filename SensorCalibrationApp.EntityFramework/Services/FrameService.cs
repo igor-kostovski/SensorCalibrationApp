@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.EntityFramework.Data;
+using SensorCalibrationApp.EntityFramework.Data.Entities;
 
 namespace SensorCalibrationApp.EntityFramework.Services
 {
@@ -25,8 +26,8 @@ namespace SensorCalibrationApp.EntityFramework.Services
             var entity = await _db.Frames
                 .SingleOrDefaultAsync(x => x.Id == model.Id);
 
-            if(entity != null)
-                entity.FrameId = model.FrameId;
+            if (entity != null)
+                _mapper.Map(model, entity);
 
             await _db.SaveChangesAsync();
         }
@@ -37,6 +38,29 @@ namespace SensorCalibrationApp.EntityFramework.Services
                 .Include(x => x.Device)
                 .ProjectTo<FrameModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<FrameModel> Create(FrameModel model)
+        {
+            var entity = new Frame();
+
+            _mapper.Map(model, entity);
+            _db.Frames.Add(entity);
+
+            await _db.SaveChangesAsync();
+
+            model.Id = entity.Id;
+            return model;
+        }
+
+        public async Task Delete(int id)
+        {
+            var entity = await _db.Frames.SingleOrDefaultAsync(x => x.Id == id);
+
+            if(entity != null)
+                _db.Frames.Remove(entity);
+
+            await _db.SaveChangesAsync();
         }
     }
 }

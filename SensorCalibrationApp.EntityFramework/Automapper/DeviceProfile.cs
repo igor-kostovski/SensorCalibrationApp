@@ -10,7 +10,8 @@ namespace SensorCalibrationApp.EntityFramework.Automapper
         public DeviceProfile()
         {
             CreateMap<Device, DeviceModel>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(dest => dest.Frames, opt => opt.Ignore());
 
             CreateMap<Device, DeviceDto>();
         }

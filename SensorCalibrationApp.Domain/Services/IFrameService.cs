@@ -8,5 +8,7 @@ namespace SensorCalibrationApp.Domain.Services
     {
         Task Update(FrameModel model);
         Task<List<FrameModel>> GetAll();
+        Task<FrameModel> Create(FrameModel model);
+        Task Delete(int id);
     }
 }

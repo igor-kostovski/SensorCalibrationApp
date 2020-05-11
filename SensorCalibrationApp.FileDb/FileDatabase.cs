@@ -56,10 +56,17 @@ namespace SensorCalibrationApp.FileDb
 
         private void OpenFor(FileAccess action)
         {
-            if (Connection != null)
-                Connection.Close();
+            Connection?.Close();
 
-            Connection = new FileStream(filePath, FileMode.OpenOrCreate, action);
+            switch (action)
+            {
+                case FileAccess.Read:
+                    Connection = new FileStream(filePath, FileMode.OpenOrCreate, action);
+                    break;
+                case FileAccess.Write:
+                    Connection = new FileStream(filePath, FileMode.Create, action);
+                    break;
+            }
         }
     }
 }

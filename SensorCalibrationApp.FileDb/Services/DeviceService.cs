@@ -23,5 +23,33 @@ namespace SensorCalibrationApp.FileDb.Services
                 .Devices()
                 .ToList();
         }
+
+        public async Task Update(DeviceModel model)
+        {
+            await _db.Load();
+
+            var device = _db.Collection
+                .Devices()
+                .SingleOrDefault(x => x.Id == model.Id);
+
+            if(device != null)
+                device.IncludeSaveConfig = model.IncludeSaveConfig;
+
+            await _db.Save();
+        }
+
+        public DeviceModel GetDeviceFromIdOfFrame(int id)
+        {
+            return _db.Collection
+                .Devices()
+                .SingleOrDefault(x => x.Frames.Any(frame => frame.Id == id));
+        }
+
+        public DeviceModel GetDevice(int id)
+        {
+            return _db.Collection
+                .Devices()
+                .SingleOrDefault(x => x.Id == id);
+        }
     }
 }

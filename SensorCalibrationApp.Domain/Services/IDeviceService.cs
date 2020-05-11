@@ -7,5 +7,6 @@ namespace SensorCalibrationApp.Domain.Services
     public interface IDeviceService
     {
         Task<List<DeviceModel>> GetAll();
+        Task Update(DeviceModel model);
     }
 }

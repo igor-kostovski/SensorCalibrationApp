@@ -9,7 +9,8 @@ namespace SensorCalibrationApp.EntityFramework.Automapper
         public FrameProfile()
         {
             CreateMap<Frame, FrameModel>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(dest => dest.Device, opt => opt.Ignore());
         }
     }
 }

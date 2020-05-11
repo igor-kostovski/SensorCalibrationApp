@@ -16,5 +16,17 @@ namespace SensorCalibrationApp.Domain.Models
 
         public int DeviceId { get; set; }
         public DeviceDto Device { get; set; }
+
+        public void Update(FrameModel model)
+        {
+            FrameId = model.FrameId;
+            Direction = model.Direction;
+            Bytes = model.Bytes;
+            Length = model.Length;
+            Checksum = model.Checksum;
+            DeviceId = model.DeviceId;
+            Device = model.Device;
+            Name = model.Name;
+        }
     }
 }

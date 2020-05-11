@@ -26,5 +26,16 @@ namespace SensorCalibrationApp.EntityFramework.Services
                 .ProjectTo<DeviceModel>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
+
+        public async Task Update(DeviceModel model)
+        {
+            var entity = await _db.Devices
+                .SingleOrDefaultAsync(x => x.Id == model.Id);
+
+            if(entity != null)
+                _mapper.Map(model, entity);
+
+            await _db.SaveChangesAsync();
+        }
     }
 }
