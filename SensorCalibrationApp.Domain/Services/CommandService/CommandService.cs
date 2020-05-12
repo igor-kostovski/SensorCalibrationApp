@@ -29,14 +29,15 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
             _linProvider.OpenConnection();
         }
 
-        public Task ReadById()
+        public Task ReadById(FrameModel frame)
         {
             return Task.Run(() =>
             {
-                var message = MessageFactory.CreateReadByIdMessage();
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateReadByIdMessage(frame);
 
                 _linProvider.Send(message);
-                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+                _linProvider.Send(messageProvider.CreateSubscriberMessage());
             });
         }
 
@@ -44,24 +45,34 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         {
             return Task.Run(() =>
             {
-                var newFrameId = frame.FrameId;
-                _linProvider.GetPIDFor(ref newFrameId);
-                var message = MessageFactory.CreateUpdateFrameIdMessage(newFrameId);
+                CreatePID(frame);
+
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateUpdateFrameIdMessage(frame);
 
                 _linProvider.Send(message);
 
                 if(frame.Device.IncludeSaveConfig)
-                    _linProvider.Send(MessageFactory.CreateSaveConfigMessage());
+                    _linProvider.Send(messageProvider.CreateSaveConfigMessage());
 
-                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+                _linProvider.Send(messageProvider.CreateSubscriberMessage());
             });
+        }
+
+        private void CreatePID(FrameModel frame)
+        {
+            var newFrameId = frame.FrameId;
+
+            _linProvider.GetPIDFor(ref newFrameId);
+            frame.FrameId = newFrameId;
         }
 
         public Task SendDeviceSpecificFrame(FrameModel frame)
         {
             return Task.Run(() =>
             {
-                var message = MessageFactory.CreateMessageFor(frame);
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateMessageFor(frame);
                 _linProvider.Send(message);
             });
         }

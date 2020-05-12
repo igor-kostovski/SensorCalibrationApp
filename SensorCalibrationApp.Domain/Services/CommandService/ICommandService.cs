@@ -6,7 +6,7 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 {
     public interface ICommandService : IDisposable
     {
-        Task ReadById();
+        Task ReadById(FrameModel frame);
         Task UpdateFrameId(FrameModel frame);
         Task SendDeviceSpecificFrame(FrameModel frame);
         void OpenConnection();
