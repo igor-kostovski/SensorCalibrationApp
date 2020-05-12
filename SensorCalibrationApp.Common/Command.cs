@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SensorCalibrationApp.Common.Enums;
 
 namespace SensorCalibrationApp.Common
 {
@@ -27,5 +28,7 @@ namespace SensorCalibrationApp.Common
         public string Name { get; set; }
         public string Description { get; set; }
         public List<Signal> Signals { get; set; }
+        public CommandType Type { get; set; }
+        public int Version { get; set; }
     }
 }

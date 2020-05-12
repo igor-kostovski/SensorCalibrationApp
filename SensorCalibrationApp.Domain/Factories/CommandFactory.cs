@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SensorCalibrationApp.Common;
+using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Factories
@@ -35,6 +36,8 @@ namespace SensorCalibrationApp.Domain.Factories
             {
                 Name = "Read by identifier",
                 Description = "Generic command to check if communication with LIN device is enabled",
+                Type = CommandType.ReadById,
+                Version = 0,
                 Signals = new List<Signal>
                 {
                     new Signal("NAD") {Value = 0x7F},
@@ -55,6 +58,8 @@ namespace SensorCalibrationApp.Domain.Factories
             {
                 Name = "Assign frame ID",
                 Description = "Updates frame ID to avoid possible conflicts due to same IDs on multiple devices",
+                Type = CommandType.AssignId,
+                Version = 0,
                 Signals = new List<Signal>
                 {
                     new Signal("NAD") {Value = 0x7F},
@@ -90,6 +95,8 @@ namespace SensorCalibrationApp.Domain.Factories
             {
                 Name = "Read by identifier",
                 Description = "Generic command to check if communication with LIN device is enabled",
+                Type = CommandType.ReadById,
+                Version = 1,
                 Signals = new List<Signal>
                 {
                     new Signal("NAD") {Value = 0x7F},
@@ -110,6 +117,8 @@ namespace SensorCalibrationApp.Domain.Factories
             {
                 Name = "Assign frame ID range",
                 Description = "Updates frame ID to avoid possible conflicts due to same IDs on multiple devices",
+                Type = CommandType.AssignId,
+                Version = 1,
                 Signals = new List<Signal>
                 {
                     new Signal("NAD") {Value = 0x7F},

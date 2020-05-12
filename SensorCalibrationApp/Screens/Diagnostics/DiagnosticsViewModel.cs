@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SensorCalibrationApp.Common;
+using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Common.Extensions;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Factories;
@@ -128,10 +129,15 @@ namespace SensorCalibrationApp.Screens.Diagnostics
 
         private async void OnRun()
         {
-            await SelectedCommand.Run();
-
-            if(SelectedCommand.IsAssignId())
+            if(SelectedCommand.Type == CommandType.AssignId)
+            {
+                await _commandService.UpdateFrameId(Frame);
                 await UpdateDb();
+            }
+            else
+            {
+                await _commandService.ReadById(Frame);
+            }
         }
 
         private async Task UpdateDb()
@@ -142,7 +148,7 @@ namespace SensorCalibrationApp.Screens.Diagnostics
 
         private bool CanRun()
         {
-            if (SelectedCommand.IsReadById())
+            if (SelectedCommand.Type == CommandType.ReadById)
                 return true;
 
             return SelectedCommand.GetFrameId()
