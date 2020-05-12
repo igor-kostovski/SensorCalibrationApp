@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SensorCalibrationApp.Common
@@ -25,8 +26,11 @@ namespace SensorCalibrationApp.Common
             }
         }
 
+        public byte MaxValue { get; set; }
+        public byte MinValue { get; set; }
+        public List<byte> AllowedBytes { get; set; }
+        public bool CheckRange { get; set; }
         public bool IsEnabled { get; set; }
-
         public string Description { get; set; }
 
         public Signal(string description)

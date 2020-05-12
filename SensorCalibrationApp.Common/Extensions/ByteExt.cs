@@ -2,12 +2,9 @@
 {
     public static class ByteExt
     {
-        public const byte Min = 0x20;
-        public const byte Max = 0x3B;
-
-        public static bool IsInRange(this byte id)
+        public static bool IsInRange(this byte id, byte min, byte max)
         {
-            return id >= Min && id <= Max;
+            return id >= min && id <= max;
         }
     }
 }
