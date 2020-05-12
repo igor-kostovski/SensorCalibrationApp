@@ -43,7 +43,7 @@ namespace SensorCalibrationApp.Domain.Factories
                     new Signal("NAD") {Value = 0x7F},
                     new Signal("Protocol Control Information") {Value = 0x06},
                     new Signal("Service Identifier") {Value = 0xB2},
-                    new Signal("Identifier") {Value = 0x00, IsEnabled = true},
+                    new Signal("Identifier") {Value = 0x00, IsEnabled = true, CheckRange = true, MinValue = 0x10, MaxValue = 0x1F, AllowedBytes = new List<byte>{0x00}},
                     new Signal("Supplier ID LSB") {Value = 0xFF},
                     new Signal("Supplier ID MSB") {Value = 0x7F},
                     new Signal("Function ID LSB") {Value = 0x7F},
@@ -69,7 +69,7 @@ namespace SensorCalibrationApp.Domain.Factories
                     new Signal("Supplier ID MSB") {Value = 0x7F},
                     new Signal("Message ID LSB") {Value = 0xFF, IsEnabled = true},
                     new Signal("Message ID MSB") {Value = 0xFF, IsEnabled = true},
-                    new Signal("PID") {Value = frame.FrameId, IsEnabled = true}
+                    new Signal("PID") {Value = frame.FrameId, IsEnabled = true, CheckRange = true, MinValue = 0x00, MaxValue = 0x3B}
                 }
             };
         }
@@ -125,7 +125,7 @@ namespace SensorCalibrationApp.Domain.Factories
                     new Signal("Protocol Control Information") {Value = 0x06},
                     new Signal("Service Identifier") {Value = 0xB7},
                     new Signal("Start Index") {Value = 0x02},
-                    new Signal("PID (index)") {Value = frame.FrameId, IsEnabled = true},
+                    new Signal("PID (index)") {Value = frame.FrameId, IsEnabled = true, CheckRange = true, MinValue = 0x20, MaxValue = 0x3B},
                     new Signal("PID (index) + 1") {Value = 0xFF},
                     new Signal("PID (index) + 2") {Value = 0xFF},
                     new Signal("PID (index) + 3") {Value = 0xFF}

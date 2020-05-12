@@ -129,10 +129,12 @@ namespace SensorCalibrationApp.Screens.Diagnostics
 
         private async void OnRun()
         {
-            if(SelectedCommand.Type == CommandType.AssignId)
+            AddLegacyBytesAndFrameId();
+
+            if (SelectedCommand.Type == CommandType.AssignId)
             {
                 await _commandService.UpdateFrameId(Frame);
-                await UpdateDb();
+                await _frameService.Update(Frame);
             }
             else
             {
@@ -140,19 +142,20 @@ namespace SensorCalibrationApp.Screens.Diagnostics
             }
         }
 
-        private async Task UpdateDb()
+        private void AddLegacyBytesAndFrameId()
         {
-            Frame.FrameId = SelectedCommand.GetFrameId();
-            await _frameService.Update(Frame);
+            Frame.LegacyCommandBytes = SelectedCommand.Signals.Select(x => x.Value).ToArray();
+
+            if (SelectedCommand.GetFrameId() is byte frameId)
+                Frame.FrameId = frameId;
         }
 
         private bool CanRun()
         {
-            if (SelectedCommand.Type == CommandType.ReadById)
-                return true;
+            if (SelectedCommand == null)
+                return false;
 
-            return SelectedCommand.GetFrameId()
-                .IsInRange();
+            return SelectedCommand.AreSignalsInRange();
         }
     }
 }
