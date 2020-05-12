@@ -5,7 +5,7 @@ using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
 {
-    public class CommandService : DeviceBound, ICommandService
+    public class CommandService : ICommandService
     {
         private readonly EventManager _eventManager;
         private readonly ILinProvider _linProvider;
@@ -40,16 +40,19 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
             });
         }
 
-        public Task UpdateFrameId(byte newFrameId)
+        public Task UpdateFrameId(FrameModel frame)
         {
             return Task.Run(() =>
             {
+                var newFrameId = frame.FrameId;
                 _linProvider.GetPIDFor(ref newFrameId);
                 var message = MessageFactory.CreateUpdateFrameIdMessage(newFrameId);
 
                 _linProvider.Send(message);
 
-                _linProvider.Send(MessageFactory.CreateSaveConfigMessage());
+                if(frame.Device.IncludeSaveConfig)
+                    _linProvider.Send(MessageFactory.CreateSaveConfigMessage());
+
                 _linProvider.Send(MessageFactory.CreateSubscriberMessage());
             });
         }
@@ -58,7 +61,7 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         {
             return Task.Run(() =>
             {
-                var message = _device.CreateMessageFor(frame);
+                var message = MessageFactory.CreateMessageFor(frame);
                 _linProvider.Send(message);
             });
         }

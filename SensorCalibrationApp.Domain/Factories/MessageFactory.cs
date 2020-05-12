@@ -1,5 +1,6 @@
 ﻿using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Common.Structs;
+using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Factories
 {
@@ -31,6 +32,11 @@ namespace SensorCalibrationApp.Domain.Factories
         public static Message CreateSaveConfigMessage()
         {
             return new Message(0x3C, Direction.Publisher, ChecksumType.Classic, new byte[]{ 0x7F, 0x01, 0xB6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF });
+        }
+
+        public static Message CreateMessageFor(FrameModel frame)
+        {
+            return new Message(frame.FrameId, frame.Direction, frame.Checksum, frame.Bytes, frame.Length);
         }
     }
 }

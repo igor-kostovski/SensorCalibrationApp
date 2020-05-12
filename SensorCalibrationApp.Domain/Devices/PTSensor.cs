@@ -108,17 +108,6 @@ namespace SensorCalibrationApp.Domain.Devices
             Data.Clear();
         }
 
-        public Message CreateMessageFor(FrameModel frame)
-        {
-            switch (frame.Name)
-            {
-                case "DTSs_01":
-                    return new Message(frame.FrameId, Direction.Subscriber, ChecksumType.Enhanced, null, 5);
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
         #region Members
         private class PTSensorValue
         {
