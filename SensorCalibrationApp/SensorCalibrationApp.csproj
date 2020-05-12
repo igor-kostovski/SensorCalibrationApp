@@ -121,6 +121,8 @@
     <Compile Include="Validations\BindingProxy.cs" />
     <Compile Include="Validations\ComparisonValue.cs" />
     <Compile Include="Validations\FrameIdRangeRule.cs" />
+    <Compile Include="Validations\LengthRangeRule.cs" />
+    <Compile Include="Validations\RequiredRule.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="Controls\EmptyResponseFrame.xaml">
       <SubType>Designer</SubType>

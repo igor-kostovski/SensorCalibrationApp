@@ -8,6 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:models="clr-namespace:SensorCalibrationApp.Domain.Models;assembly=SensorCalibrationApp.Domain"
+             xmlns:validations="clr-namespace:SensorCalibrationApp.Validations"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <b:Interaction.Triggers>
@@ -19,6 +20,17 @@
     <UserControl.Resources>
         <conv:BoolInvert x:Key="BoolInvert"/>
         <conv:ByteToString x:Key="ByteToString"/>
+
+        <Style x:Key="TextBoxInError" BasedOn="{StaticResource MaterialDesignTextBoxBase}" TargetType="{x:Type TextBoxBase}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)[0].ErrorContent}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <materialDesign:Card Background="#fff"
@@ -111,7 +123,17 @@
                                Text="Name:"
                                Foreground="{StaticResource BrushBlue}"
                                Width="100"/>
-                    <TextBox Text="{Binding SelectedFrame.Name}" Width="300"/>
+                    <TextBox Width="300" 
+                             DataContext="{Binding SelectedFrame}" 
+                             Style="{StaticResource TextBoxInError}">
+                        <TextBox.Text>
+                            <Binding Path="Name">
+                                <Binding.ValidationRules>
+                                    <validations:RequiredRule ValidationStep="UpdatedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" 
@@ -148,7 +170,15 @@
                                Text="Length:"
                                Foreground="{StaticResource BrushBlue}"
                                Width="100"/>
-                    <TextBox Text="{Binding SelectedFrame.Length}" Width="100"/>
+                    <TextBox Width="300" Style="{StaticResource TextBoxInError}" DataContext="{Binding SelectedFrame}">
+                        <TextBox.Text>
+                            <Binding Path="Length">
+                                <Binding.ValidationRules>
+                                    <validations:LengthRangeRule ValidationStep="UpdatedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="5"  
