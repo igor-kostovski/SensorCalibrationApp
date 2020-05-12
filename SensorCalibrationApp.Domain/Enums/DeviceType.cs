@@ -2,6 +2,7 @@
 {
     public enum DeviceType
     {
-        PTSensor = 1
+        PTSensor = 1,
+        Other
     }
 }

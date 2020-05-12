@@ -7,6 +7,9 @@ namespace SensorCalibrationApp.EntityFramework.Data.Entities
     {
         public byte FrameId { get; set; }
         public Direction Direction { get; set; }
+        public byte[] Bytes { get; set; }
+        public byte Length { get; set; }
+        public ChecksumType Checksum { get; set; }
 
         public int DeviceId { get; set; }
         public Device Device { get; set; }

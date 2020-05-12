@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 
 namespace SensorCalibrationApp.Common
 {
+    public delegate void ValidationNotifier();
+
     public class Signal : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

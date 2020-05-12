@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
-using SensorCalibrationApp.Common;
 using SensorCalibrationApp.Common.Extensions;
 
 namespace SensorCalibrationApp.Validations
@@ -31,12 +30,10 @@ namespace SensorCalibrationApp.Validations
         private object GetValue(object value)
         {
             if (value is BindingExpression binding)
-            {
-                object dataItem = binding.DataItem;
-
-                if (dataItem is Signal signal)
-                    return signal.Value;
-            }
+                return binding.ResolvedSource
+                    .GetType()
+                    .GetProperty(binding.ResolvedSourcePropertyName)?
+                    .GetValue(binding.ResolvedSource, null);
 
             return value;
         }

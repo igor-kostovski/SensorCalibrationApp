@@ -17,6 +17,7 @@ namespace SensorCalibrationApp.EntityFramework
         {
             builder.RegisterType<EcuService>().As<IEcuService>().SingleInstance();
             builder.RegisterType<FrameService>().As<IFrameService>().SingleInstance();
+            builder.RegisterType<DeviceService>().As<IDeviceService>().SingleInstance();
             builder.RegisterType<DataContext>().AsSelf().SingleInstance();
             builder.RegisterType<Seeder>().As<ISeeder>().SingleInstance();
 

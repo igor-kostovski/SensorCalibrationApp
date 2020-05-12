@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SensorCalibrationApp.Domain.Models;
 
@@ -14,6 +15,15 @@ namespace SensorCalibrationApp.FileDb.Extensions
                 .GroupBy(x => x.Id)
                 .Select(x => x.First())
                 .OrderBy(x => x.Id);
+        }
+
+        public static void Remove(this List<FrameModel> collection, Func<FrameModel, bool> query)
+        {
+            var frames = collection
+                .Where(query)
+                .ToList();
+
+            frames.ForEach(x => collection.Remove(x));
         }
     }
 }

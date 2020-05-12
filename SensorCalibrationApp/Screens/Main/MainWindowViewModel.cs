@@ -6,6 +6,7 @@ using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.Screens.DeviceSelection;
 using SensorCalibrationApp.Screens.Diagnostics;
 using SensorCalibrationApp.Screens.FrameConfiguration;
+using SensorCalibrationApp.Screens.FrameManagement;
 
 namespace SensorCalibrationApp.Screens.Main
 {
@@ -14,6 +15,7 @@ namespace SensorCalibrationApp.Screens.Main
         private readonly DeviceSelectionViewModel _deviceSelectionViewModel;
         private readonly FrameConfigurationViewModel _frameConfigurationViewModel;
         private readonly DiagnosticsViewModel _diagnosticsViewModel;
+        private readonly FrameManagementViewModel _frameManagementViewModel;
         private readonly EventManager _eventManager;
         private readonly ICommandService _commandService;
 
@@ -57,10 +59,12 @@ namespace SensorCalibrationApp.Screens.Main
 
         public RelayCommand Forward { get; set; }
         public RelayCommand Back { get; set; }
+        public RelayCommand Add { get; set; }
 
         public MainWindowViewModel(DeviceSelectionViewModel deviceSelectionViewModel, 
             FrameConfigurationViewModel frameConfigurationViewModel, 
             DiagnosticsViewModel diagnosticsViewModel,
+            FrameManagementViewModel frameManagementViewModel,
             EventManager eventManager,
             ICommandService commandService)
         {
@@ -69,6 +73,7 @@ namespace SensorCalibrationApp.Screens.Main
             _deviceSelectionViewModel = deviceSelectionViewModel;
             _frameConfigurationViewModel = frameConfigurationViewModel;
             _diagnosticsViewModel = diagnosticsViewModel;
+            _frameManagementViewModel = frameManagementViewModel;
             _eventManager = eventManager;
             _commandService = commandService;
 
@@ -86,6 +91,7 @@ namespace SensorCalibrationApp.Screens.Main
         {
             Forward = new RelayCommand(OnForward, CanGoForward);
             Back = new RelayCommand(OnBack, CanGoBack);
+            Add = new RelayCommand(OnAdd);
         }
 
         private void InitializeNavigationStack()
@@ -125,6 +131,14 @@ namespace SensorCalibrationApp.Screens.Main
 
         private void OnBack()
         {
+            if (CurrentViewModel == _frameManagementViewModel)
+            {
+                CurrentViewModel.Unload();
+                CurrentViewModel = _navigationStack.First();
+                CurrentViewModelIndex = 0;
+                return;
+            }
+
             var currentIndex = _navigationStack.IndexOf(CurrentViewModel);
             var backIndex = --currentIndex;
 
@@ -157,7 +171,15 @@ namespace SensorCalibrationApp.Screens.Main
         private bool CanGoForward()
         {
             return DeviceSelectionConditions()
-                && CurrentViewModel != _navigationStack.Last();
+                && CurrentViewModel != _navigationStack.Last()
+                && CurrentViewModel != _frameManagementViewModel;
+        }
+
+        private void OnAdd()
+        {
+            CurrentViewModel.Unload();
+            CurrentViewModel = _frameManagementViewModel;
+            CurrentViewModelIndex = -1;
         }
 
         private bool DeviceSelectionConditions()

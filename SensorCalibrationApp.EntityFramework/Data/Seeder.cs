@@ -21,7 +21,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
 
         public Task Seed()
         {
-            if (!_db.Ecus.Any())
+            if (_db.Ecus.FirstOrDefault() != null)
                 return Task.CompletedTask;
 
             return Task.Run(() =>
@@ -48,18 +48,21 @@ namespace SensorCalibrationApp.EntityFramework.Data
                     new Device
                     {
                         Id = 1,
-                        Name = "Compressor"
+                        Name = "Compressor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 2,
-                        Name = "Webasto heater"
+                        Name = "Webasto heater",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 3,
                         Name = "PT sensors evaporator outlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame
@@ -67,7 +70,9 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 3
+                                DeviceId = 3,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },
@@ -76,6 +81,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
                         Id = 4,
                         Name = "PT sensors compressor outlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame
@@ -83,7 +89,9 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 4
+                                DeviceId = 4,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },
@@ -92,6 +100,7 @@ namespace SensorCalibrationApp.EntityFramework.Data
                         Id = 5,
                         Name = "PT sensors compressor inlet",
                         Type = DeviceType.PTSensor,
+                        IncludeSaveConfig = true,
                         Frames = new List<Frame>
                         {
                             new Frame
@@ -99,49 +108,59 @@ namespace SensorCalibrationApp.EntityFramework.Data
                                 Name = "DTSs_01",
                                 FrameId = 0x27,
                                 Direction = Direction.Subscriber,
-                                DeviceId = 5
+                                DeviceId = 5,
+                                Length = 5,
+                                Checksum = ChecksumType.Enhanced,
                             }
                         }
                     },
                     new Device
                     {
                         Id = 6,
-                        Name = "EXV valve"
+                        Name = "EXV valve",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 7,
-                        Name = "Recirculation air quality sensor"
+                        Name = "Recirculation air quality sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 8,
-                        Name = "Fresh air quality sensor"
+                        Name = "Fresh air quality sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 9,
-                        Name = "Solar sensor"
+                        Name = "Solar sensor",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 10,
-                        Name = "Gearbox oil pump"
+                        Name = "Gearbox oil pump",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 11,
-                        Name = "HVAC flaps"
+                        Name = "HVAC flaps",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 12,
-                        Name = "HVAC blower"
+                        Name = "HVAC blower",
+                        Type = DeviceType.Other
                     },
                     new Device
                     {
                         Id = 13,
-                        Name = "Temperature and humidity windscreen sensor"
+                        Name = "Temperature and humidity windscreen sensor",
+                        Type = DeviceType.Other
                     }
                 );
 

@@ -10,6 +10,7 @@ using SensorCalibrationApp.Screens.Diagnostics;
 using SensorCalibrationApp.Screens.FrameConfiguration;
 using SensorCalibrationApp.Screens.Main;
 using System.Configuration;
+using SensorCalibrationApp.Screens.FrameManagement;
 
 namespace SensorCalibrationApp
 {
@@ -47,6 +48,7 @@ namespace SensorCalibrationApp
             builder.RegisterType<DeviceSelectionViewModel>().AsSelf().SingleInstance();
             builder.RegisterType<FrameConfigurationViewModel>().AsSelf().SingleInstance();
             builder.RegisterType<DiagnosticsViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<FrameManagementViewModel>().AsSelf().SingleInstance();
             builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
 
             //registering main view

@@ -104,16 +104,25 @@
     <Compile Include="Controls\Selector.xaml.cs">
       <DependentUpon>Selector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolInvert.cs" />
     <Compile Include="Converters\ByteArrayToIcon.cs" />
     <Compile Include="Converters\ByteArrayToVisibility.cs" />
     <Compile Include="Converters\ByteToString.cs" />
+    <Compile Include="Converters\IndexToVisibility.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToContent.cs" />
     <Compile Include="Converters\ViewModelConverters\ViewModelToStyle.cs" />
     <Compile Include="Screens\FrameConfiguration\SignalValue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Screens\FrameManagement\ByteValue.cs" />
+    <Compile Include="Screens\FrameManagement\FrameManagementView.xaml.cs">
+      <DependentUpon>FrameManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\FrameManagement\FrameManagementViewModel.cs" />
     <Compile Include="Validations\BindingProxy.cs" />
     <Compile Include="Validations\ComparisonValue.cs" />
     <Compile Include="Validations\FrameIdRangeRule.cs" />
+    <Compile Include="Validations\LengthRangeRule.cs" />
+    <Compile Include="Validations\RequiredRule.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="Controls\EmptyResponseFrame.xaml">
       <SubType>Designer</SubType>
@@ -140,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\FrameConfiguration\FrameConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\FrameManagement\FrameManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,7 +216,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\SensorCalibrationApp.Common\Config\connectionStrings.config">
+    <None Include="..\SensorCalibrationApp.EntityFramework\Config\connectionStrings.config">
       <Link>Config\connectionStrings.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
