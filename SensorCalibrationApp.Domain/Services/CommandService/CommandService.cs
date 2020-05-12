@@ -45,10 +45,11 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         {
             return Task.Run(() =>
             {
-                CreatePID(frame);
+                var newFrameId = frame.FrameId;
+                _linProvider.GetPIDFor(ref newFrameId);
 
                 var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
-                var message = messageProvider.CreateUpdateFrameIdMessage(frame);
+                var message = messageProvider.CreateUpdateFrameIdMessage(frame, newFrameId);
 
                 _linProvider.Send(message);
 
@@ -57,14 +58,6 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
 
                 _linProvider.Send(messageProvider.CreateSubscriberMessage());
             });
-        }
-
-        private void CreatePID(FrameModel frame)
-        {
-            var newFrameId = frame.FrameId;
-
-            _linProvider.GetPIDFor(ref newFrameId);
-            frame.FrameId = newFrameId;
         }
 
         public Task SendDeviceSpecificFrame(FrameModel frame)
