@@ -94,7 +94,7 @@ namespace SensorCalibrationApp.Screens.Diagnostics
                 _eventManager.PushData += OnNewData;
             });
 
-            Commands = CommandFactory.CreateCommands(Frame.FrameId, _commandService);
+            Commands = CommandFactory.CreateCommands(Frame);
             SelectFirst();
         }
 
