@@ -32,7 +32,7 @@ namespace SensorCalibrationApp.Domain.Factories
 
         private static Command CreateReadByIdCommand()
         {
-            return new Command()
+            return new Command
             {
                 Name = "Read by identifier",
                 Description = "Generic command to check if communication with LIN device is enabled",
@@ -54,7 +54,7 @@ namespace SensorCalibrationApp.Domain.Factories
 
         private static Command CreateAssignFrameIdCommand(FrameModel frame)
         {
-            return new Command()
+            return new Command
             {
                 Name = "Assign frame ID",
                 Description = "Updates frame ID to avoid possible conflicts due to same IDs on multiple devices",
@@ -91,7 +91,7 @@ namespace SensorCalibrationApp.Domain.Factories
 
         private static Command CreateReadByIdCommand()
         {
-            return new Command()
+            return new Command
             {
                 Name = "Read by identifier",
                 Description = "Generic command to check if communication with LIN device is enabled",
@@ -113,7 +113,7 @@ namespace SensorCalibrationApp.Domain.Factories
 
         private static Command CreateAssignFrameIdRangeCommand(FrameModel frame)
         {
-            return new Command()
+            return new Command
             {
                 Name = "Assign frame ID range",
                 Description = "Updates frame ID to avoid possible conflicts due to same IDs on multiple devices",

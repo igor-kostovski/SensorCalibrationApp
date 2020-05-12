@@ -25,5 +25,13 @@ namespace SensorCalibrationApp.FileDb.Extensions
 
             frames.ForEach(x => collection.Remove(x));
         }
+
+        public static IEnumerable<FrameModel> FramesById(this List<EcuModel> collection, int id)
+        {
+            return collection
+                .SelectMany(x => x.Devices)
+                .SelectMany(x => x.Frames)
+                .Where(x => x.Id == id);
+        }
     }
 }
