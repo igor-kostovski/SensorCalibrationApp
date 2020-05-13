@@ -187,25 +187,25 @@ namespace SensorCalibrationApp.EntityFramework.Data
                 var frame = _db.Frames
                     .Include(x => x.Signals)
                     .SingleOrDefault(x => x.Id == 1);
-                if (frame != null && frame.Signals == null)
+                if (frame != null && frame.Signals.Count == 0)
                     frame.Signals = new List<Signal>(_db.Signals.ToList());
 
                 var ecu = _db.Ecus
                     .Include(x => x.Devices)
                     .SingleOrDefault(x => x.Id == 1);
-                if (ecu != null && ecu.Devices == null)
+                if (ecu != null && ecu.Devices.Count == 0)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id < 10).ToList());
 
                 ecu = _db.Ecus
                     .Include(x => x.Devices)
                     .SingleOrDefault(x => x.Id == 2);
-                if (ecu != null && ecu.Devices == null)
+                if (ecu != null && ecu.Devices.Count == 0)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id < 6 || x.Id == 10).ToList());
 
                 ecu = _db.Ecus
                     .Include(x => x.Devices)
                     .SingleOrDefault(x => x.Id == 3);
-                if (ecu != null && ecu.Devices == null)
+                if (ecu != null && ecu.Devices.Count == 0)
                     ecu.Devices = new List<Device>(_db.Devices.Where(x => x.Id > 10).ToList());
 
                 _db.SaveChanges();
