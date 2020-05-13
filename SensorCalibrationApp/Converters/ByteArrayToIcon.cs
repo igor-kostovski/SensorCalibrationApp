@@ -10,11 +10,16 @@ namespace SensorCalibrationApp.Converters
 {
     public class ByteArrayToIcon : IValueConverter
     {
-        private List<byte[]> _validResponses = new List<byte[]>
+        private readonly List<byte[]> _validResponses;
+
+        public ByteArrayToIcon()
         {
-            new byte[]{ 0x20, 0x06, 0xF2, 0x0D, 0x01, 0x02, 0x00, 0x01 },
-            new byte[] { 0x20, 0x01, 0xF6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
-        };
+            _validResponses = new List<byte[]>
+            {
+                new byte[]{ 0x20, 0x06, 0xF2, 0x0D, 0x01, 0x02, 0x00, 0x01 },
+                new byte[] { 0x20, 0x01, 0xF6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
+            };
+        }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -2,7 +2,7 @@
 using SensorCalibrationApp.Common.Structs;
 using SensorCalibrationApp.Domain.Models;
 
-namespace SensorCalibrationApp.Domain.MessageProviders
+namespace SensorCalibrationApp.Domain.LinVersions.MessageProviders
 {
     internal abstract class BaseMessageProvider
     {
