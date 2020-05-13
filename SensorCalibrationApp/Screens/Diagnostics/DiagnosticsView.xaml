@@ -146,10 +146,11 @@
                            Foreground="{StaticResource BrushBlue}"/>
 
                 <ItemsControl Grid.Column="1" 
-                              Grid.Row="1" 
+                              Grid.Row="1"
                               Padding="30"
                               x:Name="SignalsItemsControl"
-                              ItemsSource="{Binding SelectedCommand.Signals}">
+                              ItemsSource="{Binding SelectedCommand.Signals}"
+                              AlternationCount="8">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -163,43 +164,81 @@
                                         Margin="1"
                                         BorderBrush="Black"
                                         ToolTip="{Binding Description}">
-                                <TextBox VerticalAlignment="Center" 
-                                         IsEnabled="{Binding IsEnabled}" 
-                                         HorizontalAlignment="Center" 
-                                         TextAlignment="Center"
-                                         Style="{StaticResource TextBoxInError}"
-                                         BorderBrush="{x:Null}"
-                                         x:Name="TextBoxToValidate">
-                                    <TextBox.Text>
-                                        <Binding Path="Value"
-                                                 Converter="{StaticResource ByteToString}"
-                                                 Mode="TwoWay">
-                                            <Binding.ValidationRules>
-                                                <validations:FrameIdRangeRule ValidationStep="UpdatedValue">
-                                                    <validations:ComparisonValue RaiseAfterValidation="{Binding Path=Data, Source={StaticResource RaiseAfterValidationProxy}}"/>
-                                                </validations:FrameIdRangeRule>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
+                                <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Bottom">
+                                    <TextBox VerticalAlignment="Top" 
+                                                 IsEnabled="{Binding IsEnabled}" 
+                                                 HorizontalAlignment="Center" 
+                                                 TextAlignment="Center"
+                                                 Style="{StaticResource TextBoxInError}"
+                                                 BorderBrush="{x:Null}"
+                                                 x:Name="TextBoxToValidate">
+                                        <TextBox.Text>
+                                            <Binding Path="Value"
+                                                         Converter="{StaticResource ByteToString}"
+                                                         Mode="TwoWay">
+                                                <Binding.ValidationRules>
+                                                    <validations:FrameIdRangeRule ValidationStep="UpdatedValue">
+                                                        <validations:ComparisonValue RaiseAfterValidation="{Binding Path=Data, Source={StaticResource RaiseAfterValidationProxy}}"/>
+                                                    </validations:FrameIdRangeRule>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+
+                                    <TextBlock Margin="3,10,0,0" VerticalAlignment="Bottom"
+                                                   Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                                        RelativeSource={RelativeSource TemplatedParent},
+                                                        StringFormat={}{0}}"
+                                                   Foreground="Black"
+                                                   Opacity="0.7"/>
+                                </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <materialDesign:PackIcon Grid.Column="2" 
-                                         Grid.Row="1"
-                                         Kind="InfoCircleOutline" 
-                                         Height="32" 
-                                         Width="32"
-                                         Foreground="{StaticResource BrushBlue}"
-                                         VerticalAlignment="Center"
-                                         Background="Transparent"
-                                         ToolTip="Hover over cells to see details"
-                                         ToolTipService.Placement="Right"/>
+                <TextBlock Grid.Column="2"
+                           Grid.Row="0"
+                           Text="Bytes" 
+                           Width="50" 
+                           Margin="0,10,0,0"
+                           HorizontalAlignment="Left"
+                           FontWeight="Bold" 
+                           FontSize="18" 
+                           Foreground="{StaticResource BrushBlue}" />
+
+                <ListView Grid.Column="2" 
+                          Grid.Row="1"
+                          Grid.RowSpan="4"
+                          Foreground="White"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          ItemsSource="{Binding SelectedCommand.Signals}"
+                          AlternationCount="8">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type common:Signal}">
+                            <Border BorderThickness="2"
+                                        CornerRadius="10"
+                                        Padding="4"
+                                        Background="{StaticResource BrushBlue}"
+                                        BorderBrush="{StaticResource BrushYellow}"
+                                        Width="250">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                            RelativeSource={RelativeSource AncestorType=ListViewItem},
+                                            StringFormat={}{0}}"
+                                                   FontWeight="Bold"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding Description}" FontWeight="Bold"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <Button Grid.Column="1"
-                        Grid.Row="2" 
+                        Grid.Row="2"
                         Width="200" 
                         Background="Transparent" 
                         Foreground="{StaticResource BrushBlue}" 
@@ -207,12 +246,12 @@
                         Command="{Binding Run}"/>
 
                 <TextBlock Grid.Column="1" 
-                           Grid.Row="3" 
-                           Margin="0,10,0,0" 
-                           Text="Response" 
-                           FontSize="18" 
-                           FontWeight="Bold" 
-                           Foreground="{StaticResource BrushBlue}"/>
+                       Grid.Row="3" 
+                       Margin="0,10,0,0" 
+                       Text="Response" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="{StaticResource BrushBlue}"/>
 
                 <ItemsControl Grid.Column="1" 
                               Grid.Row="4" 

@@ -1,7 +1,7 @@
 ﻿using System;
-using SensorCalibrationApp.Common.Structs;
+using RimacLINBusInterfacesLib.Structs;
 
-namespace SensorCalibrationApp.Domain.Interfaces
+namespace RimacLINBusInterfacesLib.Interfaces
 {
     public interface ILinProvider : IDisposable
     {

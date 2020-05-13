@@ -119,6 +119,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RimacLINBusInterfacesLib\RimacLINBusInterfacesLib.csproj">
+      <Project>{06991a17-5d69-4696-add0-d04648094e28}</Project>
+      <Name>RimacLINBusInterfacesLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SensorCalibrationApp.Common\SensorCalibrationApp.Common.csproj">
       <Project>{CEFAF316-6D1D-456D-891C-DAECA9399495}</Project>
       <Name>SensorCalibrationApp.Common</Name>

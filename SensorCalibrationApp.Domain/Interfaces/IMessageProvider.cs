@@ -1,4 +1,4 @@
-﻿using SensorCalibrationApp.Common.Structs;
+﻿using RimacLINBusInterfacesLib.Structs;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Interfaces

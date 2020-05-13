@@ -1,7 +1,6 @@
 ﻿using System;
-using SensorCalibrationApp.Common;
-using SensorCalibrationApp.Common.Structs;
-using SensorCalibrationApp.Domain.Interfaces;
+using RimacLINBusInterfacesLib.Interfaces;
+using RimacLINBusInterfacesLib.Structs;
 
 namespace RimacLINBusInterfacesLib.LinInterfaces.PEAK
 {

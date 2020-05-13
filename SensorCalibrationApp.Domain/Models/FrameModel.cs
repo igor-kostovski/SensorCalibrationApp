@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SensorCalibrationApp.Common.Enums;
+using RimacLINBusInterfacesLib.Enums;
 using SensorCalibrationApp.Domain.Dtos;
 
 namespace SensorCalibrationApp.Domain.Models

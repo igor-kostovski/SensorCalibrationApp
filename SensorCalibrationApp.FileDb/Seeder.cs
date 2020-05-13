@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SensorCalibrationApp.Common.Enums;
+using RimacLINBusInterfacesLib.Enums;
 using SensorCalibrationApp.Domain.Dtos;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;

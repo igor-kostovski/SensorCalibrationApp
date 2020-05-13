@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using RimacLINBusInterfacesLib.Interfaces;
 using SensorCalibrationApp.Domain.Factories;
-using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService

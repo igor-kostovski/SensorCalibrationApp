@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.Common.Extensions;
-using SensorCalibrationApp.Common.Structs;
+using RimacLINBusInterfacesLib.Enums;
+using RimacLINBusInterfacesLib.Extensions;
+using RimacLINBusInterfacesLib.Structs;
 
 namespace RimacLINBusInterfacesLib
 {

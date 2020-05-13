@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Autofac;
-using SensorCalibrationApp.Domain.Interfaces;
+using RimacLINBusInterfacesLib.Interfaces;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.Screens.Main;

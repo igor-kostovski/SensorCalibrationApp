@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using SensorCalibrationApp.Common.Enums;
+using RimacLINBusInterfacesLib.Enums;
 using HardwareHandle = System.UInt16;
 
-namespace SensorCalibrationApp.Common.Structs
+namespace RimacLINBusInterfacesLib.Structs
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct ReceivedMessage

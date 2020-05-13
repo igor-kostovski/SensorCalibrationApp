@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.Common.Structs;
+using RimacLINBusInterfacesLib.Enums;
+using RimacLINBusInterfacesLib.Structs;
 using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Models;
 

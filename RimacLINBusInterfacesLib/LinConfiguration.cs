@@ -1,6 +1,6 @@
-﻿using SensorCalibrationApp.Common.Enums;
+﻿using RimacLINBusInterfacesLib.Enums;
 
-namespace SensorCalibrationApp.Common
+namespace RimacLINBusInterfacesLib
 {
     public class LinConfiguration
     {

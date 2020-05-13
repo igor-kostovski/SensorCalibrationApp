@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SensorCalibrationApp.Common.Extensions
+namespace RimacLINBusInterfacesLib.Extensions
 {
     public static class StringExt
     {

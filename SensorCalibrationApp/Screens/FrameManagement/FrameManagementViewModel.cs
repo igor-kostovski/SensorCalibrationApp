@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SensorCalibrationApp.Common.Enums;
+using RimacLINBusInterfacesLib.Enums;
 using SensorCalibrationApp.Domain.Dtos;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
