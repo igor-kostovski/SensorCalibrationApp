@@ -223,7 +223,7 @@
                                         Padding="4"
                                         Background="{StaticResource BrushBlue}"
                                         BorderBrush="{StaticResource BrushYellow}"
-                                        Width="250">
+                                        Width="240">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), 
                                             RelativeSource={RelativeSource AncestorType=ListViewItem},
@@ -285,8 +285,9 @@
                                           Grid.Row="4"
                                           Visibility="{Binding ResBytes, Converter={StaticResource NegByteArrayToVisibility}}"/>
 
-                <ContentControl Grid.Column="2" 
+                <ContentControl Grid.Column="0" 
                                 Grid.Row="4"
+                                HorizontalAlignment="Right"
                                 Content="{Binding ResBytes, Converter={StaticResource ByteArrayToIcon}, ConverterParameter={x:Reference CommandTypeBindingKey}}"
                                 Visibility="{Binding ResBytes, Converter={StaticResource ByteArrayToVisibility}}"/>
 
