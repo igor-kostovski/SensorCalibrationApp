@@ -1,4 +1,4 @@
-﻿namespace SensorCalibrationApp.Common.Enums
+﻿namespace RimacLINBusInterfacesLib.Enums
 {
     public enum ChecksumType : byte
     {

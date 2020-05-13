@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
-using SensorCalibrationApp.Common.Enums;
+using RimacLINBusInterfacesLib.Enums;
 using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.EntityFramework.Data.Entities;

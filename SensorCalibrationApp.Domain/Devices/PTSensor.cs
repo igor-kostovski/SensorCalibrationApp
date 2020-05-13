@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.Common.Extensions;
-using SensorCalibrationApp.Common.Structs;
+using RimacLINBusInterfacesLib.Extensions;
 using SensorCalibrationApp.Domain.Interfaces;
-using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Devices
 {

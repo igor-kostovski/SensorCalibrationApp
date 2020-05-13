@@ -1,15 +1,15 @@
 ﻿using Autofac;
 using RimacLINBusInterfacesLib.LinInterfaces.PEAK;
-using SensorCalibrationApp.Common;
-using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Domain;
-using SensorCalibrationApp.Domain.Interfaces;
 using SensorCalibrationApp.Domain.Services.CommandService;
 using SensorCalibrationApp.Screens.DeviceSelection;
 using SensorCalibrationApp.Screens.Diagnostics;
 using SensorCalibrationApp.Screens.FrameConfiguration;
 using SensorCalibrationApp.Screens.Main;
 using System.Configuration;
+using RimacLINBusInterfacesLib;
+using RimacLINBusInterfacesLib.Enums;
+using RimacLINBusInterfacesLib.Interfaces;
 using SensorCalibrationApp.Screens.FrameManagement;
 
 namespace SensorCalibrationApp

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
-using SensorCalibrationApp.Common.Enums;
-using SensorCalibrationApp.Common.Structs;
+using RimacLINBusInterfacesLib.Enums;
+using RimacLINBusInterfacesLib.Structs;
 using ClientHandle = System.Byte;
 using HardwareHandle = System.UInt16;
 
