@@ -5,7 +5,7 @@ using SensorCalibrationApp.Domain.Models;
 
 namespace SensorCalibrationApp.Domain.Services.CommandService
 {
-    public class CommandService : DeviceBound, ICommandService
+    public class CommandService : ICommandService
     {
         private readonly EventManager _eventManager;
         private readonly ILinProvider _linProvider;
@@ -29,28 +29,34 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
             _linProvider.OpenConnection();
         }
 
-        public Task ReadById()
+        public Task ReadById(FrameModel frame)
         {
             return Task.Run(() =>
             {
-                var message = MessageFactory.CreateReadByIdMessage();
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateReadByIdMessage(frame);
 
                 _linProvider.Send(message);
-                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+                _linProvider.Send(messageProvider.CreateSubscriberMessage());
             });
         }
 
-        public Task UpdateFrameId(byte newFrameId)
+        public Task UpdateFrameId(FrameModel frame)
         {
             return Task.Run(() =>
             {
+                var newFrameId = frame.FrameId;
                 _linProvider.GetPIDFor(ref newFrameId);
-                var message = MessageFactory.CreateUpdateFrameIdMessage(newFrameId);
+
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateUpdateFrameIdMessage(frame, newFrameId);
 
                 _linProvider.Send(message);
 
-                _linProvider.Send(MessageFactory.CreateSaveConfigMessage());
-                _linProvider.Send(MessageFactory.CreateSubscriberMessage());
+                if(frame.Device.IncludeSaveConfig)
+                    _linProvider.Send(messageProvider.CreateSaveConfigMessage());
+
+                _linProvider.Send(messageProvider.CreateSubscriberMessage());
             });
         }
 
@@ -58,7 +64,8 @@ namespace SensorCalibrationApp.Domain.Services.CommandService
         {
             return Task.Run(() =>
             {
-                var message = _device.CreateMessageFor(frame);
+                var messageProvider = MessageProviderFactory.Create(frame.Device.IncludeSaveConfig);
+                var message = messageProvider.CreateMessageFor(frame);
                 _linProvider.Send(message);
             });
         }

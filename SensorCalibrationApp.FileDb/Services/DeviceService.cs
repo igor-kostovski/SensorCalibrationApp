@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SensorCalibrationApp.Domain.Dtos;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 using SensorCalibrationApp.FileDb.Extensions;
@@ -28,13 +29,15 @@ namespace SensorCalibrationApp.FileDb.Services
         {
             await _db.Load();
 
-            var device = _db.Collection
-                .Devices()
-                .SingleOrDefault(x => x.Id == model.Id);
+            var devices = _db.Collection
+                .DevicesById(model.Id)
+                .ToList();
 
-            if(device != null)
-                device.IncludeSaveConfig = model.IncludeSaveConfig;
-
+            devices.ForEach(x =>
+            {
+                x.IncludeSaveConfig = model.IncludeSaveConfig;
+                x.Frames.ForEach(frame => frame.Device = DeviceDto.MapFrom(model));
+            });
             await _db.Save();
         }
     }

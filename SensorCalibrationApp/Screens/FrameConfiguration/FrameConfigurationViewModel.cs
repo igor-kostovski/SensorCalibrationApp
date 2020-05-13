@@ -46,10 +46,10 @@ namespace SensorCalibrationApp.Screens.FrameConfiguration
             _eventManager = eventManager;
         }
 
-        public void Set(FrameModel frame, DeviceType device)
+        public void Set(FrameModel frame)
         {
             Frame = frame;
-            _frameDeviceType = device;
+            _frameDeviceType = frame.Device.Type;
         }
 
         public void Load()
@@ -111,13 +111,11 @@ namespace SensorCalibrationApp.Screens.FrameConfiguration
 
         private void InjectDevice()
         {
-            _commandService.SetDevice(_frameDeviceType);
             _eventManager.SetDevice(_frameDeviceType);
         }
 
         private void RemoveDevice()
         {
-            _commandService.ResetDevice();
             _eventManager.ResetDevice();
         }
     }

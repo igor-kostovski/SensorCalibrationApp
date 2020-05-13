@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SensorCalibrationApp.Common;
+using SensorCalibrationApp.Common.Enums;
 using SensorCalibrationApp.Common.Extensions;
 using SensorCalibrationApp.Domain;
 using SensorCalibrationApp.Domain.Factories;
@@ -94,7 +95,7 @@ namespace SensorCalibrationApp.Screens.Diagnostics
                 _eventManager.PushData += OnNewData;
             });
 
-            Commands = CommandFactory.CreateCommands(Frame.FrameId, _commandService);
+            Commands = CommandFactory.CreateCommands(Frame);
             SelectFirst();
         }
 
@@ -128,25 +129,33 @@ namespace SensorCalibrationApp.Screens.Diagnostics
 
         private async void OnRun()
         {
-            await SelectedCommand.Run();
+            AddLegacyBytesAndFrameId();
 
-            if(SelectedCommand.IsAssignId())
-                await UpdateDb();
+            if (SelectedCommand.Type == CommandType.AssignId)
+            {
+                await _commandService.UpdateFrameId(Frame);
+                await _frameService.Update(Frame);
+            }
+            else
+            {
+                await _commandService.ReadById(Frame);
+            }
         }
 
-        private async Task UpdateDb()
+        private void AddLegacyBytesAndFrameId()
         {
-            Frame.FrameId = SelectedCommand.GetFrameId();
-            await _frameService.Update(Frame);
+            Frame.LegacyCommandBytes = SelectedCommand.Signals.Select(x => x.Value).ToArray();
+
+            if (SelectedCommand.GetFrameId() is byte frameId)
+                Frame.FrameId = frameId;
         }
 
         private bool CanRun()
         {
-            if (SelectedCommand.IsReadById())
-                return true;
+            if (SelectedCommand == null)
+                return false;
 
-            return SelectedCommand.GetFrameId()
-                .IsInRange();
+            return SelectedCommand.AreSignalsInRange();
         }
     }
 }

@@ -125,7 +125,7 @@ namespace SensorCalibrationApp.Screens.Main
 
         private void SetFrameOnDependentViewModels()
         {
-            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame, _deviceSelectionViewModel.SelectedDevice.Type);
+            _frameConfigurationViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
             _diagnosticsViewModel.Set(_deviceSelectionViewModel.SelectedFrame);
         }
 

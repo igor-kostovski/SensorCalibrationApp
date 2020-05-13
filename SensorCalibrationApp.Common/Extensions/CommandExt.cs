@@ -1,37 +1,19 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using SensorCalibrationApp.Common.Enums;
 
 namespace SensorCalibrationApp.Common.Extensions
 {
     public static class CommandExt
     {
-        public static bool IsReadById(this Command command)
+        public static byte? GetFrameId(this Command command)
         {
-            if (command == null)
-                return false;
+            if (command == null || command.Type == CommandType.ReadById)
+                return null;
 
-            return !command.Signals.Any(x => x.IsEnabled);
-        }
-
-        public static bool IsAssignId(this Command command)
-        {
-            if (command == null)
-                return false;
-
-            return command.Signals.Any(x => x.IsEnabled);
-        }
-
-        public static byte GetFrameId(this Command command)
-        {
-            if (command == null)
-                return 0x00;
-
-            if(command.IsAssignId())
-                return command.Signals.Single(x => x.IsEnabled).Value;
-
-            Debug.WriteLine("Cannot get Id on this type of command.");
-            return 0x00;
+            return command.Version == 0 ? 
+                command.Signals.Last(x => x.IsEnabled).Value : 
+                command.Signals.First(x => x.IsEnabled).Value;
         }
 
         public static Command SelectByName(this ObservableCollection<Command> commands, string name)
@@ -41,6 +23,23 @@ namespace SensorCalibrationApp.Common.Extensions
                 .ForEach(x => x.IsSelected = false);
 
             return commands.SingleOrDefault(x => x.IsSelected);
+        }
+
+        public static bool AreSignalsInRange(this Command command)
+        {
+            var forCheck = command.Signals
+                .Where(x => x.CheckRange)
+                .ToList();
+
+            var inRange = forCheck
+                .Where(x => x.Value.IsInRange(x.MinValue, x.MaxValue))
+                .ToList();
+
+            var allowed = forCheck
+                .Where(x => !inRange.Contains(x))
+                .Where(x => x.AllowedBytes?.Contains(x.Value) ?? false);
+
+            return forCheck.Count == (inRange.Count + allowed.Count());
         }
     }
 }

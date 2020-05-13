@@ -20,11 +20,11 @@ namespace SensorCalibrationApp.FileDb.Services
         {
             await _db.Load();
 
-            var entity = _db.Collection
-                .Frames()
-                .SingleOrDefault(x => x.Id == model.Id);
+            var entities = _db.Collection
+                .FramesById(model.Id)
+                .ToList();
 
-            entity?.Update(model);
+            entities.ForEach(x => x.Update(model));
 
             await _db.Save();
         }
@@ -43,8 +43,10 @@ namespace SensorCalibrationApp.FileDb.Services
 
             model.Id = _db.Collection.Frames().Max(x => x.Id) + 1;
 
-            var device = GetDevice(model.DeviceId);
-            device?.Frames.Add(model);
+            var devices = _db.Collection
+                .DevicesById(model.DeviceId)
+                .ToList();
+            devices.ForEach(x => x.Frames.Add(model));
 
             await _db.Save();
             return model;
@@ -54,24 +56,12 @@ namespace SensorCalibrationApp.FileDb.Services
         {
             await _db.Load();
 
-            var device = GetDeviceFromIdOfFrame(id);
-            device?.Frames.Remove(x => x.Id == id);
+            var devices = _db.Collection
+                .DevicesFromIdOfFrame(id)
+                .ToList();
+            devices.ForEach(device => device.Frames.Remove(x => x.Id == id));
 
             await _db.Save();
-        }
-
-        private DeviceModel GetDeviceFromIdOfFrame(int id)
-        {
-            return _db.Collection
-                .Devices()
-                .SingleOrDefault(x => x.Frames.Any(frame => frame.Id == id));
-        }
-
-        private DeviceModel GetDevice(int id)
-        {
-            return _db.Collection
-                .Devices()
-                .SingleOrDefault(x => x.Id == id);
         }
     }
 }
