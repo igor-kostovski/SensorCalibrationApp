@@ -30,15 +30,15 @@
     </Border>
 
     <materialDesign:PackIcon x:Key="Error"
-                             Width="45" 
-                             Height="45" 
+                             Width="38" 
+                             Height="38" 
                              Kind="Dangerous" 
                              Foreground="Red"
                              VerticalAlignment="Center"/>
 
     <materialDesign:PackIcon x:Key="Success"
-                             Width="45" 
-                             Height="45" 
+                             Width="38" 
+                             Height="38" 
                              Kind="TickCircle" 
                              Foreground="Green"
                              VerticalAlignment="Center"/>
