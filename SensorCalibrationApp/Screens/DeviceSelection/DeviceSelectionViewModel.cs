@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using SensorCalibrationApp.Domain.Enums;
 using SensorCalibrationApp.Domain.Models;
 using SensorCalibrationApp.Domain.Services;
 
@@ -84,7 +85,8 @@ namespace SensorCalibrationApp.Screens.DeviceSelection
 
         private void CheckIfSupported()
         {
-            IsDeviceSupported = _selectedDevice?.Frames.Count != 0;
+            IsDeviceSupported = _selectedDevice == null ||
+                                (_selectedDevice?.Frames.Count != 0 && _selectedDevice?.Type == DeviceType.PTSensor);
         }
     }
 }
