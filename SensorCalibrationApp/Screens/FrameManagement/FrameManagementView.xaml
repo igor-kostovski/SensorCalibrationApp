@@ -83,6 +83,24 @@
                                          VerticalAlignment="Bottom"/>
             </StackPanel>
 
+            <materialDesign:PackIcon Grid.Row="2" 
+                                     Grid.Column="0"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Background="Transparent"
+                                     Kind="QuestionMarkCircleOutline"
+                                     Width="32"
+                                     Height="32"
+                                     Foreground="{StaticResource BrushYellow}">
+                <materialDesign:PackIcon.ToolTip>
+                    <TextBlock>
+                        To create new frame just insert data in all fields except frame selection.
+                        <LineBreak/>
+                        To update frame first select it, and then change fields as wanted.
+                    </TextBlock>
+                </materialDesign:PackIcon.ToolTip>
+            </materialDesign:PackIcon>
+
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
